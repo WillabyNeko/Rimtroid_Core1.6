@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--===============Ability defs===============-->
+
+  <!--Cryo Damage Def-->
+	<DamageDef>
+		<defName>RT_CryoDamage</defName>
+		<label>Frostburn</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>false</externalViolence>
+		<deathMessage>{0} has froze to death.</deathMessage>
+		<hediff>RT_CryoBurn</hediff>
+		<additionalHediffs>
+			<li>
+				<hediff>RT_CryoBuildup</hediff>
+				<severityPerDamageDealt>0.02</severityPerDamageDealt>
+			</li>
+		</additionalHediffs>
+		<isRanged>true</isRanged>
+    <defaultDamage>18</defaultDamage>
+    <armorCategory>Sharp</armorCategory>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<!--<armorCategory>Cold</armorCategory> -->
+    <defaultArmorPenetration>0.5</defaultArmorPenetration>
+		<buildingDamageFactor>0.2</buildingDamageFactor>
+		<plantDamageFactor>4</plantDamageFactor>
+    <canUseDeflectMetalEffect>false</canUseDeflectMetalEffect>
+		<makesBlood>false</makesBlood>
+		<makesAnimalsFlee>true</makesAnimalsFlee>
+	</DamageDef>
+
+	<DamageDef>
+		<defName>RT_SecondaryFrostBurn</defName>
+		<label>frost burn</label>
+		<workerClass>DamageWorker_Frostbite</workerClass>
+		<externalViolence>true</externalViolence>
+		<deathMessage>{0} has froze to death.</deathMessage>
+		<hediff>Frostbite</hediff>
+
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<!-- <armorCategory>Heat</armorCategory> -->
+    <defaultArmorPenetration>0.5</defaultArmorPenetration>
+    <canUseDeflectMetalEffect>false</canUseDeflectMetalEffect>
+	</DamageDef>
+
+</Defs>

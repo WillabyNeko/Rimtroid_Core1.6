@@ -7,7 +7,11 @@
 		<li>1.2</li>
 	</supportedVersions>
 	<description>Core mod needed for all the Rimtroid mods to operate properly.
-	
+	/nRequired for:
+
+  -Rimtroid: Evolution (released)
+  -Rimtroid: Transmutation (in progress)
+  -???
 	</description>
 	
 	<modDependenciesByVersion>
