@@ -3,9 +3,11 @@
 
   <!--===============Ability defs===============-->
 
-  <!--Cryo Damage Def-->
+
+  <!--Cryo Damage Def for bullet-->
+
 	<DamageDef>
-		<defName>RT_CryoDamage</defName>
+		<defName>RT_CryoDamageBullet</defName>
 		<label>Frostburn</label>
 		<workerClass>DamageWorker_AddInjury</workerClass>
 		<externalViolence>false</externalViolence>
@@ -14,11 +16,40 @@
 		<additionalHediffs>
 			<li>
 				<hediff>RT_CryoBuildup</hediff>
-				<severityPerDamageDealt>0.02</severityPerDamageDealt>
+				<severityPerDamageDealt>0.002</severityPerDamageDealt>
 			</li>
 		</additionalHediffs>
 		<isRanged>true</isRanged>
     <defaultDamage>18</defaultDamage>
+    <armorCategory>Sharp</armorCategory>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<!--<armorCategory>Cold</armorCategory> -->
+    <defaultArmorPenetration>0.2</defaultArmorPenetration>
+		<buildingDamageFactor>0.2</buildingDamageFactor>
+		<plantDamageFactor>4</plantDamageFactor>
+    <canUseDeflectMetalEffect>false</canUseDeflectMetalEffect>
+		<makesBlood>true</makesBlood>
+	</DamageDef>
+
+
+
+  <!--Cryo Damage Def for explosive-->
+
+	<DamageDef>
+		<defName>RT_CryoDamageShell</defName>
+		<label>Frostburn</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>false</externalViolence>
+		<deathMessage>{0} has froze to death.</deathMessage>
+		<hediff>RT_CryoBurn</hediff>
+		<additionalHediffs>
+			<li>
+				<hediff>RT_CryoBuildup</hediff>
+				<severityPerDamageDealt>0.001</severityPerDamageDealt>
+			</li>
+		</additionalHediffs>
+		<isRanged>true</isRanged>
+    <defaultDamage>16</defaultDamage>
     <armorCategory>Sharp</armorCategory>
 		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
 		<!--<armorCategory>Cold</armorCategory> -->
@@ -30,14 +61,16 @@
 		<makesAnimalsFlee>true</makesAnimalsFlee>
 	</DamageDef>
 
-	<DamageDef>
+
+
+  <!--Secondary Frostburn def, which is added through code-->
+  	<DamageDef>
 		<defName>RT_SecondaryFrostBurn</defName>
 		<label>frost burn</label>
 		<workerClass>DamageWorker_Frostbite</workerClass>
 		<externalViolence>true</externalViolence>
 		<deathMessage>{0} has froze to death.</deathMessage>
 		<hediff>Frostbite</hediff>
-
 		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
 		<!-- <armorCategory>Heat</armorCategory> -->
     <defaultArmorPenetration>0.5</defaultArmorPenetration>

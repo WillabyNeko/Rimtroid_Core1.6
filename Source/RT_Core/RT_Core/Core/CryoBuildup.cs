@@ -27,9 +27,9 @@ namespace RT_Core
                 {
                     tickCounter = 0;
                 }
-                else
+                else if (Rand.Chance(0.01f))
                 {
-                    pawn.TakeDamage(new DamageInfo(DefDatabase<DamageDef>.GetNamed("RT_SecondaryFrostBurn"), 0.3f, 0f, -1f, null, null, null, DamageInfo.SourceCategory.ThingOrUnknown, null));
+                    pawn.TakeDamage(new DamageInfo(DefDatabase<DamageDef>.GetNamed("RT_SecondaryFrostBurn"), 1f, 0f, -1f, null, null, null, DamageInfo.SourceCategory.ThingOrUnknown, null));
                     tickCounter = 0;
 
                 }
