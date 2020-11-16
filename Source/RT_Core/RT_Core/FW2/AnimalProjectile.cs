@@ -30,7 +30,7 @@ namespace RT_Core
                     pawn.stances.StaggerFor(95);
                 }
 
-                if (this.def.defName== "AA_FrostWeb")
+                if (this.def.defName== "RT_FrostWeb")
                 {
                     DamageInfo dinfo2 = new DamageInfo(DamageDefOf.Frostbite, amount/2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
                     hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
@@ -38,7 +38,7 @@ namespace RT_Core
 
 
                 }
-                if (this.def.defName == "AA_FireWeb")
+                if (this.def.defName == "RT_FireWeb")
                 {
                     DamageInfo dinfo2 = new DamageInfo(DamageDefOf.Burn, amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
                     hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
@@ -46,15 +46,15 @@ namespace RT_Core
 
 
                 }
-                if (this.def.defName == "AA_AcidicWeb")
+                if (this.def.defName == "RT_AcidicWeb")
                 {
-                    DamageInfo dinfo2 = new DamageInfo(DefDatabase<DamageDef>.GetNamed("AA_AcidSpit", true), amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
+                    DamageInfo dinfo2 = new DamageInfo(DefDatabase<DamageDef>.GetNamed("RT_AcidSpit", true), amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
                     hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
 
 
 
                 }
-                if (this.def.defName == "AA_ExplodingWeb")
+                if (this.def.defName == "RT_ExplodingWeb")
                 {
                     DamageInfo dinfo2 = new DamageInfo(DamageDefOf.Bomb, amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
                     hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);

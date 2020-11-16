@@ -63,7 +63,7 @@ namespace RT_Core
         public void AbsorbNeed(Need casterFood, Need targetFood, float absorbtionRate = 0.03f)
         {
             float amountAbsorbed = Mathf.Min(targetFood.MaxLevel * absorbtionRate, targetFood.CurLevel);
-            targetFood.CurLevel -= amountAbsorbed;
+            //targetFood.CurLevel -= amountAbsorbed;
             casterFood.CurLevel += amountAbsorbed;
 
             // used Mathf.Min(x,y) to simplify this.
