@@ -301,6 +301,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ForcedAgingCompProperties.cs" />
     <Compile Include="Core\AgeStage.cs" />
     <Compile Include="AnimalResource\AnimalProduct.cs" />
     <Compile Include="AnimalResource\CompAnimalProduct.cs" />
@@ -317,6 +318,8 @@
     <Compile Include="Core\DisableTaming.cs" />
     <Compile Include="Core\Flight.cs" />
     <Compile Include="Core\FoodMethod.cs" />
+    <Compile Include="Core\ForcedAgeUtils.cs" />
+    <Compile Include="Core\ForcedAgingComp.cs" />
     <Compile Include="Core\HungerBerserkOptions.cs" />
     <Compile Include="Core\Ingestion_MultipleHediffs.cs" />
     <Compile Include="Core\LegacyModExtension.cs" />
