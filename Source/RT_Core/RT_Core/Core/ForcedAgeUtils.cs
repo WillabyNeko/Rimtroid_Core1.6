@@ -1,13 +1,20 @@
 ﻿using Verse;
+using RimWorld;
+
 namespace RT_Core
 {
     public static class ForcedAgeUtils
     {
         public enum AgeUpdateMethod { AddAge, SetAge }
 
-        private static long YearsToTicks(float years)
+        public static long YearsToTicks(float years)
         {
-            return (long)(years * 3600000f);
+            return (long)(years * (float)GenDate.TicksPerYear);
+        }
+
+        public static float TicksToYears(long ticks)
+        {
+            return (ticks / (float)GenDate.TicksPerYear);
         }
 
         private static void BatchedAddTicks(Pawn pawn, long ticks)
@@ -70,3 +77,4 @@ namespace RT_Core
         }
     }
 }
+

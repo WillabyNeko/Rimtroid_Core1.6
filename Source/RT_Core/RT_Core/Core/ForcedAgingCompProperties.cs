@@ -7,27 +7,13 @@ namespace RT_Core
     {
         public ForcedAgeUtils.AgeUpdateMethod updateMethod;
 
-        public float amountPerTick;
-
+        public int ticks;
         public HediffCompProperties_ModifyAge()
         {
             compClass = typeof(HediffComp_ModifyAge);
         }
 
-        public virtual float Amount
-        {
-            get
-            {
-                return amountPerTick;
-            }
-        }
-
-        public virtual ForcedAgeUtils.AgeUpdateMethod Method
-        {
-            get
-            {
-                return updateMethod;
-            }
-        }
+        public virtual float Amount => ForcedAgeUtils.TicksToYears(ticks);
+        public virtual ForcedAgeUtils.AgeUpdateMethod Method => updateMethod;
     }
 }

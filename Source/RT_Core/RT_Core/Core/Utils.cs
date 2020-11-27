@@ -117,4 +117,14 @@ namespace RT_Core
             return false;
         }
     }
+    public class CompProperties_ApplyHediff_UseEffect : CompProperties_Usable
+    {
+        public HediffDef hediffDef;
+        public bool allowNonColonists;
+
+        public CompProperties_ApplyHediff_UseEffect()
+        {
+            compClass = typeof(CompApplyHediff_InstallImplant);
+        }
+    }
 }

@@ -301,6 +301,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CompUseEffect_InstallImplant.cs" />
     <Compile Include="Core\ForcedAgingCompProperties.cs" />
     <Compile Include="Core\AgeStage.cs" />
     <Compile Include="AnimalResource\AnimalProduct.cs" />
