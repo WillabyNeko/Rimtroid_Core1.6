@@ -373,6 +373,7 @@
     <Compile Include="FW\Verb\Verb_Shoot_Cooldown.cs" />
     <Compile Include="FW\Verb\Verb_Shoot_Limited.cs" />
     <Compile Include="Harmony\Patches.cs" />
+    <Compile Include="Core\MetroidFoodInjection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RimLaser\IBeamColorThing.cs" />
     <Compile Include="RimLaser\IDrawnWeaponWithRotation.cs" />
