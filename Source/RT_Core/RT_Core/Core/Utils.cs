@@ -9,7 +9,17 @@ namespace RT_Core
 {
     public static class Utils
     {
-        public static bool IsMetroid(this Pawn pawn)
+        public static bool IsAnyMetroid(this Thing t)
+        {
+            return (t.def == RT_DefOf.RT_BanteeMetroid ||
+                t.def == RT_DefOf.RT_MetroidLarvae ||
+                t.def == RT_DefOf.RT_AlphaMetroid ||
+                t.def == RT_DefOf.RT_GammaMetroid ||
+                t.def == RT_DefOf.RT_ZetaMetroid ||
+                t.def == RT_DefOf.RT_OmegaMetroid ||
+                t.def == RT_DefOf.RT_QueenMetroid);
+        }
+        public static bool IsOlderMetroid(this Pawn pawn)
         {
             if (pawn.def == RT_DefOf.RT_AlphaMetroid ||
                 pawn.def == RT_DefOf.RT_GammaMetroid || 
