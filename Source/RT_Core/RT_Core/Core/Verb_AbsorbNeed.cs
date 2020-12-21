@@ -21,6 +21,12 @@ namespace RT_Core
             Pawn casterPawn = CasterPawn;
             Pawn targetPawn = currentTarget.Thing as Pawn;
 
+            if (targetPawn.RaceProps.IsMechanoid)
+            {
+                return true;
+
+            }
+
             if (!casterPawn.Spawned || !targetPawn.Spawned)
             {
                 return false;
