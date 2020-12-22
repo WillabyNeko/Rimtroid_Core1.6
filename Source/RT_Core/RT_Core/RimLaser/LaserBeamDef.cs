@@ -26,6 +26,8 @@ namespace RT_Core
         public int lifetime = 30;
         public float impulse = 4.0f;
 
+        public bool disableFading;
+
         public float beamWidth = 1.0f;
         public float fireWidth = 1.0f;
         public float fireDistanceFromCaster = 1f;
