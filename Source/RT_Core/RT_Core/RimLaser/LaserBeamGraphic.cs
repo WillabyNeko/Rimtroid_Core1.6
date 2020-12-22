@@ -130,16 +130,9 @@ namespace RT_Core
         public override void Draw()
         {
             SetupDrawing();
-            if (projDef.disableFading)
-            {
-                Graphics.DrawMesh(mesh, drawingMatrix, materialBeam, 0);
-            }
-            else
-            {
-                float opacity = Opacity;
-                Graphics.DrawMesh(mesh, drawingMatrix, FadedMaterialPool.FadedVersionOf(materialBeam, opacity), 0);
-            }
 
+            float opacity = Opacity;
+            Graphics.DrawMesh(mesh, drawingMatrix, FadedMaterialPool.FadedVersionOf(materialBeam, opacity), 0);
         }
     }
 }
