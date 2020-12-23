@@ -5,6 +5,7 @@ using HarmonyLib;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using Verse.AI.Group;
 
 namespace RT_Core
 {
@@ -27,10 +28,8 @@ namespace RT_Core
 
     public class RT_DesiccatorExt : DefModExtension
     {
-
         public ThingDef RT_DesiccatedDef;
     }
-
 
     [HarmonyPatch(typeof(Need_Food), "NeedInterval")]
     public static class RT_NeedInterval_Patch

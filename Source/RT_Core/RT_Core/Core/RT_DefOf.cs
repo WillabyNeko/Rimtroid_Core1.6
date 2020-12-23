@@ -21,5 +21,8 @@ namespace RT_Core
 		public static FactionDef RT_Metroids;
 
 		public static ThingDef RT_GammaShockwaveMote;
+
+		public static ThingDef RT_FeedingStation;
+		public static JobDef RT_EatFromStation;
 	}
 }

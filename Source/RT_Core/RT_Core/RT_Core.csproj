@@ -302,6 +302,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CompUseEffect_InstallImplant.cs" />
+    <Compile Include="Core\JobDriver_EatFromStation.cs" />
     <Compile Include="Core\ForcedAgingCompProperties.cs" />
     <Compile Include="Core\AgeStage.cs" />
     <Compile Include="AnimalResource\AnimalProduct.cs" />
@@ -312,7 +313,7 @@
     <Compile Include="Core\CompFloating.cs" />
     <Compile Include="Core\CompProperties_Floating.cs" />
     <Compile Include="Core\CompSpawnerAdv.cs" />
-    <Compile Include="Core\CorpseAvoidance.cs" />
+    <Compile Include="Core\JobGiver_GetLiveFood.cs" />
     <Compile Include="Core\CryoBuildup.cs" />
     <Compile Include="Core\CryoCompProperties.cs" />
     <Compile Include="Core\CryoImmunityComp.cs" />
@@ -323,6 +324,7 @@
     <Compile Include="Core\ForcedAgingComp.cs" />
     <Compile Include="Core\HungerBerserkOptions.cs" />
     <Compile Include="Core\Ingestion_MultipleHediffs.cs" />
+    <Compile Include="Core\MetroidFeedingStationOptions.cs" />
     <Compile Include="Core\LegacyModExtension.cs" />
     <Compile Include="Core\Metamorphosis.cs" />
     <Compile Include="Core\Patch_DD_PawnComponentsUtility_AddAndRemoveDynamicComponents.cs" />
