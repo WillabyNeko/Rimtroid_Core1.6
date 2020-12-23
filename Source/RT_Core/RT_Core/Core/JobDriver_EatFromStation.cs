@@ -29,7 +29,7 @@ namespace RT_Core
             {
 
                 this.originalPower = job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt;
-                job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt += options.powerConsumption;
+                job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt -= options.powerConsumption;
                 workLeft = options.ticksForConsumption;
             };
             doWork.tickAction = delegate
