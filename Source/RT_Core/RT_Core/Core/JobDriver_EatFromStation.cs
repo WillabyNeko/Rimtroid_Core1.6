@@ -13,6 +13,7 @@ namespace RT_Core
     public class JobDriver_EatFromStation : JobDriver
     {
         private float workLeft = -1000f;
+        private float originalPower = 0;
         public MetroidFeedingOptions options => job.def.GetModExtension<MetroidFeedingStationOptions>().options.Where(x => x.defName == pawn.def.defName).FirstOrDefault();
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -26,6 +27,9 @@ namespace RT_Core
             Toil doWork = new Toil();
             doWork.initAction = delegate
             {
+
+                this.originalPower = job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt;
+                job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt += options.powerConsumption;
                 workLeft = options.ticksForConsumption;
             };
             doWork.tickAction = delegate
@@ -33,8 +37,8 @@ namespace RT_Core
                 workLeft--;
                 if (workLeft <= 0f)
                 {
+                    job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt = originalPower;
                     pawn.needs.TryGetNeed<Need_Food>().CurLevel = 1;
-                    //job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt -= options.powerConsumption;
                     var hp = job.targetA.Thing.HitPoints;
                     hp -= options.durabilityDamage;
                     if (pawn.TryGetAttackVerb(job.targetA.Thing).TryStartCastOn(job.targetA))
@@ -50,6 +54,13 @@ namespace RT_Core
             };
             doWork.defaultCompleteMode = ToilCompleteMode.Never;
             doWork.FailOnCannotTouch(TargetIndex.A, PathEndMode.Touch);
+            doWork.AddFinishAction(delegate ()
+            {
+                if (job.targetA.Thing?.TryGetComp<CompPowerTrader>() != null)
+                {
+                    job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt = originalPower;
+                }
+            });
             yield return doWork;
         }
 
@@ -58,6 +69,7 @@ namespace RT_Core
         {
             base.ExposeData();
             Scribe_Values.Look(ref workLeft, "workLeft", 0f);
+            Scribe_Values.Look(ref originalPower, "originalPower", 0f);
         }
     }
 }
