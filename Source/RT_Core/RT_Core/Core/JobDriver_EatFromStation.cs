@@ -41,7 +41,7 @@ namespace RT_Core
                     pawn.needs.TryGetNeed<Need_Food>().CurLevel = 1;
                     var hp = job.targetA.Thing.HitPoints;
                     hp -= options.durabilityDamage;
-                    if (pawn.TryGetAttackVerb(job.targetA.Thing).TryStartCastOn(job.targetA))
+                    if (pawn.meleeVerbs.TryGetMeleeVerb(job.targetA.Thing).TryStartCastOn(job.targetA.Thing))
                     {
                         job.targetA.Thing.HitPoints = hp;
                         if (job.targetA.Thing.HitPoints <= 0)
