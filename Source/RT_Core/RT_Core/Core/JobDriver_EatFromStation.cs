@@ -38,10 +38,11 @@ namespace RT_Core
                 if (workLeft <= 0f)
                 {
                     job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt = originalPower;
-                    pawn.needs.TryGetNeed<Need_Food>().CurLevel = 1;
+                    //pawn.needs.TryGetNeed<Need_Food>().CurLevel += 0.4f;
+                    pawn.needs.food.CurLevel += pawn.needs.food.MaxLevel * 0.3f;
                     var hp = job.targetA.Thing.HitPoints;
                     hp -= options.durabilityDamage;
-                    if (pawn.meleeVerbs.TryGetMeleeVerb(job.targetA.Thing).TryStartCastOn(job.targetA.Thing))
+                    //if (pawn.meleeVerbs.TryGetMeleeVerb(job.targetA.Thing).TryStartCastOn(job.targetA.Thing))
                     {
                         job.targetA.Thing.HitPoints = hp;
                         if (job.targetA.Thing.HitPoints <= 0)
