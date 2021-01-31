@@ -1,5 +1,6 @@
 ﻿using Verse;
 using RimWorld;
+using HarmonyLib;
 
 namespace RT_Core
 {
@@ -10,6 +11,20 @@ namespace RT_Core
             this.compClass = typeof(CompLatchedMetroid);
         }
     }
+
+    [HarmonyPatch(typeof(Pawn), "Kill")]
+    public class Pawn_Kill_Patch
+    {
+        public static void Prefix(Pawn __instance)
+        {
+            var comp = __instance.TryGetComp<CompLatchedMetroid>();
+            if (comp != null)
+            {
+                comp.hediff_LatchedMetroid.pawn.health.RemoveHediff(comp.hediff_LatchedMetroid);
+            }
+        }
+    }
+
     public class CompLatchedMetroid : ThingComp
     {
         public CompProperties_LatchedMetroid Props => (CompProperties_LatchedMetroid)props;
