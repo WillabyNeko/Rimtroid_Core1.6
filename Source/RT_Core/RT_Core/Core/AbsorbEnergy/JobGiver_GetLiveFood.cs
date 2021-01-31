@@ -72,7 +72,8 @@ namespace RT_Core
 			var options = pawn.def.GetModExtension<RT_EnergyDrain>();
 			if (options != null)
             {
-				var freshCorpse = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Corpse corpse && !Utils.blackListRaces.Contains(corpse.InnerPawn.def) && corpse.Age < GenDate.TicksPerDay * 3 && pawn.CanReserve(x), ThingRequestGroup.Corpse); 
+				var freshCorpse = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Corpse corpse && !Utils.blackListRaces.Contains(corpse.InnerPawn.def) 
+					&& corpse.GetRotStage() == RotStage.Fresh && corpse.Age < GenDate.TicksPerDay * 3 && pawn.CanReserve(x), ThingRequestGroup.Corpse); 
 				if (freshCorpse != null)
                 {
 					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, freshCorpse);

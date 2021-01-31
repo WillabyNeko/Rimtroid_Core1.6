@@ -35,20 +35,42 @@ namespace RT_Core
                     hediff.drainSicknessSeverity = options.drainSicknessSeverity;
                     hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
                     corpse.InnerPawn.health.AddHediff(hediff);
+                    this.pawn.DeSpawn();
                 }
                 else if (Target is Pawn victim)
                 {
-                    var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_LatchedMetroid, victim) as Hediff_LatchedMetroid;
-                    hediff.latchedMetroid = this.pawn;
-                    hediff.drainAgeFactor = options.drainAgeFactor;
-                    hediff.drainFoodGain = options.drainFoodGain.RandomInRange;
-                    hediff.drainOverlayDuration = options.drainOverlayDuration.RandomInRange;
-                    hediff.drainStunDuration = options.drainStunDuration.RandomInRange;
-                    hediff.drainSicknessSeverity = options.drainSicknessSeverity;
-                    hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
-                    victim.health.AddHediff(hediff);
+                    if (victim.RaceProps.Animal && Rand.Chance(Mathf.Max(victim.def.race.manhunterOnDamageChance, 0.05f)))
+                    {
+                        Messages.Message("RT.AnimalDefendThemselves".Translate(victim.Label, this.pawn.Label), victim, MessageTypeDefOf.CautionInput);
+                        var job = JobMaker.MakeJob(JobDefOf.AttackMelee, this.pawn);
+                        job.expiryInterval = new IntRange(360, 480).RandomInRange;
+                        job.checkOverrideOnExpire = true;
+                        job.expireRequiresEnemiesNearby = true;
+                        victim.jobs.TryTakeOrderedJob(job);
+                    }
+                    else if (victim.IsPrisoner && Rand.Chance(0.1f))
+                    {
+                        Messages.Message("RT.PrisonerDefendThemselves".Translate(victim.Label, this.pawn.Label), victim, MessageTypeDefOf.CautionInput);
+                        var job = JobMaker.MakeJob(JobDefOf.AttackMelee, this.pawn);
+                        job.expiryInterval = new IntRange(360, 480).RandomInRange;
+                        job.checkOverrideOnExpire = true;
+                        job.expireRequiresEnemiesNearby = true;
+                        victim.jobs.TryTakeOrderedJob(job);
+                    }
+                    else
+                    {
+                        var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_LatchedMetroid, victim) as Hediff_LatchedMetroid;
+                        hediff.latchedMetroid = this.pawn;
+                        hediff.drainAgeFactor = options.drainAgeFactor;
+                        hediff.drainFoodGain = options.drainFoodGain.RandomInRange;
+                        hediff.drainOverlayDuration = options.drainOverlayDuration.RandomInRange;
+                        hediff.drainStunDuration = options.drainStunDuration.RandomInRange;
+                        hediff.drainSicknessSeverity = options.drainSicknessSeverity;
+                        hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
+                        victim.health.AddHediff(hediff);
+                        this.pawn.DeSpawn();
+                    }
                 }
-                this.pawn.DeSpawn();
             };
 
             doWork.defaultCompleteMode = ToilCompleteMode.Instant;

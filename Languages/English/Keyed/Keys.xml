@@ -2,4 +2,7 @@
 	<RT.PrisonersForEatingLabel>Mark for eating</RT.PrisonersForEatingLabel>
 	<RT.PrisonersForEatingDesc>Mark for eating description</RT.PrisonersForEatingDesc>
 	<RT.AnimalIsTooBig>{0} is too big!</RT.AnimalIsTooBig>
+	<RT.PrisonerDefendThemselves>{0} fights off {1}</RT.PrisonerDefendThemselves>
+	<RT.AnimalDefendThemselves>{0} defends against {1}</RT.AnimalDefendThemselves>
+	
 </LanguageData>
