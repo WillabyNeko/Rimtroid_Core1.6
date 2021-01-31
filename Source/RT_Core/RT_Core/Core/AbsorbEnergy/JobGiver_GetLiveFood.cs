@@ -69,6 +69,27 @@ namespace RT_Core
 					return job;
 				}
 			}
+			var options = pawn.def.GetModExtension<RT_EnergyDrain>();
+			if (options != null)
+            {
+				var freshCorpse = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Corpse corpse && !Utils.blackListRaces.Contains(corpse.InnerPawn.def) && corpse.Age < GenDate.TicksPerDay * 3 && pawn.CanReserve(x), ThingRequestGroup.Corpse); 
+				if (freshCorpse != null)
+                {
+					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, freshCorpse);
+                }
+				var prisoner = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Pawn victim && victim.IsPrisoner && !victim.Downed && victim.GetComp<CompPrisonerFeed>().canBeEaten && pawn.CanReserve(x), 
+					ThingRequestGroup.Pawn);
+				if (prisoner != null)
+                {
+					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, prisoner);
+				}
+				var wildAnimal = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Pawn victim && !Utils.blackListRaces.Contains(victim.def) && victim.RaceProps.Animal && victim.Faction != pawn.Faction && victim.BodySize <= 1f 
+				&& pawn.CanReserve(x), ThingRequestGroup.Pawn);
+				if (wildAnimal != null)
+                {
+					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, wildAnimal);
+				}
+			}
 			Thing foodSource = FoodMethod.FindPawnTarget(pawn, 50f);
 			Pawn pawn2 = foodSource as Pawn;
 			if (pawn2 != null)

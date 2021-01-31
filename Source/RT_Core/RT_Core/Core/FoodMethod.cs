@@ -19,5 +19,11 @@ namespace RT_Core
                 TraverseParms.For(pawn, Danger.Deadly, TraverseMode.PassDoors, false), distance, Predicate);
             return victim;
         }
+
+        public static Thing FindTarget(this Pawn pawn, float distance, Predicate<Thing> validator, ThingRequestGroup request)
+        {
+            return GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForGroup(request), PathEndMode.Touch,
+                TraverseParms.For(pawn, Danger.Deadly, TraverseMode.PassDoors, false), distance, validator);
+        }
     }
 }

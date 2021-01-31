@@ -105,5 +105,21 @@
 			</li>
 		</stages>
 	</HediffDef>
+	
 
+  <HediffDef>
+		<defName>RT_LatchedMetroid</defName>
+		<hediffClass>RT_Core.Hediff_LatchedMetroid</hediffClass>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>latched metroid</label>
+		<description>latched metroid.</description>
+	</HediffDef>
+
+  <HediffDef>
+		<defName>RT_MetroidAbsorbEnergy</defName>
+		<hediffClass>RT_Core.Hediff_MetroidAbsorbEnergy</hediffClass>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>metroid is absorbing energy</label>
+		<description>metroid is absorbing energy.</description>
+	</HediffDef>
 </Defs>

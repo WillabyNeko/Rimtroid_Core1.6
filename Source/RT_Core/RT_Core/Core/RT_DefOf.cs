@@ -24,5 +24,13 @@ namespace RT_Core
 
 		public static ThingDef RT_FeedingStation;
 		public static JobDef RT_EatFromStation;
+		public static JobDef RT_AbsorbingEnergy;
+		public static HediffDef RT_LatchedMetroid;
+		public static JobDef RT_AbsorbEnergyFinal;
+		public static HediffDef RT_MetroidAbsorbEnergy;
+		public static HediffDef RT_LifeDrainSickness;
+		public static ThingDef RT_ProcessingEnergyMote;
+		public static ThoughtDef RT_FeedOn;
+
 	}
 }

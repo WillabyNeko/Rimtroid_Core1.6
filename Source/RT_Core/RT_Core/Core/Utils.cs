@@ -9,6 +9,10 @@ namespace RT_Core
 {
     public static class Utils
     {
+        public static List<ThingDef> blackListRaces = new List<ThingDef>
+        {
+            ThingDefOf.Muffalo
+        };
         public static bool IsAnyMetroid(this Thing t)
         {
             return (t.def == RT_DefOf.RT_BanteeMetroid ||
