@@ -84,7 +84,7 @@ namespace RT_Core
                 {
 					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, prisoner);
 				}
-				var wildAnimal = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Pawn victim && !Utils.blackListRaces.Contains(victim.def) && victim.RaceProps.Animal && victim.Faction != pawn.Faction && victim.BodySize <= 1f 
+				var wildAnimal = FoodMethod.FindTarget(pawn, 50f, (Thing x) => x is Pawn victim && !Utils.blackListRaces.Contains(victim.def) && victim.RaceProps.Animal && victim.Faction != pawn.Faction && victim.BodySize <= 4f 
 				&& pawn.CanReserve(x), ThingRequestGroup.Pawn);
 				if (wildAnimal != null)
                 {
