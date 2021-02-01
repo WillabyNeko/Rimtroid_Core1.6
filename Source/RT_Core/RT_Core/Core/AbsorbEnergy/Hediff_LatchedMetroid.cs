@@ -81,7 +81,7 @@ namespace RT_Core
             this.pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(RT_DefOf.RT_FeedOn);
             if (this.pawn.ParentHolder is Corpse corpse2 && Rand.Chance(0.7f))
             {
-                corpse2.GetComp<CompRottable>().RotProgress = corpse2.GetComp<CompRottable>().PropsRot.TicksToDessicated;
+                corpse2.GetComp<CompRottable>().RotProgress = corpse2.GetComp<CompRottable>().PropsRot.TicksToRotStart;
             }
             var metroidAbsorbEnergy = HediffMaker.MakeHediff(RT_DefOf.RT_MetroidAbsorbEnergy, latchedMetroid) as Hediff_MetroidAbsorbEnergy;
             metroidAbsorbEnergy.drainFoodGain = this.drainFoodGain;

@@ -43,6 +43,12 @@ namespace RT_Core
             base.PostDraw();
             var drawPos = this.parent.DrawPos;
             drawPos.y++;
+            if (hediff_LatchedMetroid.pawn.Rotation == Rot4.North)
+            {
+                hediff_LatchedMetroid.pawn.Rotation = Rot4.South;
+            }
+            latchedMetroid.Rotation = hediff_LatchedMetroid.pawn.Rotation;
+            Log.Message(latchedMetroid + " - " + latchedMetroid.Rotation.ToStringHuman() + " - " + hediff_LatchedMetroid.pawn + " - " + hediff_LatchedMetroid.pawn.Rotation.ToStringHuman());
             latchedMetroid.Drawer.DrawAt(drawPos);
         }
 
