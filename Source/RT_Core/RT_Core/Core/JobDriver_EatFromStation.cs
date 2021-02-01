@@ -14,6 +14,11 @@ namespace RT_Core
     {
         private float workLeft = -1000f;
         private float originalPower = 0;
+
+        private CompPowerTrader compPowerTrader => job.targetA.Thing.TryGetComp<CompPowerTrader>();
+        private CompFlickable compFlickable => job.targetA.Thing.TryGetComp<CompFlickable>();
+        private CompRefuelable compRefuelable => job.targetA.Thing.TryGetComp<CompRefuelable>();
+
         public MetroidFeedingOptions options => job.targetA.Thing.def.GetModExtension<MetroidFeedingStationOptions>().options.Where(x => x.defName == pawn.def.defName).FirstOrDefault();
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -64,6 +69,9 @@ namespace RT_Core
                     job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt = originalPower;
                 }
             });
+            this.FailOn(() => compPowerTrader != null && !compPowerTrader.PowerOn);
+            this.FailOn(() => compRefuelable != null && !compRefuelable.HasFuel);
+            this.FailOn(() => compFlickable != null && !compFlickable.SwitchIsOn);
             yield return doWork;
         }
 

@@ -65,7 +65,18 @@ namespace RT_Core
                 {
 					return false;
                 }
-				if (!x.TryGetComp<CompPowerTrader>()?.PowerOn ?? false)
+				var powerComp = x.TryGetComp<CompPowerTrader>();
+				if (powerComp != null && !powerComp.PowerOn)
+                {
+					return false;
+                }
+				var flickableComp = x.TryGetComp<CompFlickable>();
+				if (flickableComp != null && !flickableComp.SwitchIsOn)
+                {
+					return false;
+                }
+				var fuelComp = x.TryGetComp<CompRefuelable>();
+				if (fuelComp != null && !fuelComp.HasFuel)
                 {
 					return false;
                 }
