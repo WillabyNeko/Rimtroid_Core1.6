@@ -32,5 +32,9 @@ namespace RT_Core
 		public static ThingDef RT_ProcessingEnergyMote;
 		public static ThoughtDef RT_FeedOn;
 
+		public static ThingDef RT_FeedingStationSE;
+		public static ThingDef RT_FeedingStationSF;
+		public static ThingDef RT_FeedingStationLF;
+		public static ThingDef RT_FeedingStationLE;
 	}
 }

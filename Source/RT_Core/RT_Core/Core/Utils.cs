@@ -9,6 +9,13 @@ namespace RT_Core
 {
     public static class Utils
     {
+        public static List<ThingDef> feedingStations = new List<ThingDef>
+        {
+           RT_DefOf.RT_FeedingStationLE,
+           RT_DefOf.RT_FeedingStationLF,
+           RT_DefOf.RT_FeedingStationSE,
+           RT_DefOf.RT_FeedingStationSF
+        };
         public static List<ThingDef> blackListRaces = new List<ThingDef>
         {
             ThingDefOf.Muffalo

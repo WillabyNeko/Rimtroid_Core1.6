@@ -14,7 +14,7 @@ namespace RT_Core
     {
         private float workLeft = -1000f;
         private float originalPower = 0;
-        public MetroidFeedingOptions options => job.def.GetModExtension<MetroidFeedingStationOptions>().options.Where(x => x.defName == pawn.def.defName).FirstOrDefault();
+        public MetroidFeedingOptions options => job.targetA.Thing.def.GetModExtension<MetroidFeedingStationOptions>().options.Where(x => x.defName == pawn.def.defName).FirstOrDefault();
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
@@ -27,9 +27,12 @@ namespace RT_Core
             Toil doWork = new Toil();
             doWork.initAction = delegate
             {
-
-                this.originalPower = job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt;
-                job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt -= options.powerConsumption;
+                var comp = job.targetA.Thing.TryGetComp<CompPowerTrader>();
+                if (comp != null)
+                {
+                    this.originalPower = comp.powerOutputInt;
+                    comp.powerOutputInt -= options.powerConsumption;
+                }
                 workLeft = options.ticksForConsumption;
             };
             doWork.tickAction = delegate
@@ -37,18 +40,17 @@ namespace RT_Core
                 workLeft--;
                 if (workLeft <= 0f)
                 {
-                    job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt = originalPower;
-                    //pawn.needs.TryGetNeed<Need_Food>().CurLevel += 0.4f;
+                    if (job.targetA.Thing.TryGetComp<CompPowerTrader>() != null)
+                    {
+                        job.targetA.Thing.TryGetComp<CompPowerTrader>().powerOutputInt = originalPower;
+                    }
                     pawn.needs.food.CurLevel += pawn.needs.food.MaxLevel * 0.35f;
                     var hp = job.targetA.Thing.HitPoints;
                     hp -= options.durabilityDamage;
-                    //if (pawn.meleeVerbs.TryGetMeleeVerb(job.targetA.Thing).TryStartCastOn(job.targetA.Thing))
+                    job.targetA.Thing.HitPoints = hp;
+                    if (job.targetA.Thing.HitPoints <= 0)
                     {
-                        job.targetA.Thing.HitPoints = hp;
-                        if (job.targetA.Thing.HitPoints <= 0)
-                        {
-                            job.targetA.Thing.Destroy(DestroyMode.KillFinalize);
-                        }
+                        job.targetA.Thing.Destroy(DestroyMode.KillFinalize);
                     }
                     ReadyForNextToil();
                 }

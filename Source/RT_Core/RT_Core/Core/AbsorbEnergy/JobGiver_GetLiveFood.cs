@@ -3,6 +3,7 @@ using Verse.AI;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace RT_Core
 {
@@ -58,17 +59,31 @@ namespace RT_Core
 			{
 				return null;
 			}
-			if (RT_DefOf.RT_EatFromStation.GetModExtension< MetroidFeedingStationOptions>().options.Where(x => x.defName == pawn.def.defName).Any())
-            {
-				var feedingStations = pawn.Map.listerThings.AllThings.Where(x => x.def == RT_DefOf.RT_FeedingStation && pawn.CanReserveAndReach(x, PathEndMode.InteractionCell, Danger.Deadly))
-						.OrderBy(x => x.Position.DistanceTo(pawn.Position));
-				if (feedingStations.Any())
-				{
-					Job job = JobMaker.MakeJob(RT_DefOf.RT_EatFromStation, feedingStations.First());
-					Log.Message(pawn + " gets " + job);
-					return job;
-				}
+			Predicate<Thing> stationValidator = delegate (Thing x)
+			{
+				if (!Utils.feedingStations.Contains(x.def))
+                {
+					return false;
+                }
+				if (!x.TryGetComp<CompPowerTrader>()?.PowerOn ?? false)
+                {
+					return false;
+                }
+				if (!x.def.GetModExtension<MetroidFeedingStationOptions>().options.Any(y => y.defName == pawn.def.defName))
+                {
+					return false;
+                }
+				return true;
+			};
+			var feedingStations = pawn.Map.listerThings.AllThings.Where(x => stationValidator(x) && pawn.CanReserveAndReach(x, PathEndMode.InteractionCell, Danger.Deadly))
+					.OrderBy(x => x.Position.DistanceTo(pawn.Position));
+			if (feedingStations.Any())
+			{
+				Job job = JobMaker.MakeJob(RT_DefOf.RT_EatFromStation, feedingStations.First());
+				Log.Message(pawn + " gets " + job);
+				return job;
 			}
+
 			var options = pawn.def.GetModExtension<RT_EnergyDrain>();
 			if (options != null)
             {
