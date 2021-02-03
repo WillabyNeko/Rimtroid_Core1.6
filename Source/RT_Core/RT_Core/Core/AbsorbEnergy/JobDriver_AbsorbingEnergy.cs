@@ -62,6 +62,10 @@ namespace RT_Core
                         job.expireRequiresEnemiesNearby = true;
                         victim.jobs.TryTakeOrderedJob(job);
                     }
+                    else if (Rand.Chance(0.5f))
+                    {
+                        Utils.MakeFlee(victim, this.pawn, 50, new List<Thing> { this.pawn });
+                    }
                     else
                     {
                         var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_LatchedMetroid, victim) as Hediff_LatchedMetroid;
