@@ -1,38 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <!--===============Cryo Burn Def===============-->
+	<!--===============Cryo Burn Def===============-->
 
 	<HediffDef ParentName="InjuryBase">
-    <defName>RT_CryoBurn</defName>
-    <label>frostburn</label>
-    <labelNoun>Frostburn</labelNoun>
-    <description>A burn caused by intense exposure to cold.</description>
-    <comps>
-      <li Class="HediffCompProperties_TendDuration">
-        <labelTendedWell>bandaged</labelTendedWell>
-        <labelTendedWellInner>tended</labelTendedWellInner>
-        <labelSolidTendedWell>tended</labelSolidTendedWell>
-      </li>
-      <li Class="HediffCompProperties_Infecter">
-        <infectionChance>0.30</infectionChance>
-      </li>
-      <li Class="HediffCompProperties_GetsPermanent">
-        <permanentLabel>frostburn scar</permanentLabel>
-      </li>
-    </comps>
-    <injuryProps>
-      <painPerSeverity>0.01875</painPerSeverity>
-      <averagePainPerSeverityPermanent>0.00625</averagePainPerSeverityPermanent>
-      <canMerge>true</canMerge>
-      <destroyedLabel>Shattered</destroyedLabel>
-      <destroyedOutLabel>Shattered</destroyedOutLabel>
-    </injuryProps>
-  </HediffDef>
+		<defName>RT_CryoBurn</defName>
+		<label>frostburn</label>
+		<labelNoun>Frostburn</labelNoun>
+		<description>A burn caused by intense exposure to cold.</description>
+		<comps>
+			<li Class="HediffCompProperties_TendDuration">
+				<labelTendedWell>bandaged</labelTendedWell>
+				<labelTendedWellInner>tended</labelTendedWellInner>
+				<labelSolidTendedWell>tended</labelSolidTendedWell>
+			</li>
+			<li Class="HediffCompProperties_Infecter">
+				<infectionChance>0.30</infectionChance>
+			</li>
+			<li Class="HediffCompProperties_GetsPermanent">
+				<permanentLabel>frostburn scar</permanentLabel>
+			</li>
+		</comps>
+		<injuryProps>
+			<painPerSeverity>0.01875</painPerSeverity>
+			<averagePainPerSeverityPermanent>0.00625</averagePainPerSeverityPermanent>
+			<canMerge>true</canMerge>
+			<destroyedLabel>Shattered</destroyedLabel>
+			<destroyedOutLabel>Shattered</destroyedOutLabel>
+		</injuryProps>
+	</HediffDef>
 
-<!--===============Cryo Buildup Def===============-->
+	<!--===============Cryo Buildup Def===============-->
 
-  <HediffDef>
+	<HediffDef>
 		<defName>RT_CryoBuildup</defName>
 		<hediffClass>RT_Core.Hediff_CryoBuildup</hediffClass>
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
@@ -105,9 +105,9 @@
 			</li>
 		</stages>
 	</HediffDef>
-	
 
-  <HediffDef>
+
+	<HediffDef>
 		<defName>RT_LatchedMetroid</defName>
 		<hediffClass>RT_Core.Hediff_LatchedMetroid</hediffClass>
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
@@ -115,7 +115,21 @@
 		<description>latched metroid.</description>
 	</HediffDef>
 
-  <HediffDef>
+	<HediffDef>
+		<defName>RT_MetroidHunting</defName>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>hunting metroid</label>
+		<description>hunting metroid.</description>
+		<stages>
+			<li>
+				<statFactors>
+					<MoveSpeed>2</MoveSpeed>
+				</statFactors>
+			</li>
+		</stages>
+	</HediffDef>
+	
+	<HediffDef>
 		<defName>RT_MetroidAbsorbEnergy</defName>
 		<hediffClass>RT_Core.Hediff_MetroidAbsorbEnergy</hediffClass>
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>

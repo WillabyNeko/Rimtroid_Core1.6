@@ -35,6 +35,11 @@ namespace RT_Core
                     hediff.drainSicknessSeverity = options.drainSicknessSeverity;
                     hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
                     corpse.InnerPawn.health.AddHediff(hediff);
+                    var hunting = this.pawn.health.hediffSet.GetFirstHediffOfDef(RT_DefOf.RT_MetroidHunting);
+                    if (hunting != null)
+                    {
+                        this.pawn.health.RemoveHediff(hunting);
+                    }
                     this.pawn.DeSpawn();
                 }
                 else if (Target is Pawn victim)
@@ -68,6 +73,11 @@ namespace RT_Core
                         hediff.drainSicknessSeverity = options.drainSicknessSeverity;
                         hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
                         victim.health.AddHediff(hediff);
+                        var hunting = this.pawn.health.hediffSet.GetFirstHediffOfDef(RT_DefOf.RT_MetroidHunting);
+                        if (hunting != null)
+                        {
+                            this.pawn.health.RemoveHediff(hunting);
+                        }
                         this.pawn.DeSpawn();
                     }
                 }

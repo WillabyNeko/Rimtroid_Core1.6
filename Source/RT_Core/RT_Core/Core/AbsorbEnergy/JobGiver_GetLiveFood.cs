@@ -102,19 +102,28 @@ namespace RT_Core
 					&& corpse.GetRotStage() == RotStage.Fresh && corpse.Age < GenDate.TicksPerDay * 3 && pawn.CanReserve(x), ThingRequestGroup.Corpse); 
 				if (freshCorpse != null)
                 {
-					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, freshCorpse);
+					Job job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, freshCorpse);
+					var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_MetroidHunting, pawn);
+					pawn.health.AddHediff(hediff);
+					return job;
                 }
 				var prisoner = FoodMethod.FindTarget(pawn, 250f, (Thing x) => x is Pawn victim && victim.IsPrisoner && !victim.Downed && victim.GetComp<CompPrisonerFeed>().canBeEaten && pawn.CanReserve(x), 
 					ThingRequestGroup.Pawn);
 				if (prisoner != null)
                 {
-					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, prisoner);
+					Job job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, prisoner);
+					var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_MetroidHunting, pawn);
+					pawn.health.AddHediff(hediff);
+					return job;
 				}
 				var wildAnimal = FoodMethod.FindTarget(pawn, 250f, (Thing x) => x is Pawn victim && !Utils.blackListRaces.Contains(victim.def) && victim.RaceProps.Animal && victim.Faction != pawn.Faction && victim.BodySize <= 4f 
 				&& pawn.CanReserve(x), ThingRequestGroup.Pawn);
 				if (wildAnimal != null)
                 {
-					return JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, wildAnimal);
+					Job job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, wildAnimal);
+					var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_MetroidHunting, pawn);
+					pawn.health.AddHediff(hediff);
+					return job;
 				}
 			}
 			Thing foodSource = FoodMethod.FindPawnTarget(pawn, 250f);

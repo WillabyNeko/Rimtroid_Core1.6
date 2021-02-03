@@ -22,7 +22,6 @@ namespace RT_Core
 
 		public static ThingDef RT_GammaShockwaveMote;
 
-		public static ThingDef RT_FeedingStation;
 		public static JobDef RT_EatFromStation;
 		public static JobDef RT_AbsorbingEnergy;
 		public static HediffDef RT_LatchedMetroid;
@@ -36,5 +35,7 @@ namespace RT_Core
 		public static ThingDef RT_FeedingStationSF;
 		public static ThingDef RT_FeedingStationLF;
 		public static ThingDef RT_FeedingStationLE;
+
+		public static HediffDef RT_MetroidHunting;
 	}
 }
