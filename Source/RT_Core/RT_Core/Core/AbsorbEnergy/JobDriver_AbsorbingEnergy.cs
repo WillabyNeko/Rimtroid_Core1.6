@@ -65,6 +65,8 @@ namespace RT_Core
                     else if (Rand.Chance(0.5f))
                     {
                         Utils.MakeFlee(victim, this.pawn, 50, new List<Thing> { this.pawn });
+                        Job job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, victim);
+                        pawn.jobs.TryTakeOrderedJob(job);
                     }
                     else
                     {
