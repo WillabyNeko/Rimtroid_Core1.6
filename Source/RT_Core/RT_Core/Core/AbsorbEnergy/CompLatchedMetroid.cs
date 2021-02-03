@@ -1,6 +1,7 @@
 ﻿using Verse;
 using RimWorld;
 using HarmonyLib;
+using UnityEngine;
 
 namespace RT_Core
 {
@@ -41,15 +42,35 @@ namespace RT_Core
         public override void PostDraw()
         {
             base.PostDraw();
-            var drawPos = this.parent.DrawPos;
-            drawPos.y++;
             if (hediff_LatchedMetroid.pawn.Rotation == Rot4.North)
             {
                 hediff_LatchedMetroid.pawn.Rotation = Rot4.South;
             }
+            if (this.parent is Pawn pawn && pawn.RaceProps.Humanlike)
+            {
+                var drawPos = this.parent.DrawPos;
+                drawPos.y++;
+                Vector3 a = drawPos;
+                if (pawn.Rotation != Rot4.North)
+                {
+                    a.y += 6f / 245f;
+                }
+                else
+                {
+                    a.y += 3f / 140f;
+                }
+                Quaternion quaternion = Quaternion.AngleAxis(pawn.Drawer.renderer.BodyAngle(), Vector3.up);
+                Vector3 b = quaternion * pawn.Drawer.renderer.BaseHeadOffsetAt(pawn.Rotation);
+                latchedMetroid.Drawer.DrawAt(a + b);
+            }
+            else
+            {
+                var drawPos = this.parent.DrawPos;
+                drawPos.y++;
+                latchedMetroid.Drawer.DrawAt(drawPos);
+            }
             latchedMetroid.Rotation = hediff_LatchedMetroid.pawn.Rotation;
             Log.Message(latchedMetroid + " - " + latchedMetroid.Rotation.ToStringHuman() + " - " + hediff_LatchedMetroid.pawn + " - " + hediff_LatchedMetroid.pawn.Rotation.ToStringHuman());
-            latchedMetroid.Drawer.DrawAt(drawPos);
         }
 
         public override void CompTick()
