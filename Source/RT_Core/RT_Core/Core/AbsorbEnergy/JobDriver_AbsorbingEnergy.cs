@@ -73,6 +73,13 @@ namespace RT_Core
                         hediff.drainSicknessSeverity = options.drainSicknessSeverity;
                         hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
                         victim.health.AddHediff(hediff);
+                        var jbg = new JobGiver_RunRandom();
+                        var result = jbg.TryIssueJobPackage(victim, default(JobIssueParams));
+                        if (result.Job != null)
+                        {
+                            result.Job.expiryInterval = 99999999;
+                            victim.jobs.TryTakeOrderedJob(result.Job);
+                        }
                         var hunting = this.pawn.health.hediffSet.GetFirstHediffOfDef(RT_DefOf.RT_MetroidHunting);
                         if (hunting != null)
                         {

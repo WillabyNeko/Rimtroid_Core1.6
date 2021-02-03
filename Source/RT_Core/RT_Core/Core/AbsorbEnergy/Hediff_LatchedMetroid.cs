@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Verse;
+using Verse.AI;
 
 namespace RT_Core
 {
@@ -77,6 +78,8 @@ namespace RT_Core
             {
                 GenSpawn.Spawn(latchedMetroid, this.pawn.Position, this.pawn.Map);
                 this.pawn.AllComps.Remove(this.pawn.TryGetComp<CompLatchedMetroid>());
+                this.pawn.jobs.StopAll();
+                MakeFlee(this.pawn, latchedMetroid, 50, new List<Thing> { latchedMetroid });
             }
             this.pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(RT_DefOf.RT_FeedOn);
             if (this.pawn.ParentHolder is Corpse corpse2 && Rand.Chance(0.7f))
@@ -89,6 +92,34 @@ namespace RT_Core
             metroidAbsorbEnergy.drainEnergyProcessing = this.drainEnergyProcessing;
             latchedMetroid.health.AddHediff(metroidAbsorbEnergy);
             latchedMetroid.jobs.TryTakeOrderedJob(JobMaker.MakeJob(RT_DefOf.RT_AbsorbEnergyFinal));
+        }
+
+        public void MakeFlee(Pawn pawn, Thing danger, int radius, List<Thing> dangers)
+        {
+            Job job = null;
+            IntVec3 intVec;
+            if (pawn.CurJob != null && pawn.CurJob.def == JobDefOf.Flee)
+            {
+                intVec = pawn.CurJob.targetA.Cell;
+            }
+            else
+            {
+                intVec = CellFinderLoose.GetFleeDest(pawn, dangers, 24f);
+            }
+
+            if (intVec == pawn.Position)
+            {
+                intVec = GenRadial.RadialCellsAround(pawn.Position, radius, radius * 2).RandomElement();
+            }
+            if (intVec != pawn.Position)
+            {
+                job = JobMaker.MakeJob(JobDefOf.Flee, intVec, danger);
+            }
+            if (job != null)
+            {
+                //Log.Message(pawn + " flee");
+                pawn.jobs.TryTakeOrderedJob(job);
+            }
         }
         public override void ExposeData()
         {
