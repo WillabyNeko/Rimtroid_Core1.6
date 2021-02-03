@@ -65,8 +65,10 @@ namespace RT_Core
                     else if (Rand.Chance(0.1f))
                     {
                         Utils.MakeFlee(victim, this.pawn, 50, new List<Thing> { this.pawn });
+                        Job stand = JobMaker.MakeJob(JobDefOf.Wait, 30);
+                        pawn.jobs.jobQueue.EnqueueLast(stand);
                         Job job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, victim);
-                        pawn.jobs.TryTakeOrderedJob(job);
+                        pawn.jobs.jobQueue.EnqueueLast(job);
                     }
                     else
                     {
@@ -79,13 +81,6 @@ namespace RT_Core
                         hediff.drainSicknessSeverity = options.drainSicknessSeverity;
                         hediff.drainEnergyProcessing = options.drainEnergyProcessing.RandomInRange;
                         victim.health.AddHediff(hediff);
-                        var jbg = new JobGiver_RunRandom();
-                        var result = jbg.TryIssueJobPackage(victim, default(JobIssueParams));
-                        if (result.Job != null)
-                        {
-                            result.Job.expiryInterval = 99999999;
-                            victim.jobs.TryTakeOrderedJob(result.Job);
-                        }
                         var hunting = this.pawn.health.hediffSet.GetFirstHediffOfDef(RT_DefOf.RT_MetroidHunting);
                         if (hunting != null)
                         {

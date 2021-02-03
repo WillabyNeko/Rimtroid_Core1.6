@@ -47,12 +47,18 @@ namespace RT_Core
                 {
                     comp.parent = this.pawn;
                     this.pawn.AllComps.Add(comp);
+
                 }
 
                 if (!this.pawn.Dead)
                 {
-                    this.pawn.stances.stunner.StunFor_NewTmp(this.drainStunDuration, latchedMetroid, false, false);
-                    MoteMaker.ThrowText(this.pawn.DrawPos, this.pawn.Map, "StunLower".Translate());
+                    var jbg = new JobGiver_RunRandom();
+                    var result = jbg.TryIssueJobPackage(this.pawn, default(JobIssueParams));
+                    if (result.Job != null)
+                    {
+                        result.Job.expiryInterval = 99999999;
+                        this.pawn.jobs.TryTakeOrderedJob(result.Job);
+                    }
                 }
             }
         }
@@ -60,6 +66,16 @@ namespace RT_Core
         public override void Tick()
         {
             base.Tick();
+            if (this.pawn.CurJobDef != JobDefOf.GotoWander)
+            {
+                var jbg = new JobGiver_RunRandom();
+                var result = jbg.TryIssueJobPackage(this.pawn, default(JobIssueParams));
+                if (result.Job != null)
+                {
+                    result.Job.expiryInterval = 99999999;
+                    this.pawn.jobs.TryTakeOrderedJob(result.Job);
+                }
+            }
             if (Find.TickManager.TicksGame % 30 == 0)
             {
                 var value = (this.drainSicknessSeverity / (float)drainOverlayDuration) * 30f;

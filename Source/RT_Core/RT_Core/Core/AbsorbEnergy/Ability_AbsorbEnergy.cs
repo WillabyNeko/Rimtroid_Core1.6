@@ -19,6 +19,8 @@ namespace RT_Core
         {
             if (target.Pawn.BodySize <= 4f && !Utils.blackListRaces.Contains(target.Thing.def))
             {
+                var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_MetroidHunting, pawn);
+                pawn.health.AddHediff(hediff);
                 var job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, target);
                 pawn.jobs.TryTakeOrderedJob(job);
             }
