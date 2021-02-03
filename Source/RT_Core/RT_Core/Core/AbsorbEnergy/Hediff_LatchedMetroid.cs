@@ -52,12 +52,10 @@ namespace RT_Core
 
                 if (!this.pawn.Dead)
                 {
-                    var jbg = new JobGiver_RunRandom();
-                    var result = jbg.TryIssueJobPackage(this.pawn, default(JobIssueParams));
-                    if (result.Job != null)
+                    if (this.pawn.CurJobDef != JobDefOf.Flee)
                     {
-                        result.Job.expiryInterval = 99999999;
-                        this.pawn.jobs.TryTakeOrderedJob(result.Job);
+                        this.pawn.jobs.StopAll();
+                        Utils.MakeFlee(this.pawn, latchedMetroid, 50, new List<Thing> { latchedMetroid });
                     }
                 }
             }
@@ -66,15 +64,10 @@ namespace RT_Core
         public override void Tick()
         {
             base.Tick();
-            if (this.pawn.CurJobDef != JobDefOf.GotoWander)
+            if (this.pawn.CurJobDef != JobDefOf.Flee)
             {
-                var jbg = new JobGiver_RunRandom();
-                var result = jbg.TryIssueJobPackage(this.pawn, default(JobIssueParams));
-                if (result.Job != null)
-                {
-                    result.Job.expiryInterval = 99999999;
-                    this.pawn.jobs.TryTakeOrderedJob(result.Job);
-                }
+                this.pawn.jobs.StopAll();
+                Utils.MakeFlee(this.pawn, latchedMetroid, 50, new List<Thing> { latchedMetroid });
             }
             if (Find.TickManager.TicksGame % 30 == 0)
             {
