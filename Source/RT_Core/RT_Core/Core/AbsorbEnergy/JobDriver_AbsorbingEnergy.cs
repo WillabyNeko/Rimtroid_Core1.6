@@ -62,7 +62,7 @@ namespace RT_Core
                         job.expireRequiresEnemiesNearby = true;
                         victim.jobs.TryTakeOrderedJob(job);
                     }
-                    else if (Rand.Chance(0.5f))
+                    else if (Rand.Chance(0.1f))
                     {
                         Utils.MakeFlee(victim, this.pawn, 50, new List<Thing> { this.pawn });
                         Job job = JobMaker.MakeJob(RT_DefOf.RT_AbsorbingEnergy, victim);

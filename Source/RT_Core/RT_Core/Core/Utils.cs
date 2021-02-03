@@ -25,7 +25,7 @@ namespace RT_Core
 
             if (intVec == pawn.Position)
             {
-                intVec = GenRadial.RadialCellsAround(pawn.Position, radius, radius * 2).RandomElement();
+                intVec = GenRadial.RadialCellsAround(pawn.Position, radius <= 50 ? radius : 50, radius * 2 <= 50 ? radius * 2 : 50).RandomElement();
             }
             if (intVec != pawn.Position)
             {
