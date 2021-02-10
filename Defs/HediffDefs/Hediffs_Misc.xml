@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+<!--===============Def that slows down hunger for metroids when they are sleeping===============-->
+
+  <!--<HediffDef>
+    <defName>RT_SuperSecretSleepTrick</defName>
+		<label>energy conservation</label>
+		<labelNoun>energy conservation</labelNoun>
+		<description>Secretly slows down hunger while the metroid is sleeping. You shouldn't be seeing this!</description>
+    <comps>
+      <li Class="RT_Core.MetroidSleepSwitch"></li>
+    </comps>
+    <stages>
+      <li>
+				<becomeVisible>false</becomeVisible>
+        <minSeverity>0.0</minSeverity>
+        <hungerRateFactor>1</hungerRateFactor>
+      </li>
+      <li>
+				<becomeVisible>false</becomeVisible>
+        <minSeverity>0.5</minSeverity>
+        <hungerRateFactor>2</hungerRateFactor>
+      </li>
+    </stages>
+		</HediffDef>-->
+
 	<!--===============Cryo Burn Def===============-->
 
 	<HediffDef ParentName="InjuryBase">
@@ -106,20 +130,21 @@
 		</stages>
 	</HediffDef>
 
+	<!--===============Metroid Latch Defs===============-->
 
 	<HediffDef>
 		<defName>RT_LatchedMetroid</defName>
 		<hediffClass>RT_Core.Hediff_LatchedMetroid</hediffClass>
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
 		<label>latched metroid</label>
-		<description>latched metroid.</description>
+		<description>GET THIS THING OFF OF ME</description>
 	</HediffDef>
 
 	<HediffDef>
 		<defName>RT_MetroidHunting</defName>
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
 		<label>hunting metroid</label>
-		<description>hunting metroid.</description>
+		<description>metroid is on the prowl.</description>
 		<stages>
 			<li>
 				<statFactors>
@@ -133,7 +158,7 @@
 		<defName>RT_MetroidAbsorbEnergy</defName>
 		<hediffClass>RT_Core.Hediff_MetroidAbsorbEnergy</hediffClass>
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
-		<label>metroid is absorbing energy</label>
-		<description>metroid is absorbing energy.</description>
+		<label>processing energy</label>
+		<description>metroid is processing energy, sustaining it and rapidly increasing it's physical age.</description>
 	</HediffDef>
 </Defs>
