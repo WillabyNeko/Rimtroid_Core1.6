@@ -147,6 +147,7 @@
 		<description>metroid is on the prowl.</description>
 		<stages>
 			<li>
+        <hungerRateFactorOffset>-1.0</hungerRateFactorOffset>
 				<statFactors>
 					<MoveSpeed>2</MoveSpeed>
 				</statFactors>
