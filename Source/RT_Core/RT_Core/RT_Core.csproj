@@ -339,6 +339,8 @@
     <Compile Include="Core\LegacyModExtension.cs" />
     <Compile Include="Core\Metamorphosis.cs" />
     <Compile Include="Core\Patch_DD_PawnComponentsUtility_AddAndRemoveDynamicComponents.cs" />
+    <Compile Include="Core\Raids\IncidentWorker_RaidMetroid.cs" />
+    <Compile Include="Core\Raids\RaidOptions.cs" />
     <Compile Include="Core\RT_DefOf.cs" />
     <Compile Include="Core\Training.cs" />
     <Compile Include="Core\Utils.cs" />

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- ============================== Big threats ==============================-->
+
+	<IncidentDef>
+		<defName>RT_RaidMetroid</defName>
+		<label>enemy raid</label>
+		<targetTags>
+			<li>Map_PlayerHome</li>
+		</targetTags>
+		<workerClass>RT_Core.IncidentWorker_RaidMetroid</workerClass>
+		<baseChance>7.4</baseChance>
+		<category>ThreatBig</category>
+		<pointsScaleable>true</pointsScaleable>
+		<tale>Raid</tale>
+		<modExtensions>
+			<li Class="RT_Core.RaidOptions">
+				<raidFaction>RT_Metroids</raidFaction>
+				<pawnGroup>
+					<kindDef>Combat</kindDef>
+					<options>
+						<RT_MetroidLarvae>10</RT_MetroidLarvae>
+						<RT_AlphaMetroid>20</RT_AlphaMetroid>
+						<RT_GammaMetroid>20</RT_GammaMetroid>
+						<RT_ZetaMetroid>15</RT_ZetaMetroid>
+						<RT_OmegaMetroid>5</RT_OmegaMetroid>
+					</options>
+				</pawnGroup>
+				<minimumPawnCount>10</minimumPawnCount>
+				<fixedRaidPoints>9999</fixedRaidPoints>
+				<raidPointsMultiplier>0.5</raidPointsMultiplier>
+				<raidStrategy>ImmediateAttack</raidStrategy>
+				<raidArrival>EdgeWalkIn</raidArrival>
+			</li>
+		</modExtensions>
+	</IncidentDef>
+
+</Defs>
