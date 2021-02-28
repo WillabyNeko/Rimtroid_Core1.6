@@ -116,7 +116,7 @@ namespace RT_Core
 					pawn.health.AddHediff(hediff);
 					return job;
 				}
-				var wildAnimal = FoodMethod.FindTarget(pawn, 250f, (Thing x) => x is Pawn victim && !Utils.blackListRaces.Contains(victim.def) && victim.RaceProps.Animal && victim.Faction != pawn.Faction && victim.BodySize <= 4f 
+				var wildAnimal = FoodMethod.FindTarget(pawn, 250f, (Thing x) => x is Pawn victim && (pawn.Faction is null && !victim.IsAnyMetroid() || pawn.Faction == Faction.OfPlayer) && !Utils.blackListRaces.Contains(victim.def) && victim.RaceProps.Animal && victim.Faction != pawn.Faction && victim.BodySize <= 4f 
 				&& pawn.CanReserve(x), ThingRequestGroup.Pawn);
 				if (wildAnimal != null)
                 {

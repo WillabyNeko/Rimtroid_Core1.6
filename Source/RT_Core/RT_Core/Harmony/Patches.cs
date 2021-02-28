@@ -47,6 +47,15 @@ namespace RT_Core
             }
             return result;
         }
+
+        public static bool Prefix(Need_Food __instance, Pawn ___pawn)
+        {
+            if (___pawn.IsAnyMetroid() && ___pawn.CurJobDef == JobDefOf.LayDown)
+            {
+                return false;
+            }
+            return true;
+        }
         public static void Postfix(Need_Food __instance, Pawn ___pawn)
         {
             var options = ___pawn.kindDef.GetModExtension<HungerBerserkOptions>();
@@ -58,12 +67,15 @@ namespace RT_Core
                 {
                     if (!___pawn.InMentalState && Rand.Chance(berserkChance))
                     {
-                        //Log.Message(___pawn + " gets berserk state", true);
-                        if (___pawn.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, null, forceWake: true))
+                        if (___pawn.CurJobDef != JobDefOf.LayDown && ___pawn.CurJobDef != RT_DefOf.RT_EatFromStation && ___pawn.CurJobDef != RT_DefOf.RT_AbsorbingEnergy && !InCombat(___pawn))
                         {
-                            if (___pawn.Faction == Faction.OfPlayer && Rand.Chance(options.chanceToBecomeWildIfBerserkAndTamed))
+                            //Log.Message(___pawn + " gets berserk state", true);
+                            if (___pawn.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, null, forceWake: true))
                             {
-                                ___pawn.SetFaction(null);
+                                if (___pawn.Faction == Faction.OfPlayer && Rand.Chance(options.chanceToBecomeWildIfBerserkAndTamed))
+                                {
+                                    ___pawn.SetFaction(null);
+                                }
                             }
                         }
                     }
@@ -75,52 +87,133 @@ namespace RT_Core
                 }
             }
         }
+
+        public static HashSet<JobDef> combatJobs = new HashSet<JobDef>
+                                                    {
+                                                        JobDefOf.AttackMelee,
+                                                        JobDefOf.AttackStatic,
+                                                        JobDefOf.FleeAndCower,
+                                                        JobDefOf.ManTurret,
+                                                        JobDefOf.Wait_Combat,
+                                                        JobDefOf.Flee
+                                                    };
+        private static bool InCombat(Pawn pawn)
+        {
+            if (combatJobs.Contains(pawn.CurJobDef))
+            {
+                return true;
+            }
+            else if (pawn.mindState.duty?.def.alwaysShowWeapon ?? false)
+            {
+                return true;
+            }
+            else if (pawn.CurJobDef?.alwaysShowWeapon ?? false)
+            {
+                return true;
+            }
+            else if (pawn.mindState.lastEngageTargetTick > Find.TickManager.TicksGame - 1000)
+            {
+                return true;
+            }
+            else if (pawn.mindState.lastAttackTargetTick > Find.TickManager.TicksGame - 1000)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn_JobTracker))]
+    [HarmonyPatch("StartJob")]
+    public static class StartJob_Patch
+    {
+        private static bool Prefix(Pawn ___pawn, Job newJob, JobCondition lastJobEndCondition)
+        {
+            if (newJob.def == JobDefOf.Vomit && ___pawn.IsAnyMetroid())
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(Hediff), "Severity", MethodType.Setter)]
+    public static class Severity_Patch
+    {
+        private static void Prefix(Hediff __instance, ref float value)
+        {
+            if (__instance.def == HediffDefOf.Malnutrition && (__instance.pawn?.IsAnyMetroid() ?? false) && value < 0)
+            {
+                value *= 3;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn_HealthTracker), "AddHediff")]
+    public static class AddHediff_Patch
+    {
+        private static HashSet<HediffDef> hediffDefs = new HashSet<HediffDef>
+        {
+            HediffDef.Named("SandInEyes"),
+            HediffDef.Named("DirtInEyes"),
+            HediffDef.Named("MudInEyes"),
+            HediffDef.Named("GravelInEyes"),
+            HediffDef.Named("WaterInEyes")
+        };
+        private static bool Prefix(Pawn_HealthTracker __instance, Pawn ___pawn, Hediff hediff, BodyPartRecord part = null, DamageInfo? dinfo = null, DamageWorker.DamageResult result = null)
+        {
+            if (hediffDefs.Contains(hediff.def) && ___pawn.IsAnyMetroid())
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
     //[HarmonyPatch(typeof(Pawn), "Kill")]
     //public static class RT_Desiccator_Pawn_Kill_Patch
     //{
-        //[HarmonyPostfix]
-        //public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
-        //{
-            //if (dinfo.HasValue)
-            //{
-                //if (dinfo.Value.Instigator != null)
-                //{
-                    //Thing inst = dinfo.Value.Instigator;
-                    //RT_DesiccatorExt desiccator = inst.def.GetModExtension<RT_DesiccatorExt>();
-                    //if (desiccator != null)
-                    //{
-                        //if (desiccator.RT_DesiccatedDef != null)
-                        //{
-                            //FieldInfo corpse = typeof(Pawn).GetField("Corpse", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
-                            //Traverse.Create(__instance);
-                            //corpse.SetValue(__instance, ThingMaker.MakeThing(desiccator.RT_DesiccatedDef));
-                        //}
-                        //else
-                        //{
-                            //CompRottable compRottable = __instance.Corpse.TryGetComp<CompRottable>();
-                            //compRottable.RotImmediately();
-                       // }
-                    //}
-                //}
-            //}
-            //HediffDef def = DefDatabase<HediffDef>.GetNamed("RT_LifeDrainSickness");
-            //if (__instance.health.hediffSet.HasHediff(def))
-            //{
-                //CompRottable compRottable = __instance.Corpse.TryGetComp<CompRottable>();
-                //compRottable.RotImmediately();
-            //}
-            //if (__instance.Corpse.GetRotStage() == RotStage.Fresh)
-            //{
-                //Log.Message(__instance + " failed rot");
-            //}
-            /*
-            else
-            {
-                Log.Message(__instance + " rotted by");
-            }
-            */
-        //}
+    //[HarmonyPostfix]
+    //public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
+    //{
+    //if (dinfo.HasValue)
+    //{
+    //if (dinfo.Value.Instigator != null)
+    //{
+    //Thing inst = dinfo.Value.Instigator;
+    //RT_DesiccatorExt desiccator = inst.def.GetModExtension<RT_DesiccatorExt>();
+    //if (desiccator != null)
+    //{
+    //if (desiccator.RT_DesiccatedDef != null)
+    //{
+    //FieldInfo corpse = typeof(Pawn).GetField("Corpse", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
+    //Traverse.Create(__instance);
+    //corpse.SetValue(__instance, ThingMaker.MakeThing(desiccator.RT_DesiccatedDef));
+    //}
+    //else
+    //{
+    //CompRottable compRottable = __instance.Corpse.TryGetComp<CompRottable>();
+    //compRottable.RotImmediately();
+    // }
+    //}
+    //}
+    //}
+    //HediffDef def = DefDatabase<HediffDef>.GetNamed("RT_LifeDrainSickness");
+    //if (__instance.health.hediffSet.HasHediff(def))
+    //{
+    //CompRottable compRottable = __instance.Corpse.TryGetComp<CompRottable>();
+    //compRottable.RotImmediately();
+    //}
+    //if (__instance.Corpse.GetRotStage() == RotStage.Fresh)
+    //{
+    //Log.Message(__instance + " failed rot");
+    //}
+    /*
+    else
+    {
+        Log.Message(__instance + " rotted by");
+    }
+    */
+    //}
     //}
 }
