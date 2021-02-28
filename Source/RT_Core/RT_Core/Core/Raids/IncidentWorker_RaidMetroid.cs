@@ -81,6 +81,37 @@ namespace RT_Core
 			return null;
 		}
 
+		public List<Pawn> SpawnThreats2(IncidentParms parms, RaidOptions options)
+		{
+			List<Pawn> list = new List<Pawn>();
+			foreach (var pawnCount in options.minimumPawnCountPerKind.options)
+            {
+				int num = 0;
+				int attempts = 0;
+				int minimumPawnCount = (int)pawnCount.selectionWeight;
+				while (num < minimumPawnCount && attempts < minimumPawnCount + 100)
+				{
+					PawnGenerationRequest request = new PawnGenerationRequest(pawnCount.kind, parms.faction, PawnGenerationContext.NonPlayer, -1,
+						forceGenerateNewPawn: false, newborn: false, allowDead: false, allowDowned: false, canGeneratePawnRelations: true, mustBeCapableOfViolence: true, 1f,
+						forceAddFreeWarmLayerIfNeeded: false, allowGay: true, biocodeWeaponChance: parms.biocodeWeaponsChance, allowFood: true);
+					request.BiocodeApparelChance = 1f;
+					Pawn pawn = PawnGenerator.GeneratePawn(request);
+					if (pawn != null)
+					{
+						list.Add(pawn);
+						num++;
+					}
+					attempts++;
+				}
+			}
+
+			if (list.Any())
+			{
+				return list;
+			}
+			return null;
+		}
+
 		protected override bool TryExecuteWorker(IncidentParms parms)
 		{
 			ResolveRaidPoints(parms);
@@ -132,11 +163,18 @@ namespace RT_Core
 			}
 
 			var list = new List<Pawn>(); 
-			if (options.minimumPawnCount != 0)
+			if (options.minimumPawnCount != -1)
             {
 				list = SpawnThreats(parms, options);
 			}
-			GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(combat, parms), options.pawnGroup, list);
+			else if (options.minimumPawnCountPerKind != null)
+            {
+				list = SpawnThreats2(parms, options);
+			}
+			if (options.pawnGroup != null)
+            {
+				GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(combat, parms), options.pawnGroup, list);
+            }
 
 			if (list.Count == 0)
 			{
@@ -145,8 +183,8 @@ namespace RT_Core
 			}
 			parms.raidArrivalMode.Worker.Arrive(list, parms);
 			GenerateRaidLoot(parms, points, list);
-			TaggedString letterLabel = GetLetterLabel(parms);
-			TaggedString letterText = GetLetterText(parms, list);
+			TaggedString letterLabel = GetLetterLabel(parms, options);
+			TaggedString letterText = GetLetterText(parms, list, options);
 			PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(list, ref letterLabel, ref letterText, GetRelatedPawnsInfoLetterText(parms), informEvenIfSeenBefore: true);
 			List<TargetInfo> list2 = new List<TargetInfo>();
 			if (parms.pawnGroups != null)
@@ -172,7 +210,7 @@ namespace RT_Core
 					list2.Add(item);
 				}
 			}
-			SendStandardLetter(letterLabel, letterText, GetLetterDef(), parms, list2);
+			SendStandardLetter(letterLabel, letterText, GetLetterDef(options), parms, list2);
 			parms.raidStrategy.Worker.MakeLords(parms, list);
 			LessonAutoActivator.TeachOpportunity(ConceptDefOf.EquippingWeapons, OpportunityType.Critical);
 			if (!PlayerKnowledgeDatabase.IsComplete(ConceptDefOf.ShieldBelts))
@@ -238,13 +276,21 @@ namespace RT_Core
 			}
 		}
 
-		protected override string GetLetterLabel(IncidentParms parms)
+		protected string GetLetterLabel(IncidentParms parms, RaidOptions options)
 		{
+			if (!options.letterTitle.NullOrEmpty())
+            {
+				return options.letterTitle;
+			}
 			return parms.raidStrategy.letterLabelEnemy + ": " + parms.faction.Name;
 		}
 
-		protected override string GetLetterText(IncidentParms parms, List<Pawn> pawns)
+		protected string GetLetterText(IncidentParms parms, List<Pawn> pawns, RaidOptions options)
 		{
+			if (!options.letterText.NullOrEmpty())
+			{
+				return options.letterText;
+			}
 			string str = string.Format(parms.raidArrivalMode.textEnemy, parms.faction.def.pawnsPlural, parms.faction.Name.ApplyTag(parms.faction)).CapitalizeFirst();
 			str += "\n\n";
 			str += parms.raidStrategy.arrivalTextEnemy;
@@ -257,8 +303,12 @@ namespace RT_Core
 			return str;
 		}
 
-		protected override LetterDef GetLetterDef()
+		protected LetterDef GetLetterDef(RaidOptions options)
 		{
+			if (options.letterDef != null)
+            {
+				return options.letterDef;
+            }
 			return LetterDefOf.ThreatBig;
 		}
 

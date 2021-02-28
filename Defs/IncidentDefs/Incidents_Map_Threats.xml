@@ -17,6 +17,7 @@
 		<modExtensions>
 			<li Class="RT_Core.RaidOptions">
 				<raidFaction>RT_Metroids</raidFaction>
+				<!--
 				<pawnGroup>
 					<kindDef>Combat</kindDef>
 					<options>
@@ -27,11 +28,27 @@
 						<RT_OmegaMetroid>5</RT_OmegaMetroid>
 					</options>
 				</pawnGroup>
-				<minimumPawnCount>10</minimumPawnCount>
+				-->
+				<minimumPawnCountPerKind>
+					<kindDef>Combat</kindDef>
+					<options>
+						<RT_MetroidLarvae>10</RT_MetroidLarvae>
+						<RT_AlphaMetroid>20</RT_AlphaMetroid>
+						<RT_GammaMetroid>20</RT_GammaMetroid>
+						<RT_ZetaMetroid>15</RT_ZetaMetroid>
+						<RT_OmegaMetroid>5</RT_OmegaMetroid>
+					</options>
+				</minimumPawnCountPerKind>
+				<!--<minimumPawnCount>10</minimumPawnCount>-->
+				<!--
 				<fixedRaidPoints>9999</fixedRaidPoints>
 				<raidPointsMultiplier>0.5</raidPointsMultiplier>
+				-->
 				<raidStrategy>ImmediateAttack</raidStrategy>
 				<raidArrival>EdgeWalkIn</raidArrival>
+				<letterDef>PositiveEvent</letterDef>
+				<letterTitle>Test title</letterTitle>
+				<letterText>Test text</letterText>
 			</li>
 		</modExtensions>
 	</IncidentDef>

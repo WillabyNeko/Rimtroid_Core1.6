@@ -13,11 +13,15 @@ namespace RT_Core
     public class RaidOptions : DefModExtension
     {
         public PawnGroupMaker pawnGroup;
-        public int minimumPawnCount;
+        public PawnGroupMaker minimumPawnCountPerKind;
+        public int minimumPawnCount = -1;
         public int fixedRaidPoints = -1;
         public float raidPointsMultiplier = -1f;
         public FactionDef raidFaction;
         public RaidStrategyDef raidStrategy;
         public PawnsArrivalModeDef raidArrival;
+        public LetterDef letterDef;
+        public string letterTitle;
+        public string letterText;
     }
 }
