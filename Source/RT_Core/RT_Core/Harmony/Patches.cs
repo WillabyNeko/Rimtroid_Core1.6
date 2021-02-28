@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using Verse.AI.Group;
+using System;
 
 namespace RT_Core
 {
@@ -149,7 +150,10 @@ namespace RT_Core
         }
     }
 
-    [HarmonyPatch(typeof(Pawn_HealthTracker), "AddHediff")]
+    [HarmonyPatch(typeof(Pawn_HealthTracker), "AddHediff", new Type[]
+        {
+            typeof(Hediff), typeof(BodyPartRecord), typeof(DamageInfo?), typeof(DamageWorker.DamageResult)
+        })]
     public static class AddHediff_Patch
     {
         private static HashSet<HediffDef> hediffDefs = new HashSet<HediffDef>

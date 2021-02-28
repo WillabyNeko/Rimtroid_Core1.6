@@ -19,39 +19,37 @@ namespace RT_Core
         protected override bool TryCastShot()
         {
             Pawn casterPawn = CasterPawn;
-            Pawn targetPawn = currentTarget.Thing as Pawn;
-
-            //if (targetPawn.RaceProps.IsMechanoid)
-            //{
-            //return true;
-
-            //}
-
-            if (targetPawn.needs == null || targetPawn.needs.food == null)
+            if (currentTarget.Thing is Pawn targetPawn && casterPawn.needs?.food != null && targetPawn?.needs?.food != null)
             {
-                return false;
+                if (targetPawn.needs == null || targetPawn.needs.food == null)
+                {
+                    return false;
+                }
+
+                if (!casterPawn.Spawned || !targetPawn.Spawned)
+                {
+                    return false;
+                }
+
+                // does it have multiple attacks? With this code it will stop attacking when hunger is satisfied, which may not be what you want.
+                if (casterPawn.needs.food.CurLevel >= AbsorbProps.stopFeedingAt)
+                {
+                    return false;
+                }
+
+                // why is it stealing hunger satisfaction? also, again, if the target has 100% hunger, this verb stops working.
+                if (casterPawn.needs.food.CurLevel >= 1 || targetPawn.needs.food.CurLevel <= 0)
+                {
+                    return false;
+                }
+
+                // this can never miss?
+                AbsorbNeed(casterPawn.needs.food, targetPawn.needs.food, AbsorbProps.absorbAmount);
+                GainAge(casterPawn, AbsorbProps.ageDaysAmount);
             }
 
-            if (!casterPawn.Spawned || !targetPawn.Spawned)
-            {
-                return false;
-            }
 
-            // does it have multiple attacks? With this code it will stop attacking when hunger is satisfied, which may not be what you want.
-            if (casterPawn.needs.food.CurLevel >= AbsorbProps.stopFeedingAt)
-            {
-                return false;
-            }
 
-            // why is it stealing hunger satisfaction? also, again, if the target has 100% hunger, this verb stops working.
-            if (casterPawn.needs.food.CurLevel >= 1 || targetPawn.needs.food.CurLevel <= 0)
-            {
-                return false;
-            }
-
-            // this can never miss?
-            AbsorbNeed(casterPawn.needs.food, targetPawn.needs.food, AbsorbProps.absorbAmount);
-            GainAge(casterPawn, AbsorbProps.ageDaysAmount);
             return base.TryCastShot();
         }
 
