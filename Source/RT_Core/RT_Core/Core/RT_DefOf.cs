@@ -37,6 +37,5 @@ namespace RT_Core
 		public static ThingDef RT_FeedingStationLE;
 
 		public static HediffDef RT_MetroidHunting;
-		public static ThingDef RT_ProtusSphere;
 	}
 }

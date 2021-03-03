@@ -149,31 +149,7 @@ namespace RT_Core
             }
         }
     }
-    [HarmonyPatch(typeof(FoodUtility), "WillEat", new Type[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool)})]
-    public static class WillEat_Patch1
-    {
-        private static bool Prefix(Pawn p, Thing food, Pawn getter = null, bool careIfNotAcceptableForTitle = true)
-        {
-            if (food?.def == RT_DefOf.RT_ProtusSphere && !p.IsAnyMetroid())
-            {
-                return false;
-            }
-            return true;
-        }
-    }
 
-    [HarmonyPatch(typeof(FoodUtility), "WillEat", new Type[] {typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool)})]
-    public static class WillEat_Patch2
-    {
-        private static bool Prefix(Pawn p, ThingDef food, Pawn getter = null, bool careIfNotAcceptableForTitle = true)
-        {
-            if (food == RT_DefOf.RT_ProtusSphere && !p.IsAnyMetroid())
-            {
-                return false;
-            }
-            return true;
-        }
-    }
 
     [HarmonyPatch(typeof(Pawn_HealthTracker), "AddHediff", new Type[]
         {
