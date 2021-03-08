@@ -1,8 +1,8 @@
 <LanguageData>
-	<RT.PrisonersForEatingLabel>Mark for eating</RT.PrisonersForEatingLabel>
-	<RT.PrisonersForEatingDesc>Mark for eating description</RT.PrisonersForEatingDesc>
+	<RT.PrisonersForEatingLabel>Metroid Cattle</RT.PrisonersForEatingLabel>
+	<RT.PrisonersForEatingDesc>Allow this prisoner to be fed on by younger metroids</RT.PrisonersForEatingDesc>
 	<RT.AnimalIsTooBig>{0} is too big!</RT.AnimalIsTooBig>
-	<RT.PrisonerDefendThemselves>{0} fights off {1}</RT.PrisonerDefendThemselves>
-	<RT.AnimalDefendThemselves>{0} defends against {1}</RT.AnimalDefendThemselves>
+	<RT.PrisonerDefendThemselves>{0} shook off {1}</RT.PrisonerDefendThemselves>
+	<RT.AnimalDefendThemselves>{0} retaliates against {1}!</RT.AnimalDefendThemselves>
 	
 </LanguageData>
