@@ -150,31 +150,6 @@ namespace RT_Core
         }
     }
 
-
-    [HarmonyPatch(typeof(Pawn_HealthTracker), "AddHediff", new Type[]
-        {
-            typeof(Hediff), typeof(BodyPartRecord), typeof(DamageInfo?), typeof(DamageWorker.DamageResult)
-        })]
-    public static class AddHediff_Patch
-    {
-        private static HashSet<HediffDef> hediffDefs = new HashSet<HediffDef>
-        {
-            HediffDef.Named("SandInEyes"),
-            HediffDef.Named("DirtInEyes"),
-            HediffDef.Named("MudInEyes"),
-            HediffDef.Named("GravelInEyes"),
-            HediffDef.Named("WaterInEyes")
-        };
-        private static bool Prefix(Pawn_HealthTracker __instance, Pawn ___pawn, Hediff hediff, BodyPartRecord part = null, DamageInfo? dinfo = null, DamageWorker.DamageResult result = null)
-        {
-            if (hediffDefs.Contains(hediff.def) && ___pawn.IsAnyMetroid())
-            {
-                return false;
-            }
-            return true;
-        }
-    }
-
     //[HarmonyPatch(typeof(Pawn), "Kill")]
     //public static class RT_Desiccator_Pawn_Kill_Patch
     //{
