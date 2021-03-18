@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="Rimtroid_Evolution">
       <HintPath>..\..\..\..\Rimtroid_Evolution\Assemblies\Rimtroid_Evolution.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -344,6 +345,8 @@
     <Compile Include="Core\Patch_DD_PawnComponentsUtility_AddAndRemoveDynamicComponents.cs" />
     <Compile Include="Core\Raids\IncidentWorker_RaidMetroid.cs" />
     <Compile Include="Core\Raids\RaidOptions.cs" />
+    <Compile Include="Core\RimtroidMod.cs" />
+    <Compile Include="Core\RimtroidSettings.cs" />
     <Compile Include="Core\RT_DefOf.cs" />
     <Compile Include="Core\Training.cs" />
     <Compile Include="Core\Utils.cs" />

@@ -59,32 +59,35 @@ namespace RT_Core
         }
         public static void Postfix(Need_Food __instance, Pawn ___pawn)
         {
-            var options = ___pawn.kindDef.GetModExtension<HungerBerserkOptions>();
-            if (options != null)
+            if (RimtroidSettings.allowBerserkChanceMetroidHunger)
             {
-                var berserkChance = GetBerserkChance(__instance.CurLevelPercentage, options.hungerBerserkChanges);
-                //Log.Message(___pawn + " has " + berserkChance + " berserk chance, cur food level: " + __instance.CurLevelPercentage, true);
-                if (berserkChance > 0)
+                var options = ___pawn.kindDef.GetModExtension<HungerBerserkOptions>();
+                if (options != null)
                 {
-                    if (!___pawn.InMentalState && Rand.Chance(berserkChance))
+                    var berserkChance = GetBerserkChance(__instance.CurLevelPercentage, options.hungerBerserkChanges);
+                    //Log.Message(___pawn + " has " + berserkChance + " berserk chance, cur food level: " + __instance.CurLevelPercentage, true);
+                    if (berserkChance > 0)
                     {
-                        if (___pawn.CurJobDef != JobDefOf.LayDown && ___pawn.CurJobDef != RT_DefOf.RT_EatFromStation && ___pawn.CurJobDef != RT_DefOf.RT_AbsorbingEnergy && !InCombat(___pawn))
+                        if (!___pawn.InMentalState && Rand.Chance(berserkChance))
                         {
-                            //Log.Message(___pawn + " gets berserk state", true);
-                            if (___pawn.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, null, forceWake: true))
+                            if (___pawn.CurJobDef != JobDefOf.LayDown && ___pawn.CurJobDef != RT_DefOf.RT_EatFromStation && ___pawn.CurJobDef != RT_DefOf.RT_AbsorbingEnergy && !InCombat(___pawn))
                             {
-                                if (___pawn.Faction == Faction.OfPlayer && Rand.Chance(options.chanceToBecomeWildIfBerserkAndTamed))
+                                //Log.Message(___pawn + " gets berserk state", true);
+                                if (___pawn.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, null, forceWake: true))
                                 {
-                                    ___pawn.SetFaction(null);
+                                    if (RimtroidSettings.allowWildChanceMetroidBerserk && ___pawn.Faction == Faction.OfPlayer && Rand.Chance(options.chanceToBecomeWildIfBerserkAndTamed))
+                                    {
+                                        ___pawn.SetFaction(null);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                else if (___pawn.mindState.mentalStateHandler.CurStateDef == MentalStateDefOf.Berserk)
-                {
-                    //Log.Message(___pawn + " recovers from berserk state", true);
-                    ___pawn.MentalState.RecoverFromState();
+                    else if (___pawn.mindState.mentalStateHandler.CurStateDef == MentalStateDefOf.Berserk)
+                    {
+                        //Log.Message(___pawn + " recovers from berserk state", true);
+                        ___pawn.MentalState.RecoverFromState();
+                    }
                 }
             }
         }

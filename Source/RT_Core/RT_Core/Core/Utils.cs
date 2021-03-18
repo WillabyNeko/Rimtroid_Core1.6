@@ -8,8 +8,31 @@ using Verse.AI;
 
 namespace RT_Core
 {
+    [StaticConstructorOnStartup]
     public static class Utils
     {
+        public static bool EvolutionModIsEnabled;
+        static Utils()
+        {
+            if (ModLister.HasActiveModWithName("Rimtroid: Evolution (private)"))
+            {
+                EvolutionModIsEnabled = true;
+            }
+            ApplySettings();
+        }
+        public static void ApplySettings()
+        {
+            if (EvolutionModIsEnabled)
+            {
+                if (RimtroidSettings.allowBiggerMetroidsToBeTamed)
+                {
+                    RT_DefOf.RT_AlphaMetroid.race.wildness = 0.99f;
+                    RT_DefOf.RT_GammaMetroid.race.wildness = 0.99f;
+                    RT_DefOf.RT_ZetaMetroid.race.wildness = 0.99f;
+                    RT_DefOf.RT_OmegaMetroid.race.wildness = 0.99f;
+                }
+            }
+        }
         public static void MakeFlee(Pawn pawn, Thing danger, int radius, List<Thing> dangers)
         {
             Job job = null;
