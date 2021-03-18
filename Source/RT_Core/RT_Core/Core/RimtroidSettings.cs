@@ -33,7 +33,6 @@ namespace RT_Core
             if (Utils.EvolutionModIsEnabled)
             {
                 var evolutionBox = new Rect(pos.x, pos.y, rect.width, evolutionBoxHeight);
-                Widgets.DrawBox(evolutionBox);
                 Listing_Standard ls_Evolution = new Listing_Standard();
                 ls_Evolution.Begin(evolutionBox);
                 ls_Evolution.Label("RT.EvolutionModName".Translate());
