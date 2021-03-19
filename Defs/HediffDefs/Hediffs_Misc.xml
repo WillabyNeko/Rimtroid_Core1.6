@@ -138,6 +138,11 @@
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
 		<label>latched metroid</label>
 		<description>GET THIS THING OFF OF ME</description>
+		<stages>
+			<li>
+				<becomeVisible>false</becomeVisible>
+			</li>
+		</stages>
 	</HediffDef>
 
 	<HediffDef>
@@ -147,6 +152,7 @@
 		<description>metroid is on the prowl.</description>
 		<stages>
 			<li>
+				<becomeVisible>false</becomeVisible>
         <hungerRateFactorOffset>-1.0</hungerRateFactorOffset>
 				<statFactors>
 					<MoveSpeed>2</MoveSpeed>
@@ -161,5 +167,10 @@
 		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
 		<label>processing energy</label>
 		<description>metroid is processing energy, sustaining it and rapidly increasing it's physical age.</description>
+		<stages>
+			<li>
+				<becomeVisible>false</becomeVisible>
+			</li>
+		</stages>
 	</HediffDef>
 </Defs>
