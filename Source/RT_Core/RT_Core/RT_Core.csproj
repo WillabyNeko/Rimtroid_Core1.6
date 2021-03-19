@@ -352,6 +352,7 @@
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Core\Verb_AbsorbNeed.cs" />
     <Compile Include="FW2\AnimalProjectile.cs" />
+    <Compile Include="FW2\ExplodeNoFireProjectile.cs" />
     <Compile Include="FW2\HediffCompProperties_BaseRegen.cs" />
     <Compile Include="FW2\RegenHediffModExtension.cs" />
     <Compile Include="FW2\VerbSettingExtension.cs" />
