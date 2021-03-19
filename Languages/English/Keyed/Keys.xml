@@ -3,13 +3,15 @@
 	<RT.PrisonersForEatingDesc>Allow this prisoner to be fed on by younger metroids</RT.PrisonersForEatingDesc>
 	<RT.AnimalIsTooBig>{0} is too big!</RT.AnimalIsTooBig>
 	<RT.PrisonerDefendThemselves>{0} shook off {1}</RT.PrisonerDefendThemselves>
-	<RT.AnimalDefendThemselves>{0} retaliates against {1}!</RT.AnimalDefendThemselves>
-	
+	<RT.AnimalDefendThemselves>{0} retaliated against {1}!</RT.AnimalDefendThemselves>
+
+<!--===============Mod settings: Evolution===============-->
+
 	<RT.allowBerserkChanceMetroidHunger>Can Berserk</RT.allowBerserkChanceMetroidHunger>
 	<RT.allowBerserkChanceMetroidHungerTooltip>Enable/disable metroids berserking when their food levels get too low (enabled by default)</RT.allowBerserkChanceMetroidHungerTooltip>
 	<RT.allowWildChanceMetroidBerserk>Can untame when berserk</RT.allowWildChanceMetroidBerserk>
-	<RT.allowWildChanceMetroidBerserkTooltip>Enable/Disable metroids being able to untame when (and if) they berserk (enabled by default)</RT.allowWildChanceMetroidBerserkTooltip>
+	<RT.allowWildChanceMetroidBerserkTooltip>Enable/disable metroids being able to untame if they berserk (enabled by default)</RT.allowWildChanceMetroidBerserkTooltip>
 	<RT.allowBiggerMetroidsToBeTamed>Tamable older metroids</RT.allowBiggerMetroidsToBeTamed>
-	<RT.allowBiggerMetroidsToBeTamedTooltip>Allow older metroids to have 99% wildness, rather than 1000% (disabled by default)</RT.allowBiggerMetroidsToBeTamedTooltip>
+	<RT.allowBiggerMetroidsToBeTamedTooltip>Allow older metroids to have 99% wildness, rather than 1000% (disabled by default).</RT.allowBiggerMetroidsToBeTamedTooltip>
 	
 </LanguageData>

@@ -15,6 +15,8 @@ namespace RT_Core
         static Utils()
         {
             if (ModLister.HasActiveModWithName("Rimtroid: Evolution (private)"))
+            if (ModLister.HasActiveModWithName("Rimtroid: Evolution (early release)"))
+            if (ModLister.HasActiveModWithName("Rimtroid: Evolution"))
             {
                 EvolutionModIsEnabled = true;
             }
