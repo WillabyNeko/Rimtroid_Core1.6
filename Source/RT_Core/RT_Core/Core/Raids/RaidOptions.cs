@@ -23,5 +23,6 @@ namespace RT_Core
         public LetterDef letterDef;
         public string letterTitle;
         public string letterText;
+        public FloatRange raidPoints;
     }
 }

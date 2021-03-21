@@ -127,6 +127,10 @@ namespace RT_Core
             {
 				parms.faction = Find.FactionManager.FirstFactionOfDef(options.raidFaction);
             }
+			if (parms.faction.leader is null || parms.faction.leader.Dead)
+            {
+				return false;
+            }
 			PawnGroupKindDef combat = PawnGroupKindDefOf.Combat;
 			if (options.raidStrategy is null)
 			{
