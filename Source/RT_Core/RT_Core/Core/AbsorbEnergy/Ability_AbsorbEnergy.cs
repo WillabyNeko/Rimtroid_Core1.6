@@ -17,7 +17,7 @@ namespace RT_Core
 
         public override bool Activate(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            if (target.Pawn.BodySize <= 4f && !Utils.blackListRaces.Contains(target.Thing.def))
+            if (target.Pawn?.BodySize <= 4f && !Utils.blackListRaces.Contains(target.Thing.def))
             {
                 var hediff = HediffMaker.MakeHediff(RT_DefOf.RT_MetroidHunting, pawn);
                 pawn.health.AddHediff(hediff);
