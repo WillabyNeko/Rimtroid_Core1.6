@@ -26,5 +26,6 @@ namespace RT_Core
         public FloatRange raidPoints;
         public float? minimumPlayerWealth;
         public TechLevel? minimumPlayerTechLevel;
+        public List<ResearchProjectDef> requiredResearchProjectsUnlocked;
     }
 }

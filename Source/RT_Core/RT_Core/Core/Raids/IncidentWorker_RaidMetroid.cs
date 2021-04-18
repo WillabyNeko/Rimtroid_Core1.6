@@ -125,6 +125,10 @@ namespace RT_Core
             {
 				return false;
             }
+			if (options.requiredResearchProjectsUnlocked != null && options.requiredResearchProjectsUnlocked.Any(x => !x.IsFinished))
+            {
+				return false;
+            }
 			if (options.raidFaction is null)
             {
 				if (!TryResolveRaidFaction(parms))
