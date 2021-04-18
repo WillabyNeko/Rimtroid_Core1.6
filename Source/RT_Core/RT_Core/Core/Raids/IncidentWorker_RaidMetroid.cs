@@ -116,6 +116,15 @@ namespace RT_Core
 		{
 			ResolveRaidPoints(parms);
 			var options = this.def.GetModExtension<RaidOptions>();
+			if (options.minimumPlayerTechLevel.HasValue && Faction.OfPlayer.def.techLevel < options.minimumPlayerTechLevel.Value)
+            {
+				return false;
+            }
+			Map map = (Map)parms.target;
+			if (options.minimumPlayerWealth.HasValue && options.minimumPlayerWealth.Value > map.wealthWatcher.WealthTotal)
+            {
+				return false;
+            }
 			if (options.raidFaction is null)
             {
 				if (!TryResolveRaidFaction(parms))

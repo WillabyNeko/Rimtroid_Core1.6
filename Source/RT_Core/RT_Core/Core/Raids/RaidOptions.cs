@@ -24,5 +24,7 @@ namespace RT_Core
         public string letterTitle;
         public string letterText;
         public FloatRange raidPoints;
+        public float? minimumPlayerWealth;
+        public TechLevel? minimumPlayerTechLevel;
     }
 }
