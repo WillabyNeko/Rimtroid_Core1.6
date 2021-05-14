@@ -26,6 +26,8 @@ namespace RT_Rimtroid
 		public bool reachMaxRangeAlways;
 		public bool stopWhenHit = true;
 		public List<string> stopWhenHitAt = new List<string>();
+		public ExpandableProjectileShapeDef fixedShape;
+		public float minWidth;
 		protected override void ResolveIcon()
 		{
 			base.ResolveIcon();

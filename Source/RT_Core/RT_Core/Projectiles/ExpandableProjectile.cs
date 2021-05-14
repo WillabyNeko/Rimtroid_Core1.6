@@ -218,51 +218,160 @@ namespace RT_Rimtroid
 			matrix.SetTRS(pos, quat, vec);
 			Graphics.DrawMesh(MeshPool.plane10, matrix, ProjectileMat, 0);
 		}
-
-		public HashSet<IntVec3> MakeProjectileLine(Vector3 start, Vector3 end, Map map)
+		public static float GetOppositeAngle(float angle)
+        {
+			return (angle + 180f) % 360f;
+		}
+		public static Direction8Way Direction8WayFromAngle(float angle)
 		{
-			var resultingLine = new ShootLine(start.ToIntVec3(), end.ToIntVec3());
-			var points = resultingLine.Points();
-			HashSet<IntVec3> positions = new HashSet<IntVec3>();
-
-			var currentPos = CurPosition;
-			currentPos.y = 0;
-			var startingPosition = StartingPosition;
-			startingPosition.y = 0;
-			var destination = new Vector3(currentPos.x, currentPos.y, currentPos.z);
-
-			Vector3 pos = (startingPosition + currentPos) / 2f;
-			pos.y = 10;
-			pos += Quaternion.Euler(0, (startingPosition - currentPos).AngleFlat(), 0) * this.def.startingPositionOffset;
-
-			var distance = Vector3.Distance(startingPosition, currentPos) * this.def.totalSizeScale;
-			var distanceToTarget = Vector3.Distance(startingPosition, currentPos);
-			var widthFactor = distance / distanceToTarget;
-
-			var width = distance * this.def.widthScaleFactor * widthFactor;
-			var height = distance * this.def.heightScaleFactor;
-			var centerOfLine = pos.ToIntVec3();
-			var startPosition = StartingPosition.ToIntVec3();
-			var endPosition = this.CurPosition.ToIntVec3();
-			if (points.Any())
+			if (angle >= 337.5f || angle < 22.5f)
 			{
-				foreach (var cell in GenRadial.RadialCellsAround(start.ToIntVec3(), height, true))
+				return Direction8Way.North;
+			}
+			if (angle < 67.5f)
+			{
+				return Direction8Way.NorthEast;
+			}
+			if (angle < 112.5f)
+			{
+				return Direction8Way.East;
+			}
+			if (angle < 157.5f)
+			{
+				return Direction8Way.SouthEast;
+			}
+			if (angle < 202.5f)
+			{
+				return Direction8Way.South;
+			}
+			if (angle < 247.5f)
+			{
+				return Direction8Way.SouthWest;
+			}
+			if (angle < 292.5f)
+			{
+				return Direction8Way.West;
+			}
+			return Direction8Way.NorthWest;
+		}
+
+		public static IntVec3 IntVec3FromDirection8Way(Direction8Way source)
+		{
+			switch (source)
+			{
+				case Direction8Way.North: return IntVec3.North;
+				case Direction8Way.NorthEast: return IntVec3.NorthEast;
+				case Direction8Way.East: return IntVec3.East;
+				case Direction8Way.SouthEast: return IntVec3.SouthEast;
+				case Direction8Way.South: return IntVec3.South;
+				case Direction8Way.SouthWest: return IntVec3.SouthWest;
+				case Direction8Way.West: return IntVec3.West;
+				case Direction8Way.NorthWest: return IntVec3.NorthWest;
+				default: return IntVec3.Invalid;
+			}
+		}
+
+		[TweakValue("0RM", 0, 10)] private static float widthTweak = 2.5f;
+		public static HashSet<IntVec3> GetProjectileLine(ExpandableProjectileDef projectileDef, Vector3 curPosition, Vector3 startingPosition, Vector3 end)
+		{
+			HashSet<IntVec3> positions = new HashSet<IntVec3>();
+			if (projectileDef.fixedShape != null)
+            {
+				var widthCurve = projectileDef.fixedShape.widthCurve;
+				var resultingLine = new ShootLine(startingPosition.ToIntVec3(), end.ToIntVec3());
+				var points = resultingLine.Points().ToList();
+				startingPosition.y = 0;
+				end.y = 0;
+
+				var angle = startingPosition.AngleToFlat(end) + 180f;
+				Log.Clear();
+				var level = 0;
+				for (var i = 0; i < points.Count; i++)
 				{
-					if (centerOfLine.DistanceToSquared(endPosition) >= cell.DistanceToSquared(endPosition) && startPosition.DistanceTo(cell) > def.minDistanceToAffect)
+					var startCell = points[i];
+					if (startCell.DistanceTo(startingPosition.ToIntVec3()) >= projectileDef.minDistanceToAffect)
+                    {
+						var curBatch = new List<IntVec3>();
+						curBatch.Add(startCell);
+						var width = widthCurve.Evaluate(level);
+						if (width > 0)
+						{
+							int num = 1;
+							while (curBatch.Count < width)
+							{
+								if (curBatch.Count < width)
+								{
+									var directionWay = Direction8WayFromAngle(angle);
+									var facingCell = IntVec3FromDirection8Way(directionWay);
+									Log.Message("angle: " + angle + ", direction way: " + directionWay + " - facing cell: " + facingCell);
+									curBatch.Add(startCell + (facingCell * num));
+								}
+								if (curBatch.Count < width)
+								{
+									var oppositeAngle = GetOppositeAngle(angle);
+									var directionWay = Direction8WayFromAngle(oppositeAngle);
+									var facingCell = IntVec3FromDirection8Way(directionWay);
+									Log.Message("Opposite angle: " + oppositeAngle + ", direction way: " + directionWay + " - facing cell: " + facingCell);
+									curBatch.Add(startCell + (facingCell * num));
+								}
+								num++;
+							}
+							positions.AddRange(curBatch);
+						}
+						level++;
+					}
+				}
+			}
+			else
+            {
+				var resultingLine = new ShootLine(startingPosition.ToIntVec3(), end.ToIntVec3());
+				var points = resultingLine.Points();
+
+				var currentPos = curPosition;
+				currentPos.y = 0;
+				startingPosition.y = 0;
+				var destination = new Vector3(currentPos.x, currentPos.y, currentPos.z);
+
+				Vector3 pos = (startingPosition + currentPos) / 2f;
+				pos.y = 10;
+				pos += Quaternion.Euler(0, (startingPosition - currentPos).AngleFlat(), 0) * projectileDef.startingPositionOffset;
+
+				var distance = Vector3.Distance(startingPosition, currentPos) * projectileDef.totalSizeScale;
+				var distanceToTarget = Vector3.Distance(startingPosition, currentPos);
+				var widthFactor = distance / distanceToTarget;
+
+				var width = distance * projectileDef.widthScaleFactor * widthFactor;
+				if (projectileDef.minWidth > 0 && projectileDef.minWidth > width)
+                {
+					width = projectileDef.minWidth;
+				}
+				var height = distance * projectileDef.heightScaleFactor;
+				var centerOfLine = pos.ToIntVec3();
+				var startPosition = startingPosition.ToIntVec3();
+				var endPosition = curPosition.ToIntVec3();
+				var radius = height > width ? height : width;
+				//Log.Message("width: " + width + " - radius: " + radius);
+				if (points.Any())
+				{
+					foreach (var cell in GenRadial.RadialCellsAround(startingPosition.ToIntVec3(), radius, true))
 					{
-						var nearestCell = points.MinBy(x => x.DistanceToSquared(cell));
-						if ((width / height) * 2.5f > nearestCell.DistanceToSquared(cell))
+						if (centerOfLine.DistanceToSquared(endPosition) >= cell.DistanceToSquared(endPosition) && startPosition.DistanceTo(cell) > projectileDef.minDistanceToAffect)
+						{
+							var nearestCell = points.MinBy(x => x.DistanceToSquared(cell));
+							if ((width / height) > nearestCell.DistanceToSquared(cell))
+							{
+								positions.Add(cell);
+							}
+						}
+					}
+
+					foreach (var cell in points)
+					{
+						var startCellDistance = startPosition.DistanceTo(cell);
+						if (startCellDistance > projectileDef.minDistanceToAffect && startCellDistance <= startPosition.DistanceTo(endPosition))
 						{
 							positions.Add(cell);
 						}
-					}
-				}
-				foreach (var cell in points)
-				{
-					var startCellDistance = startPosition.DistanceTo(cell);
-					if (startCellDistance > def.minDistanceToAffect && startCellDistance <= startPosition.DistanceTo(endPosition))
-					{
-						positions.Add(cell);
 					}
 				}
 			}
@@ -283,7 +392,7 @@ namespace RT_Rimtroid
 			base.Tick();
 			if (Find.TickManager.TicksGame % this.def.tickDamageRate == 0)
 			{
-				var projectileLine = MakeProjectileLine(StartingPosition, DrawPos, this.Map);
+				var projectileLine = GetProjectileLine(this.def, CurPosition, StartingPosition, DrawPos);
 				foreach (var pos in projectileLine)
 				{
 					DoDamage(pos);
