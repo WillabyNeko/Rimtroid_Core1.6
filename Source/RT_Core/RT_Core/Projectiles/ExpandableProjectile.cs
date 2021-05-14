@@ -272,7 +272,7 @@ namespace RT_Rimtroid
 		}
 
 		[TweakValue("0RM", 0, 10)] private static float widthTweak = 2.5f;
-		public static HashSet<IntVec3> GetProjectileLine(ExpandableProjectileDef projectileDef, Vector3 curPosition, Vector3 startingPosition, Vector3 end)
+		public static HashSet<IntVec3> GetProjectileLine(ExpandableProjectileDef projectileDef, Vector3 curPosition, Vector3 startingPosition, Vector3 end, Map map)
 		{
 			HashSet<IntVec3> positions = new HashSet<IntVec3>();
 			if (projectileDef.fixedShape != null)
@@ -326,7 +326,14 @@ namespace RT_Rimtroid
             {
 				var resultingLine = new ShootLine(startingPosition.ToIntVec3(), end.ToIntVec3());
 				var points = resultingLine.Points();
-
+				foreach (var cell in points)
+                {
+					foreach (var adjCell in GenRadial.RadialCellsAround(cell, 5f, true))
+					{
+						positions.Add(cell);
+						map.debugDrawer.FlashCell(cell);
+					}
+				}
 				var currentPos = curPosition;
 				currentPos.y = 0;
 				startingPosition.y = 0;
@@ -392,7 +399,7 @@ namespace RT_Rimtroid
 			base.Tick();
 			if (Find.TickManager.TicksGame % this.def.tickDamageRate == 0)
 			{
-				var projectileLine = GetProjectileLine(this.def, CurPosition, StartingPosition, DrawPos);
+				var projectileLine = GetProjectileLine(this.def, CurPosition, StartingPosition, DrawPos, this.Map);
 				foreach (var pos in projectileLine)
 				{
 					DoDamage(pos);

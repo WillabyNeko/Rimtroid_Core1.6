@@ -59,7 +59,7 @@ namespace RT_Core
         {
             if (target.IsValid && target.CenterVector3 != Vector3.zero)
             {
-                var affectedCells = ExpandableProjectile.GetProjectileLine(ProjectileDef, target.CenterVector3, this.caster.DrawPos, target.CenterVector3).ToList();
+                var affectedCells = ExpandableProjectile.GetProjectileLine(ProjectileDef, target.CenterVector3, this.caster.DrawPos, target.CenterVector3, Find.CurrentMap).ToList();
                 GenDraw.DrawFieldEdges(affectedCells);
             }
         }
@@ -69,7 +69,7 @@ namespace RT_Core
             base.DrawHighlight(target);
             if (target.IsValid && target.CenterVector3 != Vector3.zero)
             {
-                var affectedCells = ExpandableProjectile.GetProjectileLine(ProjectileDef, target.CenterVector3, this.caster.DrawPos, target.CenterVector3).ToList();
+                var affectedCells = ExpandableProjectile.GetProjectileLine(ProjectileDef, target.CenterVector3, this.caster.DrawPos, target.CenterVector3, Find.CurrentMap).ToList();
                 GenDraw.DrawFieldEdges(affectedCells);
             }
         }
