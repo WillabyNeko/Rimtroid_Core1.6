@@ -311,6 +311,8 @@
     <Compile Include="Core\AbsorbEnergy\JobDriver_AbsorbEnergyFinal.cs" />
     <Compile Include="Core\AbsorbEnergy\AddPrisonerComp.cs" />
     <Compile Include="Core\AbsorbEnergy\ThoughtWorker_FoodTarget.cs" />
+    <Compile Include="Core\CompEvolutionTime.cs" />
+    <Compile Include="Core\CompProperties_EvolutionTime.cs" />
     <Compile Include="Core\CompUseEffect_InstallImplant.cs" />
     <Compile Include="Core\AbsorbEnergy\Ability_AbsorbEnergy.cs" />
     <Compile Include="Core\AbsorbEnergy\MapComponent_MetroidManager.cs" />
