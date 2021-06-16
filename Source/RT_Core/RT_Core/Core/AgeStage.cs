@@ -30,36 +30,59 @@ namespace RT_Core
             }
 
             var comp = pawn.TryGetComp<CompEvolutionTime>();
-            if (maxReroll > 0 && maxReroll > comp.curEvolutionTryCount)
+            if (chance <= 0 && maxReroll <= 0)
             {
-                return;
+                if (comp.nextEvolutionCheckTick == 0)
+                {
+                    comp.nextEvolutionCheckTick = (int)(GenDate.TicksPerYear * yearsInterval.RandomInRange);
+                }
+                else if (Find.TickManager.TicksGame > comp.nextEvolutionCheckTick)
+                {
+                    TryPerformMutation(pawn);
+                }
             }
-            if (comp.nextEvolutionCheckTick == 0)
+            else
             {
-                comp.nextEvolutionCheckTick = (int)(GenDate.TicksPerYear * yearsInterval.RandomInRange);
-            }
-            else if (Find.TickManager.TicksGame > comp.nextEvolutionCheckTick)
-            {
+                if (maxReroll > 0 && maxReroll > comp.curEvolutionTryCount)
+                {
+                    return;
+                }
+
                 if (chance > 0 && !Rand.Chance(chance))
                 {
                     comp.curEvolutionTryCount++;
                 }
-                else
+                else if (TryPerformMutation(pawn))
                 {
-                    var availableOptions = this.possibleEvolutionPaths.Where(x => pawn.ageTracker.AgeBiologicalYearsFloat >= x.requiredAge);
-                    if (availableOptions.TryRandomElementByWeight(x => x.weight, out var result))
-                    {
-                        Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(result.hediff);
-                        if (hediff == null)
-                        {
-                            var part = partsToAffect != null ? pawn.def.race.body.AllParts.FirstOrDefault(x => x.def == partsToAffect.RandomElement()) : null;
-                            hediff = HediffMaker.MakeHediff(result.hediff, pawn, part);
-                        }
-                        comp.curEvolutionTryCount = 0;
-                    }
+                    comp.curEvolutionTryCount = 0;
                 }
                 comp.nextEvolutionCheckTick = (int)(GenDate.TicksPerYear * yearsInterval.RandomInRange);
             }
+        }
+
+        private bool TryPerformMutation(Pawn pawn)
+        {
+            var availableOptions = this.possibleEvolutionPaths.Where(x => pawn.ageTracker.AgeBiologicalYearsFloat >= x.requiredAge);
+            if (availableOptions.TryRandomElementByWeight(x => x.weight, out var result))
+            {
+                foreach (var otherHediffDef in availableOptions.Select(x => x.hediff))
+                {
+                    var otherHediff = pawn.health.hediffSet.GetFirstHediffOfDef(otherHediffDef);
+                    if (otherHediff != null)
+                    {
+                        pawn.health.RemoveHediff(otherHediff);
+                    }
+                }
+                Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(result.hediff);
+                if (hediff == null)
+                {
+                    var part = partsToAffect != null ? pawn.def.race.body.AllParts.FirstOrDefault(x => x.def == partsToAffect.RandomElement()) : null;
+                    hediff = HediffMaker.MakeHediff(result.hediff, pawn, part);
+                }
+                pawn.health.AddHediff(hediff);
+                return true;
+            }
+            return false;
         }
     }
 }
