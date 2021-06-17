@@ -30,33 +30,24 @@ namespace RT_Core
             }
 
             var comp = pawn.TryGetComp<CompEvolutionTime>();
-            if (chance <= 0 && maxReroll <= 0)
+            if (comp.nextEvolutionCheckTick > 0 && Find.TickManager.TicksGame < comp.nextEvolutionCheckTick)
             {
-                if (comp.nextEvolutionCheckTick == 0)
-                {
-                    comp.nextEvolutionCheckTick = (int)(GenDate.TicksPerYear * yearsInterval.RandomInRange);
-                }
-                else if (Find.TickManager.TicksGame > comp.nextEvolutionCheckTick)
-                {
-                    TryPerformMutation(pawn);
-                }
+                return;
             }
-            else
+            if (maxReroll > 0 && maxReroll > comp.curEvolutionTryCount)
             {
-                if (maxReroll > 0 && maxReroll > comp.curEvolutionTryCount)
-                {
-                    return;
-                }
-
-                if (chance > 0 && !Rand.Chance(chance))
-                {
-                    comp.curEvolutionTryCount++;
-                }
-                else if (TryPerformMutation(pawn))
-                {
-                    comp.curEvolutionTryCount = 0;
-                }
+                return;
+            }
+            if (chance > 0 && !Rand.Chance(chance))
+            {
                 comp.nextEvolutionCheckTick = (int)(GenDate.TicksPerYear * yearsInterval.RandomInRange);
+                comp.curEvolutionTryCount++;
+                return;
+            }
+
+            if (TryPerformMutation(pawn))
+            {
+                comp.curEvolutionTryCount = 0;
             }
         }
 
