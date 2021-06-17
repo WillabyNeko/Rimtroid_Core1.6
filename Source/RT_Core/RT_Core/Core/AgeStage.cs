@@ -40,7 +40,7 @@ namespace RT_Core
             }
             if (chance > 0 && !Rand.Chance(chance))
             {
-                comp.nextEvolutionCheckYears = (int)(pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange);
+                comp.nextEvolutionCheckYears = pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange;
                 comp.curEvolutionTryCount++;
                 return;
             }
