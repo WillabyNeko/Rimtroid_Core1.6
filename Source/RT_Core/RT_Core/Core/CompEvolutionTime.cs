@@ -9,7 +9,7 @@ namespace RT_Rimtroid
 	public class CompEvolutionTime : ThingComp
 	{
 		public int curEvolutionTryCount;
-		public int nextEvolutionCheckTick;
+		public float nextEvolutionCheckYears;
 		public CompProperties_EvolutionTime Props
 		{
 			get
@@ -28,7 +28,7 @@ namespace RT_Rimtroid
         {
             base.PostExposeData();
 			Scribe_Values.Look(ref curEvolutionTryCount, "curEvolutionTryCount");
-			Scribe_Values.Look(ref nextEvolutionCheckTick, "nextEvolutionCheckTick");
+			Scribe_Values.Look(ref nextEvolutionCheckYears, "nextEvolutionCheckYears");
 		}
     }
 }

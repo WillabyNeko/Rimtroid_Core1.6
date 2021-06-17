@@ -30,7 +30,7 @@ namespace RT_Core
             }
 
             var comp = pawn.TryGetComp<CompEvolutionTime>();
-            if (comp.nextEvolutionCheckTick > 0 && Find.TickManager.TicksGame < comp.nextEvolutionCheckTick)
+            if (comp.nextEvolutionCheckYears > 0 && pawn.ageTracker.AgeBiologicalYearsFloat < comp.nextEvolutionCheckYears)
             {
                 return;
             }
@@ -40,7 +40,7 @@ namespace RT_Core
             }
             if (chance > 0 && !Rand.Chance(chance))
             {
-                comp.nextEvolutionCheckTick = (int)(GenDate.TicksPerYear * yearsInterval.RandomInRange);
+                comp.nextEvolutionCheckYears = (int)(pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange);
                 comp.curEvolutionTryCount++;
                 return;
             }
