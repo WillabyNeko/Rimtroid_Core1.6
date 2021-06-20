@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using RimWorld;
+using RT_Core;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
@@ -18,7 +19,10 @@ namespace RT_Rimtroid
 				{
 					foreach (var hediffGiver in pawn.RaceProps.hediffGiverSets.SelectMany((HediffGiverSetDef set) => set.hediffGivers))
 					{
-						hediffGiver.TryApply(pawn);
+						if (hediffGiver is HediffGiver_AfterPeriod)
+                        {
+							hediffGiver.OnIntervalPassed(pawn, null);
+                        }
 					}
 				}
 			}
