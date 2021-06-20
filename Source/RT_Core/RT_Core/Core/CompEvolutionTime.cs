@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -8,7 +9,22 @@ namespace RT_Rimtroid
 {
 	public class CompEvolutionTime : ThingComp
 	{
-		public int curEvolutionTryCount;
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            base.PostSpawnSetup(respawningAfterLoad);
+			if (!respawningAfterLoad)
+            {
+				if (parent is Pawn pawn && pawn.RaceProps.hediffGiverSets != null)
+				{
+					foreach (var hediffGiver in pawn.RaceProps.hediffGiverSets.SelectMany((HediffGiverSetDef set) => set.hediffGivers))
+					{
+						hediffGiver.TryApply(pawn);
+					}
+				}
+			}
+        }
+
+        public int curEvolutionTryCount;
 		public float nextEvolutionCheckYears;
 		public CompProperties_EvolutionTime Props
 		{
