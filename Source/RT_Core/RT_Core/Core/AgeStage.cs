@@ -11,6 +11,7 @@ namespace RT_Core
         public float requiredAge;
         public HediffDef hediff;
         public List<BodyPartDef> partsToAffect;
+        public List<HediffDef> hediffWhiteList;
         public float weight;
     }
     public class HediffGiver_AfterPeriod : HediffGiver
@@ -58,10 +59,13 @@ namespace RT_Core
             {
                 foreach (var otherHediffDef in availableOptions.Select(x => x.hediff))
                 {
-                    var otherHediff = pawn.health.hediffSet.GetFirstHediffOfDef(otherHediffDef);
-                    if (otherHediff != null)
+                    if (!result.hediffWhiteList?.Contains(otherHediffDef) ?? false)
                     {
-                        pawn.health.RemoveHediff(otherHediff);
+                        var otherHediff = pawn.health.hediffSet.GetFirstHediffOfDef(otherHediffDef);
+                        if (otherHediff != null)
+                        {
+                            pawn.health.RemoveHediff(otherHediff);
+                        }
                     }
                 }
                 Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(result.hediff);
