@@ -30,7 +30,7 @@ namespace RT_Core
                 return;
             }
 
-            var comp = pawn.TryGetComp<CompEvolutionTime>();
+            var comp = pawn.TryGetComp<CompEvolutionStage>();
             if (comp.nextEvolutionCheckYears > 0 && pawn.ageTracker.AgeBiologicalYearsFloat < comp.nextEvolutionCheckYears)
             {
                 return;

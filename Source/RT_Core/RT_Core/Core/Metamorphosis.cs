@@ -146,19 +146,19 @@ namespace Metamorphosis
             }
 
             parent.pawn.needs.food.CurLevel = 1;
-            var comp2 = Pawn.TryGetComp<CompEvolutionTime>();
+            var comp2 = Pawn.TryGetComp<CompEvolutionStage>();
             if (comp2 != null)
             {
                 //Remove the old comp
                 Pawn.AllComps.Remove(comp2);
             }
             //Try loading CompProperties from the def.
-            var props2 = kindDef.race.GetCompProperties<CompProperties_EvolutionTime>();
-            CompEvolutionTime newComp2 = null;
+            var props2 = kindDef.race.GetCompProperties<CompProperties_EvolutionStage>();
+            CompEvolutionStage newComp2 = null;
             if (props2 != null)
             {
                 //CompProperties found, so should gain the comp.
-                newComp2 = (CompEvolutionTime)Activator.CreateInstance(props2.compClass); //Create ThingComp from the loaded CompProperties.
+                newComp2 = (CompEvolutionStage)Activator.CreateInstance(props2.compClass); //Create ThingComp from the loaded CompProperties.
                 newComp2.parent = Pawn; //Set Comp parent.
                 Pawn.AllComps.Add(newComp2); //Add to pawn's comp list.
                 newComp2.Initialize(props2); //Initialize it.
