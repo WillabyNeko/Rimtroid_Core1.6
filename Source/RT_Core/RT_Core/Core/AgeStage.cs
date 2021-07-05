@@ -75,6 +75,10 @@ namespace RT_Core
                     hediff = HediffMaker.MakeHediff(result.hediff, pawn, part);
                 }
                 pawn.health.AddHediff(hediff);
+                if (pawn.ageTracker.AgeBiologicalYearsFloat >= result.requiredAge)
+                {
+                    pawn.health.RemoveHediff(hediff); // should start the evolution in case if the pawn is old enough hopefully
+                }
                 return true;
             }
             return false;
