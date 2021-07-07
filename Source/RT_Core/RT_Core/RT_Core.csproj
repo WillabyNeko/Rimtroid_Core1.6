@@ -343,7 +343,6 @@
     <Compile Include="Core\AbsorbEnergy\RT_EnergyDrain.cs" />
     <Compile Include="Core\MetroidFeedingStationOptions.cs" />
     <Compile Include="Core\LegacyModExtension.cs" />
-    <Compile Include="Core\Metamorphosis.cs" />
     <Compile Include="Core\Patch_DD_PawnComponentsUtility_AddAndRemoveDynamicComponents.cs" />
     <Compile Include="Core\RT_DefOf.cs" />
     <Compile Include="Core\Training.cs" />

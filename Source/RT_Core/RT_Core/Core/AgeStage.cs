@@ -12,6 +12,8 @@ namespace RT_Core
         public HediffDef hediff;
         public List<BodyPartDef> partsToAffect;
         public List<HediffDef> hediffWhiteList;
+        public PawnKindDef pawnKindDefToEvolve;
+        public IntRange ticksToConvert;
         public float weight;
     }
     public class HediffGiver_AfterPeriod : HediffGiver
@@ -33,26 +35,31 @@ namespace RT_Core
             var comp = pawn.TryGetComp<CompEvolutionStage>();
             if (comp.nextEvolutionCheckYears > 0 && pawn.ageTracker.AgeBiologicalYearsFloat < comp.nextEvolutionCheckYears)
             {
+                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - return; - 5", true);
                 return;
             }
             if (maxReroll > 0 && maxReroll > comp.curEvolutionTryCount)
             {
+                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - return; - 7", true);
                 return;
             }
             if (chance > 0 && !Rand.Chance(chance))
             {
+                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - comp.nextEvolutionCheckYears = pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange; - 9", true);
                 comp.nextEvolutionCheckYears = pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange;
+                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - comp.curEvolutionTryCount++; - 10", true);
                 comp.curEvolutionTryCount++;
+                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - return; - 11", true);
                 return;
             }
 
-            if (TryPerformMutation(pawn))
+            if (TryPerformMutation(pawn, comp))
             {
                 comp.curEvolutionTryCount = 0;
             }
         }
 
-        private bool TryPerformMutation(Pawn pawn)
+        private bool TryPerformMutation(Pawn pawn, CompEvolutionStage comp)
         {
             var availableOptions = this.possibleEvolutionPaths.Where(x => pawn.ageTracker.AgeBiologicalYearsFloat >= x.requiredAge);
             if (availableOptions.TryRandomElementByWeight(x => x.weight, out var result))
@@ -68,19 +75,22 @@ namespace RT_Core
                         }
                     }
                 }
-                Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(result.hediff);
+
+                var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(result.hediff);
                 if (hediff == null)
                 {
                     var part = partsToAffect != null ? pawn.def.race.body.AllParts.FirstOrDefault(x => x.def == partsToAffect.RandomElement()) : null;
                     hediff = HediffMaker.MakeHediff(result.hediff, pawn, part);
                 }
+                comp.pawnKindDefToConvert = result.pawnKindDefToEvolve;
+                comp.hediffWhiteList = result.hediffWhiteList;
+                comp.tickConversion = Find.TickManager.TicksGame + result.ticksToConvert.RandomInRange;
                 pawn.health.AddHediff(hediff);
-                if (pawn.ageTracker.AgeBiologicalYearsFloat >= result.requiredAge)
-                {
-                    pawn.health.RemoveHediff(hediff); // should start the evolution in case if the pawn is old enough hopefully
-                }
+
                 return true;
             }
+            Log.Message("return false -30", true);
+
             return false;
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
+using RT_Rimtroid;
 using UnityEngine;
 using Verse;
 using Verse.AI.Group;
@@ -14,6 +15,22 @@ namespace RT_Core
         public MapComponent_MetroidManager(Map map) : base(map)
         {
 
+        }
+
+        public override void MapComponentTick()
+        {
+            base.MapComponentTick();
+            for (int num = CompEvolutionStage.comps.Count - 1; num >= 0; num--)
+            {
+                var comp = CompEvolutionStage.comps[num];
+                if (comp.parent.Spawned && comp.parent.Map == this.map)
+                {
+                    if (comp.pawnKindDefToConvert != null && Find.TickManager.TicksGame > comp.tickConversion)
+                    {
+                        comp.TransformPawn(comp.pawnKindDefToConvert);
+                    }
+                }
+            }
         }
         public override void FinalizeInit()
         {
