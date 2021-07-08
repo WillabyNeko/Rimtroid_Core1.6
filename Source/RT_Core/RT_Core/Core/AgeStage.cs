@@ -13,7 +13,7 @@ namespace RT_Core
         public List<BodyPartDef> partsToAffect;
         public List<HediffDef> hediffWhiteList;
         public PawnKindDef pawnKindDefToEvolve;
-        public IntRange ticksToConvert;
+        public IntRange? ticksToConvert;
         public float weight;
     }
     public class HediffGiver_AfterPeriod : HediffGiver
@@ -35,21 +35,16 @@ namespace RT_Core
             var comp = pawn.TryGetComp<CompEvolutionStage>();
             if (comp.nextEvolutionCheckYears > 0 && pawn.ageTracker.AgeBiologicalYearsFloat < comp.nextEvolutionCheckYears)
             {
-                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - return; - 5", true);
                 return;
             }
             if (maxReroll > 0 && maxReroll > comp.curEvolutionTryCount)
             {
-                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - return; - 7", true);
                 return;
             }
             if (chance > 0 && !Rand.Chance(chance))
             {
-                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - comp.nextEvolutionCheckYears = pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange; - 9", true);
                 comp.nextEvolutionCheckYears = pawn.ageTracker.AgeBiologicalYearsFloat + yearsInterval.RandomInRange;
-                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - comp.curEvolutionTryCount++; - 10", true);
                 comp.curEvolutionTryCount++;
-                Log.Message("HediffGiver_AfterPeriod : HediffGiver - OnIntervalPassed - return; - 11", true);
                 return;
             }
 
@@ -84,13 +79,12 @@ namespace RT_Core
                 }
                 comp.pawnKindDefToConvert = result.pawnKindDefToEvolve;
                 comp.hediffWhiteList = result.hediffWhiteList;
-                comp.tickConversion = Find.TickManager.TicksGame + result.ticksToConvert.RandomInRange;
+                var ticksToConvert = result.ticksToConvert.HasValue ? result.ticksToConvert.Value.RandomInRange : 0;
+                comp.tickConversion = Find.TickManager.TicksGame + ticksToConvert;
                 pawn.health.AddHediff(hediff);
 
                 return true;
             }
-            Log.Message("return false -30", true);
-
             return false;
         }
     }

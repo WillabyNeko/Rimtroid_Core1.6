@@ -157,12 +157,6 @@ namespace RT_Rimtroid
                 Metroid.SetFaction(faction);
             }
 
-            ////spawn Husk if set
-            //if (Props.huskDef != null)
-            //{
-            //    GenSpawn.Spawn(ThingMaker.MakeThing(Props.huskDef), parent.pawn.Position, parent.pawn.Map);
-            //}
-
             Metroid.needs.food.CurLevel = 1;
             var comp2 = Metroid.TryGetComp<CompEvolutionStage>();
             if (comp2 != null)
@@ -189,7 +183,6 @@ namespace RT_Rimtroid
         public int curEvolutionTryCount;
         public float nextEvolutionCheckYears;
         public Pawn Metroid => this.parent as Pawn;
-
         public override void PostExposeData()
         {
             base.PostExposeData();
