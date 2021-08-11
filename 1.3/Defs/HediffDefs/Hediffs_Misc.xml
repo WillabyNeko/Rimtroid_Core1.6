@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<!--===============Def that slows down hunger for metroids when they are sleeping===============-->
+
+  <!--<HediffDef>
+    <defName>RT_SuperSecretSleepTrick</defName>
+		<label>energy conservation</label>
+		<labelNoun>energy conservation</labelNoun>
+		<description>Secretly slows down hunger while the metroid is sleeping. You shouldn't be seeing this!</description>
+    <comps>
+      <li Class="RT_Core.MetroidSleepSwitch"></li>
+    </comps>
+    <stages>
+      <li>
+				<becomeVisible>false</becomeVisible>
+        <minSeverity>0.0</minSeverity>
+        <hungerRateFactor>1</hungerRateFactor>
+      </li>
+      <li>
+				<becomeVisible>false</becomeVisible>
+        <minSeverity>0.5</minSeverity>
+        <hungerRateFactor>2</hungerRateFactor>
+      </li>
+    </stages>
+		</HediffDef>-->
+
+	<!--===============Cryo Burn Def===============-->
+
+	<HediffDef ParentName="InjuryBase">
+		<defName>RT_CryoBurn</defName>
+		<label>frostburn</label>
+		<labelNoun>Frostburn</labelNoun>
+		<description>A burn caused by intense exposure to cold.</description>
+		<comps>
+			<li Class="HediffCompProperties_TendDuration">
+				<labelTendedWell>bandaged</labelTendedWell>
+				<labelTendedWellInner>tended</labelTendedWellInner>
+				<labelSolidTendedWell>tended</labelSolidTendedWell>
+			</li>
+			<li Class="HediffCompProperties_Infecter">
+				<infectionChance>0.30</infectionChance>
+			</li>
+			<li Class="HediffCompProperties_GetsPermanent">
+				<permanentLabel>frostburn scar</permanentLabel>
+			</li>
+		</comps>
+		<injuryProps>
+			<painPerSeverity>0.01875</painPerSeverity>
+			<averagePainPerSeverityPermanent>0.00625</averagePainPerSeverityPermanent>
+			<canMerge>true</canMerge>
+			<destroyedLabel>Shattered</destroyedLabel>
+			<destroyedOutLabel>Shattered</destroyedOutLabel>
+		</injuryProps>
+	</HediffDef>
+
+	<!--===============Cryo Buildup Def===============-->
+
+	<HediffDef>
+		<defName>RT_CryoBuildup</defName>
+		<hediffClass>RT_Core.Hediff_CryoBuildup</hediffClass>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>frostbite</label>
+		<lethalSeverity>1</lethalSeverity>
+		<description>A sudden decrease in body temperature caused by a cryogenic weapon. Temperatures will return to normal shortly, but permanent injury can occur if temperatures continue to be too low.</description>
+
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-28</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>minor</label>
+				<minSeverity>0</minSeverity>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.1</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.2</offset>
+					</li>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.1</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<label>moderate</label>
+				<minSeverity>0.35</minSeverity>
+				<painOffset>0.15</painOffset>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.3</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.5</offset>
+					</li>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.15</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<label>serious</label>
+				<minSeverity>0.70</minSeverity>
+				<lifeThreatening>true</lifeThreatening>
+				<painOffset>0.30</painOffset>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.3</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.5</offset>
+					</li>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.5</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<!--===============Metroid Latch Defs===============-->
+
+	<HediffDef>
+		<defName>RT_LatchedMetroid</defName>
+		<hediffClass>RT_Core.Hediff_LatchedMetroid</hediffClass>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>latched metroid</label>
+		<description>GET THIS THING OFF OF ME</description>
+		<stages>
+			<li>
+				<becomeVisible>false</becomeVisible>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<HediffDef>
+		<defName>RT_MetroidHunting</defName>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>hunting metroid</label>
+		<description>metroid is on the prowl.</description>
+		<stages>
+			<li>
+				<becomeVisible>false</becomeVisible>
+        <hungerRateFactorOffset>-1.0</hungerRateFactorOffset>
+				<statFactors>
+					<MoveSpeed>2</MoveSpeed>
+				</statFactors>
+			</li>
+		</stages>
+	</HediffDef>
+	
+	<HediffDef>
+		<defName>RT_MetroidAbsorbEnergy</defName>
+		<hediffClass>RT_Core.Hediff_MetroidAbsorbEnergy</hediffClass>
+		<defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
+		<label>processing energy</label>
+		<description>metroid is processing energy, sustaining it and rapidly increasing it's physical age.</description>
+		<stages>
+			<li>
+				<becomeVisible>false</becomeVisible>
+			</li>
+		</stages>
+	</HediffDef>
+</Defs>
