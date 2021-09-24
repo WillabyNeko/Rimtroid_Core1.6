@@ -41,18 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\AbsorbEnergy\CompPrisonerFeed.cs" />
-    <Compile Include="Core\AbsorbEnergy\CompLatchedMetroid.cs" />
-    <Compile Include="Core\AbsorbEnergy\Hediff_MetroidAbsorbEnergy.cs" />
-    <Compile Include="Core\AbsorbEnergy\JobDriver_AbsorbEnergyFinal.cs" />
-    <Compile Include="Core\AbsorbEnergy\AddPrisonerComp.cs" />
-    <Compile Include="Core\AbsorbEnergy\ThoughtWorker_FoodTarget.cs" />
     <Compile Include="Core\CompEvolutionStage.cs" />
     <Compile Include="Core\CompProperties_EvolutionStage.cs" />
     <Compile Include="Core\CompUseEffect_InstallImplant.cs" />
-    <Compile Include="Core\AbsorbEnergy\Ability_AbsorbEnergy.cs" />
-    <Compile Include="Core\AbsorbEnergy\MapComponent_MetroidManager.cs" />
-    <Compile Include="Core\AbsorbEnergy\JobDriver_AbsorbingEnergy.cs" />
     <Compile Include="Core\JobDriver_EatFromStation.cs" />
     <Compile Include="Core\ForcedAgingCompProperties.cs" />
     <Compile Include="Core\AgeStage.cs" />
@@ -64,7 +55,6 @@
     <Compile Include="Core\CompFloating.cs" />
     <Compile Include="Core\CompProperties_Floating.cs" />
     <Compile Include="Core\CompSpawnerAdv.cs" />
-    <Compile Include="Core\AbsorbEnergy\JobGiver_GetLiveFood.cs" />
     <Compile Include="Core\CryoBuildup.cs" />
     <Compile Include="Core\CryoCompProperties.cs" />
     <Compile Include="Core\CryoImmunityComp.cs" />
@@ -74,9 +64,6 @@
     <Compile Include="Core\ForcedAgeUtils.cs" />
     <Compile Include="Core\ForcedAgingComp.cs" />
     <Compile Include="Core\HungerBerserkOptions.cs" />
-    <Compile Include="Core\Ingestion_MultipleHediffs.cs" />
-    <Compile Include="Core\AbsorbEnergy\Hediff_LatchedMetroid.cs" />
-    <Compile Include="Core\AbsorbEnergy\RT_EnergyDrain.cs" />
     <Compile Include="Core\MetroidFeedingStationOptions.cs" />
     <Compile Include="Core\LegacyModExtension.cs" />
     <Compile Include="Core\Patch_DD_PawnComponentsUtility_AddAndRemoveDynamicComponents.cs" />
@@ -147,10 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.3.3087</Version>
+      <Version>1.3.3117</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
-      <Version>2.0.4</Version>
+      <Version>2.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

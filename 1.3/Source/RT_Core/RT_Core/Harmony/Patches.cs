@@ -17,13 +17,6 @@ namespace RT_Core
         {
             var harmony = new Harmony("com.drazzii.rimworld.mod.RimtroidCore");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-            DefDatabase<ThingDef>.GetNamed("RT_BanteeMetroid").race.predator = true;
-            DefDatabase<ThingDef>.GetNamed("RT_MetroidLarvae").race.predator = true;
-            DefDatabase<ThingDef>.GetNamed("RT_AlphaMetroid").race.predator = true;
-            DefDatabase<ThingDef>.GetNamed("RT_GammaMetroid").race.predator = true;
-            DefDatabase<ThingDef>.GetNamed("RT_ZetaMetroid").race.predator = true;
-            DefDatabase<ThingDef>.GetNamed("RT_OmegaMetroid").race.predator = true;
-            DefDatabase<ThingDef>.GetNamed("RT_QueenMetroid").race.predator = true;
         }
     }
 
@@ -32,31 +25,6 @@ namespace RT_Core
         public ThingDef RT_DesiccatedDef;
     }
 
-    [HarmonyPatch(typeof(Pawn_JobTracker))]
-    [HarmonyPatch("StartJob")]
-    public static class StartJob_Patch
-    {
-        private static bool Prefix(Pawn ___pawn, Job newJob, JobCondition lastJobEndCondition)
-        {
-            if (newJob.def == JobDefOf.Vomit && ___pawn.IsAnyMetroid())
-            {
-                return false;
-            }
-            return true;
-        }
-    }
-
-    [HarmonyPatch(typeof(Hediff), "Severity", MethodType.Setter)]
-    public static class Severity_Patch
-    {
-        private static void Prefix(Hediff __instance, ref float value)
-        {
-            if (__instance.def == HediffDefOf.Malnutrition && (__instance.pawn?.IsAnyMetroid() ?? false) && value < 0)
-            {
-                value *= 3;
-            }
-        }
-    }
 
     //[HarmonyPatch(typeof(Pawn), "Kill")]
     //public static class RT_Desiccator_Pawn_Kill_Patch
