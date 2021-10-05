@@ -51,7 +51,7 @@ namespace RT_Rimtroid
             }
         }
 
-        public PawnKindDef pawnKindDefToConvert;
+        public PawnKindDef pawnKindDefToEvolve;
         public int tickConversion;
         public List<HediffDef> hediffWhiteList;
         public Hediff evolutionSource;
@@ -175,7 +175,7 @@ namespace RT_Rimtroid
                 Metroid.AllComps.Add(newComp2); //Add to pawn's comp list.
                 newComp2.Initialize(props2); //Initialize it.
             }
-            this.pawnKindDefToConvert = null;
+            this.pawnKindDefToEvolve = null;
         }
 
 
@@ -189,7 +189,7 @@ namespace RT_Rimtroid
             Scribe_Values.Look(ref curEvolutionTryCount, "curEvolutionTryCount");
             Scribe_Values.Look(ref nextEvolutionCheckYears, "nextEvolutionCheckYears");
 
-            Scribe_Defs.Look(ref pawnKindDefToConvert, "pawnKindDefToConvert");
+            Scribe_Defs.Look(ref pawnKindDefToEvolve, "pawnKindDefToEvolve");
             Scribe_Values.Look(ref tickConversion, "tickConversion");
             Scribe_Collections.Look(ref hediffWhiteList, "hediffWhiteList", LookMode.Def);
             Scribe_References.Look(ref evolutionSource, "evolutionSource");

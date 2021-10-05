@@ -9,10 +9,10 @@ namespace RT_Core
     public class EvolutionPath
     {
         public float requiredAge;
-        public HediffDef hediff;
-        public List<BodyPartDef> partsToAffect;
-        public List<HediffDef> hediffWhiteList;
-        public PawnKindDef pawnKindDefToEvolve;
+        public string hediff;
+        public List<string> partsToAffect;
+        public List<string> hediffWhiteList;
+        public string pawnKindDefToEvolve;
         public IntRange? ticksToConvert;
         public float weight;
     }
@@ -63,7 +63,7 @@ namespace RT_Core
                 {
                     if (!result.hediffWhiteList?.Contains(otherHediffDef) ?? false)
                     {
-                        var otherHediff = pawn.health.hediffSet.GetFirstHediffOfDef(otherHediffDef);
+                        var otherHediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDef.Named(otherHediffDef));
                         if (otherHediff != null)
                         {
                             pawn.health.RemoveHediff(otherHediff);
@@ -71,14 +71,19 @@ namespace RT_Core
                     }
                 }
 
-                var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(result.hediff);
+                var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDef.Named(result.hediff));
                 if (hediff == null)
                 {
                     var part = partsToAffect != null ? pawn.def.race.body.AllParts.FirstOrDefault(x => x.def == partsToAffect.RandomElement()) : null;
-                    hediff = HediffMaker.MakeHediff(result.hediff, pawn, part);
+                    hediff = HediffMaker.MakeHediff(HediffDef.Named(result.hediff), pawn, part);
                 }
-                comp.pawnKindDefToConvert = result.pawnKindDefToEvolve;
-                comp.hediffWhiteList = result.hediffWhiteList;
+
+                comp.pawnKindDefToEvolve = PawnKindDef.Named(result.pawnKindDefToEvolve);
+                comp.hediffWhiteList = new List<HediffDef>();
+                foreach (var defName in result.hediffWhiteList)
+                {
+                    comp.hediffWhiteList.Add(HediffDef.Named(defName));
+                }
                 var ticksToConvert = result.ticksToConvert.HasValue ? result.ticksToConvert.Value.RandomInRange : 0;
                 comp.tickConversion = Find.TickManager.TicksGame + ticksToConvert;
                 pawn.health.AddHediff(hediff);
