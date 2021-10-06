@@ -74,11 +74,15 @@ namespace RT_Rimtroid
                 Metroid.ageTracker.AgeBiologicalTicks = ageB;
                 Metroid.ageTracker.AgeChronologicalTicks = ageC;
 
-                //Remove all framework abilities.
-                foreach (AbilityDef def in Metroid.abilities.abilities.OfType<RT_Core.Ability_Base>().Select(ability => ability.def).ToList())
+                if (Metroid.abilities?.abilities != null)
                 {
-                    Metroid.abilities.RemoveAbility(def);
+                    //Remove all framework abilities.
+                    foreach (AbilityDef def in Metroid.abilities.abilities.OfType<RT_Core.Ability_Base>().Select(ability => ability.def).ToList())
+                    {
+                        Metroid.abilities.RemoveAbility(def);
+                    }
                 }
+
 
                 CompAbilityDefinition comp = Metroid.TryGetComp<CompAbilityDefinition>();
                 if (comp != null)
@@ -126,13 +130,13 @@ namespace RT_Rimtroid
             {
                 if (!hediffWhiteList.NullOrEmpty())
                 {
-                    for (int num = hediffWhiteList.Count - 1; num >= 0; num--)
+                    List<Hediff> removeable = Metroid.health.hediffSet.hediffs;
+                    for (int num = removeable.Count - 1; num >= 0; num--)
                     {
-                        var hediff = hediffWhiteList[num];
-                        var removeable = Metroid.health.hediffSet.hediffs.FirstOrDefault(x => x.def == hediff && x != evolutionSource);
-                        if (removeable != evolutionSource)
+                        var hediff = removeable[num];
+                        if (!hediffWhiteList.Contains(hediff.def) && hediff != evolutionSource)
                         {
-                            Metroid.health.RemoveHediff(removeable);
+                            Metroid.health.RemoveHediff(hediff);
                         }
                     }
                 }

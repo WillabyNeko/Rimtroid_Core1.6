@@ -78,6 +78,7 @@ namespace RT_Core
                     hediff = HediffMaker.MakeHediff(HediffDef.Named(result.hediff), pawn, part);
                 }
 
+                comp.evolutionSource = hediff;
                 comp.pawnKindDefToEvolve = PawnKindDef.Named(result.pawnKindDefToEvolve);
                 comp.hediffWhiteList = new List<HediffDef>();
                 foreach (var defName in result.hediffWhiteList)
