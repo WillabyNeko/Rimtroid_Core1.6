@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
+    "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core_Private\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
   },
   "projects": {
-    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
+    "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core_Private\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "projectUniqueName": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core_Private\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
         "projectName": "RT_Core",
-        "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
-        "packagesPath": "C:\\Users\\Vova\\.nuget\\packages\\",
-        "outputPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.3\\Source\\RT_Core\\RT_Core\\obj\\",
+        "projectPath": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core_Private\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "packagesPath": "C:\\Users\\zerov\\.nuget\\packages\\",
+        "outputPath": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core_Private\\1.3\\Source\\RT_Core\\RT_Core\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
-          "C:\\Users\\Vova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\zerov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "L2iqn7mDfTmKiiizIOUMu8tz0j/UpAvtmFoskOxOyOXcfpbQoPDDovrVy9btN5g8s8U2pvuSPBhgWJe6Ll/1eQ==",
+  "dgSpecHash": "MemBbQRvbH8KoGFd5IMlxSRw7Y6gG2SsPTR3rBSBq26Rj7envNO92/DvleWI+E77eUUY6R/aXzoKQWFQ3mwvcw==",
   "success": true,
-  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+  "projectFilePath": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core_Private\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Vova\\.nuget\\packages\\krafs.rimworld.ref\\1.3.3117\\krafs.rimworld.ref.1.3.3117.nupkg.sha512",
-    "C:\\Users\\Vova\\.nuget\\packages\\lib.harmony\\2.1.1\\lib.harmony.2.1.1.nupkg.sha512"
+    "C:\\Users\\zerov\\.nuget\\packages\\krafs.rimworld.ref\\1.3.3117\\krafs.rimworld.ref.1.3.3117.nupkg.sha512",
+    "C:\\Users\\zerov\\.nuget\\packages\\lib.harmony\\2.1.1\\lib.harmony.2.1.1.nupkg.sha512"
   ],
   "logs": []
 }

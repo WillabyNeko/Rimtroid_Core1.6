@@ -20,33 +20,11 @@ namespace RT_Rimtroid
             {
                 comps.Add(this);
             }
-
             if (!respawningAfterLoad)
             {
-
                 if (parent is Pawn pawn)
                 {
-                    if (Props.spawnStage != null)
-                    {
-                        Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(Props.spawnStage);
-                        if (hediff == null)
-                        {
-                            var part = Props.partsToAffect != null ? pawn.def.race.body.AllParts.FirstOrDefault(x => x.def == Props.partsToAffect.RandomElement()) : null;
-                            hediff = HediffMaker.MakeHediff(Props.spawnStage, pawn, part);
-                        }
-                        pawn.health.AddHediff(hediff);
-                    }
-
-                    if (pawn.RaceProps.hediffGiverSets != null)
-                    {
-                        foreach (var hediffGiver in pawn.RaceProps.hediffGiverSets.SelectMany((HediffGiverSetDef set) => set.hediffGivers))
-                        {
-                            if (hediffGiver is HediffGiver_AfterPeriod)
-                            {
-                                hediffGiver.OnIntervalPassed(pawn, null);
-                            }
-                        }
-                    }
+                    HediffGiver();
                 }
             }
         }
@@ -155,6 +133,7 @@ namespace RT_Rimtroid
             }
 
             //save the pawn
+            parent.ExposeData();
             //parent.pawn.ExposeData();
             if (Metroid.Faction != faction)
             {
@@ -178,10 +157,35 @@ namespace RT_Rimtroid
                 newComp2.parent = Metroid; //Set Comp parent.
                 Metroid.AllComps.Add(newComp2); //Add to pawn's comp list.
                 newComp2.Initialize(props2); //Initialize it.
+                newComp2.PostSpawnSetup(false);
+
             }
             this.pawnKindDefToEvolve = null;
         }
 
+        public void HediffGiver()
+        {
+            if (Props.spawnStage != null)
+            {
+                Hediff hediff = Metroid.health.hediffSet.GetFirstHediffOfDef(Props.spawnStage);
+                if (hediff == null)
+                {
+                    var part = Props.partsToAffect != null ? Metroid.def.race.body.AllParts.FirstOrDefault(x => x.def == Props.partsToAffect.RandomElement()) : null;
+                    hediff = HediffMaker.MakeHediff(Props.spawnStage, Metroid, part);
+                }
+                Metroid.health.AddHediff(hediff);
+            }
+            if (Metroid.RaceProps.hediffGiverSets != null)
+            {
+                foreach (var hediffGiver in Metroid.RaceProps.hediffGiverSets.SelectMany((HediffGiverSetDef set) => set.hediffGivers))
+                {
+                    if (hediffGiver is HediffGiver_AfterPeriod)
+                    {
+                        hediffGiver.OnIntervalPassed(Metroid, null);
+                    }
+                }
+            }
+        }
 
 
         public int curEvolutionTryCount;

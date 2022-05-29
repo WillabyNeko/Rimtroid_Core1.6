@@ -82,3 +82,8 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\So
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Assemblies\RT_Core.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CopyComplete
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Assemblies\RT_Core.dll
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CopyComplete
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
