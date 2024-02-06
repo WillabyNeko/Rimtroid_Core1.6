@@ -1,59 +1,80 @@
-using Verse;
+﻿using Verse;
+using RimWorld;
 
-namespace RT_Core;
-
-public static class ForcedAgeUtils
+namespace RT_Core
 {
-	public enum AgeUpdateMethod
-	{
-		AddAge,
-		SetAge
-	}
+    public static class ForcedAgeUtils
+    {
+        public enum AgeUpdateMethod { AddAge, SetAge }
 
-	public static long YearsToTicks(float years)
-	{
-		return (long)(years * 3600000f);
-	}
+        public static long YearsToTicks(float years)
+        {
+            return (long)(years * (float)GenDate.TicksPerYear);
+        }
 
-	public static float TicksToYears(long ticks)
-	{
-		return (float)ticks / 3600000f;
-	}
+        public static float TicksToYears(long ticks)
+        {
+            return (ticks / (float)GenDate.TicksPerYear);
+        }
 
-	private static void BatchedAddTicks(Pawn pawn, long ticks)
-	{
-		while (ticks != 0)
-		{
-			int num = 0;
-			num = (int)((ticks >= int.MinValue) ? ((ticks <= int.MaxValue) ? ticks : int.MaxValue) : int.MinValue);
-			ticks -= num;
-			pawn.ageTracker.AgeTickMothballed(num);
-		}
-		pawn.ageTracker.AgeBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks;
-		int curLifeStageIndex = pawn.ageTracker.CurLifeStageIndex;
-	}
+        private static void BatchedAddTicks(Pawn pawn, long ticks)
+        {
+            //Hack. Integer -can- overflow if you add more than 597 years at once. But we're limited by the method parameter...
+            while (ticks != 0)
+            {
+                int tickBatch = 0;
+                if (ticks < int.MinValue)
+                { //Take a slice that fits within an int. (negative)
+                    tickBatch = int.MinValue;
+                }
+                else if (ticks > int.MaxValue)
+                { //Take a slice that fits within an int. (positive)
+                    tickBatch = int.MaxValue;
+                }
+                else
+                { //Take the remaining slice.
+                    tickBatch = (int)ticks;
+                }
 
-	public static void SetPawnAge(Pawn pawn, float years)
-	{
-		if (years < 0f)
-		{
-			years = 0f;
-		}
-		long num = YearsToTicks(years);
-		num -= pawn.ageTracker.AgeBiologicalTicks;
-		BatchedAddTicks(pawn, num);
-	}
+                ticks -= tickBatch; //Remove slice from the total amount of ticks we need to process.
+                pawn.ageTracker.AgeTickMothballed(tickBatch); //Process a slice.
+            }
 
-	public static void AddPawnAge(Pawn pawn, float years)
-	{
-		long num = YearsToTicks(years);
-		if (pawn.ageTracker.AgeBiologicalTicks + num < 0)
-		{
-			SetPawnAge(pawn, 0f);
-		}
-		else
-		{
-			BatchedAddTicks(pawn, num);
-		}
-	}
+            //Another hack. Force a refresh by setting the ticks manually, then requesting the index.
+            pawn.ageTracker.AgeBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks;
+            int index = pawn.ageTracker.CurLifeStageIndex;
+        }
+
+        public static void SetPawnAge(Pawn pawn, float years)
+        {
+            if (years < 0)
+            {
+                years = 0;
+            }
+
+            long ticks = YearsToTicks(years);
+
+            ticks = ticks - pawn.ageTracker.AgeBiologicalTicks;
+
+            //pawn.ageTracker.AgeBiologicalTicks = ticks;
+            //pawn.ageTracker.AgeChronologicalTicks = ticks;
+
+            BatchedAddTicks(pawn, ticks);
+        }
+
+        public static void AddPawnAge(Pawn pawn, float years)
+        {
+            long ticks = YearsToTicks(years);
+
+            if (pawn.ageTracker.AgeBiologicalTicks + ticks < 0)
+            { //Avoids age going negative when reducing it.
+                SetPawnAge(pawn, 0);
+            }
+            else
+            {
+                BatchedAddTicks(pawn, ticks);
+            }
+        }
+    }
 }
+

@@ -1,6 +1,16 @@
-namespace RT_Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-internal interface IDrawnWeaponWithRotation
+namespace RT_Core
 {
-	float RotationOffset { get; set; }
+    interface IDrawnWeaponWithRotation
+    {
+        float RotationOffset
+        {
+            get;
+            set;
+        }
+    }
 }

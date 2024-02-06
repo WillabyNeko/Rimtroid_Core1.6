@@ -1,28 +1,21 @@
-using RimWorld;
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Verse;
 
-namespace RT_Core;
-
-public class AbilityComp_Base : CompAbilityEffect
+namespace RT_Core
 {
-	public new virtual bool CanCast => true;
+    public class AbilityComp_Base : CompAbilityEffect
+    {
+        public virtual bool CanCast => true;
+        public virtual Command Gizmo => null;
 
-	public virtual Command Gizmo => null;
-
-	public virtual bool CanActivateOn(LocalTargetInfo target, LocalTargetInfo dest)
-	{
-		return true;
-	}
-
-	public virtual void PostTick()
-	{
-	}
-
-	public new virtual void PostExposeData()
-	{
-	}
-
-	public virtual void PostReset()
-	{
-	}
+        public virtual bool CanActivateOn(LocalTargetInfo target, LocalTargetInfo dest) => true;
+        public virtual void PostTick() { }
+        public virtual void PostExposeData() { }
+        public virtual void PostReset() { }
+    }
 }

@@ -1,177 +1,206 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using RT_Core;
+using UnityEngine;
 using Verse;
+using Verse.Sound;
 
-namespace RT_Rimtroid;
-
-public class CompEvolutionStage : ThingComp
+namespace RT_Rimtroid
 {
-	public static List<CompEvolutionStage> comps = new();
+    public class CompEvolutionStage : ThingComp
+    {
+        public static List<CompEvolutionStage> comps = new List<CompEvolutionStage>();
+        public CompProperties_EvolutionStage Props => base.props as CompProperties_EvolutionStage;
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            base.PostSpawnSetup(respawningAfterLoad);
+            if (!comps.Contains(this))
+            {
+                comps.Add(this);
+            }
+            if (!respawningAfterLoad)
+            {
+                if (parent is Pawn pawn)
+                {
+                    HediffGiver();
+                }
+            }
+        }
 
-	public PawnKindDef pawnKindDefToEvolve;
+        public PawnKindDef pawnKindDefToEvolve;
+        public int tickConversion;
+        public List<HediffDef> hediffWhiteList;
+        public Hediff evolutionSource;
+        public void TransformPawn(PawnKindDef kindDef)
+        {
+            //sets position, faction and map
+            IntVec3 intv = Metroid.Position;
+            Faction faction = Metroid.Faction;
+            Map map = Metroid.Map;
+            RegionListersUpdater.DeregisterInRegions(Metroid, map);
 
-	public int tickConversion;
+            //Change Race to Props.raceDef
+            if (kindDef != null && kindDef != Metroid.kindDef)
+            {
+                Metroid.def = kindDef.race;
+                Metroid.kindDef = kindDef;
+                long ageB = Metroid.ageTracker.AgeBiologicalTicks;
+                long ageC = Metroid.ageTracker.AgeChronologicalTicks;
+                Metroid.ageTracker = new Pawn_AgeTracker(Metroid);
+                Metroid.ageTracker.AgeBiologicalTicks = ageB;
+                Metroid.ageTracker.AgeChronologicalTicks = ageC;
 
-	public List<HediffDef> hediffWhiteList;
+                if (Metroid.abilities?.abilities != null)
+                {
+                    //Remove all framework abilities.
+                    foreach (AbilityDef def in Metroid.abilities.abilities.OfType<RT_Core.Ability_Base>().Select(ability => ability.def).ToList())
+                    {
+                        Metroid.abilities.RemoveAbility(def);
+                    }
+                }
 
-	public Hediff evolutionSource;
 
-	public int curEvolutionTryCount;
+                CompAbilityDefinition comp = Metroid.TryGetComp<CompAbilityDefinition>();
+                if (comp != null)
+                {
+                    //Remove the old comp
+                    Metroid.AllComps.Remove(comp);
+                }
 
-	public float nextEvolutionCheckYears;
+                //Try loading CompProperties from the def.
+                CompProperties props = kindDef.race.CompDefFor<RT_Core.CompAbilityDefinition>();
+                RT_Core.CompAbilityDefinition newComp = null;
 
-	public CompProperties_EvolutionStage Props => props as CompProperties_EvolutionStage;
+                if (props != null)
+                {
+                    //CompProperties found, so should gain the comp.
+                    newComp = (RT_Core.CompAbilityDefinition)Activator.CreateInstance(props.compClass); //Create ThingComp from the loaded CompProperties.
+                    newComp.parent = Metroid; //Set Comp parent.
+                    Metroid.AllComps.Add(newComp); //Add to pawn's comp list.
+                    newComp.Initialize(props); //Initialize it.
+                }
 
-	public Pawn Metroid => parent as Pawn;
+                if (newComp != null)
+                {
+                    //Optionally, carry the data over.
+                    if (comp != null)
+                    {
+                        //[NOTE] To carry over the values, make sure you change both damageTotal and killCounter from private to public in CompAbilityDefinition.
+                        //newComp.damageTotal = comp.damageTotal;
+                        //newComp.killCounter = comp.killCounter;
+                    }
 
-	public override void PostSpawnSetup(bool respawningAfterLoad)
-	{
-		base.PostSpawnSetup(respawningAfterLoad);
-		if (!comps.Contains(this))
-		{
-			comps.Add(this);
-		}
-		if (!respawningAfterLoad && parent is Pawn)
-		{
-			HediffGiver();
-		}
-	}
+                    //Tick the comp to force it to process/add abilities.
+                    newComp.CompTickRare();
+                }
+            }
 
-	public void TransformPawn(PawnKindDef kindDef)
-	{
-		IntVec3 position = Metroid.Position;
-		Faction faction = Metroid.Faction;
-		Map map = Metroid.Map;
-		RegionListersUpdater.DeregisterInRegions(Metroid, map);
-		if (kindDef != null && kindDef != Metroid.kindDef)
-		{
-			Metroid.def = kindDef.race;
-			Metroid.kindDef = kindDef;
-			long ageBiologicalTicks = Metroid.ageTracker.AgeBiologicalTicks;
-			long ageChronologicalTicks = Metroid.ageTracker.AgeChronologicalTicks;
-			Metroid.ageTracker = new Pawn_AgeTracker(Metroid);
-			Metroid.ageTracker.AgeBiologicalTicks = ageBiologicalTicks;
-			Metroid.ageTracker.AgeChronologicalTicks = ageChronologicalTicks;
-			if (Metroid.abilities?.abilities != null)
-			{
-				foreach (AbilityDef item in (from ability in Metroid.abilities.abilities.OfType<Ability_Base>()
-					select ability.def).ToList())
-				{
-					Metroid.abilities.RemoveAbility(item);
-				}
-			}
-			CompAbilityDefinition compAbilityDefinition = Metroid.TryGetComp<CompAbilityDefinition>();
-			if (compAbilityDefinition != null)
-			{
-				Metroid.AllComps.Remove(compAbilityDefinition);
-			}
-			CompProperties compProperties = kindDef.race.CompDefFor<CompAbilityDefinition>();
-			CompAbilityDefinition compAbilityDefinition2 = null;
-			if (compProperties != null)
-			{
-				compAbilityDefinition2 = (CompAbilityDefinition)Activator.CreateInstance(compProperties.compClass);
-				compAbilityDefinition2.parent = Metroid;
-				Metroid.AllComps.Add(compAbilityDefinition2);
-				compAbilityDefinition2.Initialize(compProperties);
-			}
-			if (compAbilityDefinition2 != null)
-			{
-				if (compAbilityDefinition != null)
-				{
-				}
-				compAbilityDefinition2.CompTickRare();
-			}
-		}
-		RegionListersUpdater.RegisterInRegions(Metroid, map);
-		map.mapPawns.UpdateRegistryForPawn(Metroid);
-		Metroid.Drawer.renderer.graphics.ResolveAllGraphics();
-		if (!Metroid.health.hediffSet.hediffs.NullOrEmpty())
-		{
-			if (!hediffWhiteList.NullOrEmpty())
-			{
-				List<Hediff> hediffs = Metroid.health.hediffSet.hediffs;
-				for (int num = hediffs.Count - 1; num >= 0; num--)
-				{
-					Hediff hediff = hediffs[num];
-					if (!hediffWhiteList.Contains(hediff.def) && hediff != evolutionSource)
-					{
-						Metroid.health.RemoveHediff(hediff);
-					}
-				}
-			}
-			else
-			{
-				List<Hediff> hediffs2 = Metroid.health.hediffSet.hediffs;
-				for (int num2 = hediffs2.Count - 1; num2 >= 0; num2--)
-				{
-					Hediff hediff2 = hediffs2[num2];
-					if (hediff2 != evolutionSource)
-					{
-						Metroid.health.RemoveHediff(hediff2);
-					}
-				}
-			}
-		}
-		parent.ExposeData();
-		if (Metroid.Faction != faction)
-		{
-			Metroid.SetFaction(faction);
-		}
-		Metroid.needs.food.CurLevel = 1f;
-		CompEvolutionStage compEvolutionStage = Metroid.TryGetComp<CompEvolutionStage>();
-		if (compEvolutionStage != null)
-		{
-			Metroid.AllComps.Remove(compEvolutionStage);
-		}
-		CompProperties_EvolutionStage compProperties2 = kindDef.race.GetCompProperties<CompProperties_EvolutionStage>();
-		CompEvolutionStage compEvolutionStage2 = null;
-		if (compProperties2 != null)
-		{
-			compEvolutionStage2 = (CompEvolutionStage)Activator.CreateInstance(compProperties2.compClass);
-			compEvolutionStage2.parent = Metroid;
-			Metroid.AllComps.Add(compEvolutionStage2);
-			compEvolutionStage2.Initialize(compProperties2);
-			compEvolutionStage2.PostSpawnSetup(respawningAfterLoad: false);
-		}
-		pawnKindDefToEvolve = null;
-	}
+            RegionListersUpdater.RegisterInRegions(Metroid, map);
+            map.mapPawns.UpdateRegistryForPawn(Metroid);
 
-	public void HediffGiver()
-	{
-		if (Props.spawnStage != null)
-		{
-			Hediff hediff = Metroid.health.hediffSet.GetFirstHediffOfDef(Props.spawnStage);
-			if (hediff == null)
-			{
-				BodyPartRecord partRecord = ((Props.partsToAffect != null) ? Enumerable.FirstOrDefault(Metroid.def.race.body.AllParts, (BodyPartRecord x) => x.def == Props.partsToAffect.RandomElement()) : null);
-				hediff = HediffMaker.MakeHediff(Props.spawnStage, Metroid, partRecord);
-			}
-			Metroid.health.AddHediff(hediff);
-		}
-		if (Metroid.RaceProps.hediffGiverSets == null)
-		{
-			return;
-		}
-		foreach (HediffGiver item in Metroid.RaceProps.hediffGiverSets.SelectMany((HediffGiverSetDef set) => set.hediffGivers))
-		{
-			if (item is HediffGiver_AfterPeriod)
-			{
-				item.OnIntervalPassed(Metroid, null);
-			}
-		}
-	}
+            //decache graphics
+            Metroid.Drawer.renderer.graphics.ResolveAllGraphics();
 
-	public override void PostExposeData()
-	{
-		base.PostExposeData();
-		Scribe_Values.Look(ref curEvolutionTryCount, "curEvolutionTryCount", 0);
-		Scribe_Values.Look(ref nextEvolutionCheckYears, "nextEvolutionCheckYears", 0f);
-		Scribe_Defs.Look(ref pawnKindDefToEvolve, "pawnKindDefToEvolve");
-		Scribe_Values.Look(ref tickConversion, "tickConversion", 0);
-		Scribe_Collections.Look(ref hediffWhiteList, "hediffWhiteList", LookMode.Def);
-		Scribe_References.Look(ref evolutionSource, "evolutionSource");
-	}
+            // remove non whitelisted hediffs
+            if (!Metroid.health.hediffSet.hediffs.NullOrEmpty())
+            {
+                if (!hediffWhiteList.NullOrEmpty())
+                {
+                    List<Hediff> removeable = Metroid.health.hediffSet.hediffs;
+                    for (int num = removeable.Count - 1; num >= 0; num--)
+                    {
+                        var hediff = removeable[num];
+                        if (!hediffWhiteList.Contains(hediff.def) && hediff != evolutionSource)
+                        {
+                            Metroid.health.RemoveHediff(hediff);
+                        }
+                    }
+                }
+                else
+                {
+                    List<Hediff> removeable = Metroid.health.hediffSet.hediffs;
+                    for (int num = removeable.Count - 1; num >= 0; num--)
+                    {
+                        var item = removeable[num];
+                        if (item != evolutionSource)
+                        {
+                            Metroid.health.RemoveHediff(item);
+                        }
+                    }
+                }
+            }
+
+            //save the pawn
+            parent.ExposeData();
+            //parent.pawn.ExposeData();
+            if (Metroid.Faction != faction)
+            {
+                Metroid.SetFaction(faction);
+            }
+
+            Metroid.needs.food.CurLevel = 1;
+            var comp2 = Metroid.TryGetComp<CompEvolutionStage>();
+            if (comp2 != null)
+            {
+                //Remove the old comp
+                Metroid.AllComps.Remove(comp2);
+            }
+            //Try loading CompProperties from the def.
+            var props2 = kindDef.race.GetCompProperties<CompProperties_EvolutionStage>();
+            CompEvolutionStage newComp2 = null;
+            if (props2 != null)
+            {
+                //CompProperties found, so should gain the comp.
+                newComp2 = (CompEvolutionStage)Activator.CreateInstance(props2.compClass); //Create ThingComp from the loaded CompProperties.
+                newComp2.parent = Metroid; //Set Comp parent.
+                Metroid.AllComps.Add(newComp2); //Add to pawn's comp list.
+                newComp2.Initialize(props2); //Initialize it.
+                newComp2.PostSpawnSetup(false);
+
+            }
+            this.pawnKindDefToEvolve = null;
+        }
+
+        public void HediffGiver()
+        {
+            if (Props.spawnStage != null)
+            {
+                Hediff hediff = Metroid.health.hediffSet.GetFirstHediffOfDef(Props.spawnStage);
+                if (hediff == null)
+                {
+                    var part = Props.partsToAffect != null ? Metroid.def.race.body.AllParts.FirstOrDefault(x => x.def == Props.partsToAffect.RandomElement()) : null;
+                    hediff = HediffMaker.MakeHediff(Props.spawnStage, Metroid, part);
+                }
+                Metroid.health.AddHediff(hediff);
+            }
+            if (Metroid.RaceProps.hediffGiverSets != null)
+            {
+                foreach (var hediffGiver in Metroid.RaceProps.hediffGiverSets.SelectMany((HediffGiverSetDef set) => set.hediffGivers))
+                {
+                    if (hediffGiver is HediffGiver_AfterPeriod)
+                    {
+                        hediffGiver.OnIntervalPassed(Metroid, null);
+                    }
+                }
+            }
+        }
+
+
+        public int curEvolutionTryCount;
+        public float nextEvolutionCheckYears;
+        public Pawn Metroid => this.parent as Pawn;
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref curEvolutionTryCount, "curEvolutionTryCount");
+            Scribe_Values.Look(ref nextEvolutionCheckYears, "nextEvolutionCheckYears");
+
+            Scribe_Defs.Look(ref pawnKindDefToEvolve, "pawnKindDefToEvolve");
+            Scribe_Values.Look(ref tickConversion, "tickConversion");
+            Scribe_Collections.Look(ref hediffWhiteList, "hediffWhiteList", LookMode.Def);
+            Scribe_References.Look(ref evolutionSource, "evolutionSource");
+        }
+    }
 }

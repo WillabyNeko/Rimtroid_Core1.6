@@ -1,50 +1,53 @@
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
+using System.Runtime.Remoting.Messaging;
+using UnityEngine;
 using Verse;
+using Verse.Sound;
 
-namespace RT_Rimtroid;
-
-public class FlamethrowProjectile : ExpandableProjectile
+namespace RT_Rimtroid
 {
-	public override void DoDamage(IntVec3 pos)
+	public class FlamethrowProjectile : ExpandableProjectile
 	{
-		base.DoDamage(pos);
-		try
+		public override void DoDamage(IntVec3 pos)
 		{
-			if (!(pos != launcher.Position) || launcher.Map == null || !pos.InBounds(launcher.Map))
+			base.DoDamage(pos);
+			try
 			{
-				return;
-			}
-			List<Thing> list = launcher.Map.thingGrid.ThingsListAt(pos);
-			for (int num = list.Count - 1; num >= 0; num--)
-			{
-				if (list[num].def != base.Def && list[num] != launcher && list[num].def != ThingDefOf.Fire && !(list[num] is Mote) && !(list[num] is Filth))
+				if (pos != this.launcher.Position && this.launcher.Map != null && GenGrid.InBounds(pos, this.launcher.Map))
 				{
-					if (!list.Where((Thing x) => x.def == ThingDefOf.Fire).Any())
+					var list = this.launcher.Map.thingGrid.ThingsListAt(pos);
+					for (int num = list.Count - 1; num >= 0; num--)
 					{
-						CompAttachBase compAttachBase = list[num].TryGetComp<CompAttachBase>();
-						Fire fire = (Fire)ThingMaker.MakeThing(ThingDefOf.Fire);
-						fire.fireSize = 1f;
-						GenSpawn.Spawn(fire, list[num].Position, list[num].Map, Rot4.North);
-						if (compAttachBase != null)
+						if (list[num].def != this.def && list[num] != this.launcher && list[num].def != ThingDefOf.Fire && (!(list[num] is Mote) && (!(list[num] is Filth))))
 						{
-							fire.AttachTo(list[num]);
-							if (list[num] is Pawn pawn)
+							if (!list.Where(x => x.def == ThingDefOf.Fire).Any())
 							{
-								pawn.jobs.StopAll();
-								pawn.records.Increment(RecordDefOf.TimesOnFire);
+								CompAttachBase compAttachBase = list[num].TryGetComp<CompAttachBase>();
+								Fire obj = (Fire)ThingMaker.MakeThing(ThingDefOf.Fire);
+								obj.fireSize = 1f;
+								GenSpawn.Spawn(obj, list[num].Position, list[num].Map, Rot4.North);
+								if (compAttachBase != null)
+								{
+									obj.AttachTo(list[num]);
+									Pawn pawn = list[num] as Pawn;
+									if (pawn != null)
+									{
+										pawn.jobs.StopAll();
+										pawn.records.Increment(RecordDefOf.TimesOnFire);
+									}
+								}
 							}
+							this.customImpact = true;
+							base.Impact(list[num]);
+							this.customImpact = false;
 						}
 					}
-					customImpact = true;
-					Impact(list[num]);
-					customImpact = false;
 				}
 			}
-		}
-		catch
-		{
+			catch { };
 		}
 	}
 }

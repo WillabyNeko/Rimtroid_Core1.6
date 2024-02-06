@@ -1,8 +1,16 @@
-namespace RT_Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Verse;
 
-public abstract class AbilityGainCondition
+namespace RT_Core
 {
-	public abstract bool IsSatisfied(CompAbilityDefinition def);
+    public abstract class AbilityGainCondition
+    {
+        public abstract bool IsSatisfied(CompAbilityDefinition def);
 
-	public abstract bool IsFulfilled(CompAbilityDefinition def);
+        public abstract bool IsFulfilled(CompAbilityDefinition def);
+    }
 }

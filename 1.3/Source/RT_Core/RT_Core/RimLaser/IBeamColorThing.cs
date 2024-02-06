@@ -1,6 +1,16 @@
-namespace RT_Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-public interface IBeamColorThing
+namespace RT_Core
 {
-	int BeamColor { get; set; }
+    public interface IBeamColorThing
+    {
+        int BeamColor
+        {
+            get;
+            set;
+        }
+    }
 }

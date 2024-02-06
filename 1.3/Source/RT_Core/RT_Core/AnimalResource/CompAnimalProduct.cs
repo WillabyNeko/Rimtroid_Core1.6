@@ -1,77 +1,127 @@
-using System;
-using RimWorld;
+﻿using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
-namespace RT_Core;
 
-public class CompAnimalProduct : CompHasGatherableBodyResource
+namespace RT_Core
 {
-	private System.Random rand = new();
+    public class CompAnimalProduct : CompHasGatherableBodyResource
+    {
 
-	protected override int GatherResourcesIntervalDays => Props.gatheringIntervalDays;
+        System.Random rand = new System.Random();
 
-	protected override int ResourceAmount => Props.resourceAmount;
+        protected override int GatherResourcesIntervalDays
+        {
+            get
+            {
+                return this.Props.gatheringIntervalDays;
+            }
+        }
 
-	protected override string SaveKey => "resourceGrowth";
 
-	public CompProperties_AnimalProduct Props => (CompProperties_AnimalProduct)props;
 
-	protected override bool Active
-	{
-		get
-		{
-			if (!base.Active)
-			{
-				return false;
-			}
-			return parent is not Pawn pawn || pawn.ageTracker.CurLifeStage.shearable;
-		}
-	}
+        protected override int ResourceAmount
+        {
+            get
+            {
+                return this.Props.resourceAmount;
+            }
+        }
 
-	protected override ThingDef ResourceDef => Props.resourceDef;
+        protected override string SaveKey
+        {
+            get
+            {
+                return "resourceGrowth";
+            }
+        }
 
-	public override string CompInspectStringExtra()
-	{
-		if (!Active)
-		{
-			return null;
-		}
-		if (!Props.customResourceString.NullOrEmpty())
-		{
-			return Props.customResourceString.Translate() + ": " + base.Fullness.ToStringPercent();
-		}
-		return "ResourceGrowth".Translate() + ": " + base.Fullness.ToStringPercent();
-	}
+        public CompProperties_AnimalProduct Props
+        {
+            get
+            {
+                return (CompProperties_AnimalProduct)this.props;
+            }
+        }
 
-	public void InformGathered(Pawn doer)
-	{
-		if (!Active)
-		{
-			Log.Error(doer?.ToString() + " gathered body resources while not Active: " + parent, ignoreStopLoggingLimit: false);
-		}
-		if (!Rand.Chance(StatExtension.GetStatValue((Thing)doer, StatDefOf.AnimalGatherYield, true)))
-		{
-			MoteMaker.ThrowText((doer.DrawPos + parent.DrawPos) / 2f, parent.Map, "TextMote_ProductWasted".Translate(), 3.65f);
-		}
-		else
-		{
-			int num = GenMath.RoundRandom((float)ResourceAmount * fullness);
-			while (num > 0)
-			{
-				int num2 = Mathf.Clamp(num, 1, ResourceDef.stackLimit);
-				num -= num2;
-				Thing thing = ThingMaker.MakeThing(ResourceDef);
-				thing.stackCount = num2;
-				GenPlace.TryPlaceThing(thing, doer.Position, doer.Map, ThingPlaceMode.Near);
-			}
-			if (Props.hasAditional && rand.NextDouble() <= (double)((float)Props.additionalItemsProb / 100f))
-			{
-				Thing thing2 = ThingMaker.MakeThing(ThingDef.Named(Props.additionalItems.RandomElement()));
-				thing2.stackCount = Props.additionalItemsNumber;
-				GenPlace.TryPlaceThing(thing2, doer.Position, doer.Map, ThingPlaceMode.Near);
-			}
-		}
-		fullness = 0f;
-	}
+        protected override bool Active
+        {
+            get
+            {
+                if (!base.Active)
+                {
+                    return false;
+                }
+                Pawn pawn = this.parent as Pawn;
+                return pawn == null || pawn.ageTracker.CurLifeStage.shearable;
+            }
+        }
+
+        protected override ThingDef ResourceDef
+        {
+            get
+            {
+                return this.Props.resourceDef;
+            }
+        }
+
+        public override string CompInspectStringExtra()
+        {
+            if (!this.Active)
+            {
+                return null;
+            }
+
+            if (!this.Props.customResourceString.NullOrEmpty())
+            {
+                return Translator.Translate(this.Props.customResourceString) + ": " + base.Fullness.ToStringPercent();
+            }
+
+
+
+            else return Translator.Translate("ResourceGrowth") + ": " + base.Fullness.ToStringPercent();
+        }
+
+        public void InformGathered(Pawn doer)
+        {
+            if (!this.Active)
+            {
+                Log.Error(doer + " gathered body resources while not Active: " + this.parent, false);
+            }
+            if (!Rand.Chance(doer.GetStatValue(StatDefOf.AnimalGatherYield, true)))
+            {
+                MoteMaker.ThrowText((doer.DrawPos + this.parent.DrawPos) / 2f, this.parent.Map, "TextMote_ProductWasted".Translate(), 3.65f);
+            }
+            else
+            {
+                int i = GenMath.RoundRandom((float)this.ResourceAmount * this.fullness);
+                while (i > 0)
+                {
+                    int num = Mathf.Clamp(i, 1, this.ResourceDef.stackLimit);
+                    i -= num;
+                    Thing thing = ThingMaker.MakeThing(this.ResourceDef, null);
+                    thing.stackCount = num;
+                    GenPlace.TryPlaceThing(thing, doer.Position, doer.Map, ThingPlaceMode.Near, null, null, default(Rot4));
+                }
+                if (this.Props.hasAditional)
+                {
+
+                    if (rand.NextDouble() <= ((float)Props.additionalItemsProb / 100))
+                    {
+                        Thing thingExtra = ThingMaker.MakeThing(ThingDef.Named(Props.additionalItems.RandomElement()), null);
+                        thingExtra.stackCount = Props.additionalItemsNumber;
+                        GenPlace.TryPlaceThing(thingExtra, doer.Position, doer.Map, ThingPlaceMode.Near, null, null, default(Rot4));
+                    }
+
+                }
+
+
+            }
+            this.fullness = 0f;
+        }
+
+
+
+    }
 }

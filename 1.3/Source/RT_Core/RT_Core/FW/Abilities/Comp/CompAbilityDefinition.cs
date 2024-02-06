@@ -1,90 +1,106 @@
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
-namespace RT_Core;
-
-public class CompAbilityDefinition : ThingComp
+namespace RT_Core
 {
-	private float damageTotal;
+    public class CompAbilityDefinition : ThingComp
+    {
+        public CompProperties_AbilityDefinition Props => (CompProperties_AbilityDefinition)props;
 
-	private int killCounter;
+        public Pawn SelfPawn => (Pawn)parent;
 
-	public CompProperties_AbilityDefinition Props => (CompProperties_AbilityDefinition)props;
+        public IEnumerable<AbilityGainEntry> GainableAbilities => Props.abilities.Where(entry => !entry.HasAbility(SelfPawn));
 
-	public Pawn SelfPawn => (Pawn)parent;
+        private float damageTotal;
+        private int killCounter;
 
-	public IEnumerable<AbilityGainEntry> GainableAbilities => Props.abilities.Where((AbilityGainEntry entry) => !entry.HasAbility(SelfPawn));
+        public float DamageTotal => damageTotal;
+        public int KillCounter => killCounter;
 
-	public float DamageTotal => damageTotal;
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            if (respawningAfterLoad)
+            {
+                //Process only when spawning. Not when respawning.
+                foreach (AbilityGainEntry entry in Props.abilities.Where(entry => !entry.HasAbility(SelfPawn) && !entry.HasHediff(SelfPawn) && entry.ConditionsFulfilled(this)))
+                {
+                    //Doesn't have the ability, but fulfills the conditions. So act like they already had it.
+                    entry.GainAbility(SelfPawn);
+                }
+                return;
+            }
 
-	public int KillCounter => killCounter;
+            if (!Props.spawnKillCount.EnumerableNullOrEmpty())
+            {
+                //If set, spawn the pawn with kills based on its age.
+                killCounter = Mathf.FloorToInt(Props.spawnKillCount.Evaluate(SelfPawn.ageTracker.AgeBiologicalYearsFloat));
+            }
 
-	public override void PostSpawnSetup(bool respawningAfterLoad)
-	{
-		if (respawningAfterLoad)
-		{
-			foreach (AbilityGainEntry item in Props.abilities.Where((AbilityGainEntry entry) => !entry.HasAbility(SelfPawn) && !entry.HasHediff(SelfPawn) && entry.ConditionsFulfilled(this)))
-			{
-				item.GainAbility(SelfPawn);
-			}
-			return;
-		}
-		if (!Props.spawnKillCount.EnumerableNullOrEmpty())
-		{
-			killCounter = Mathf.FloorToInt(Props.spawnKillCount.Evaluate(SelfPawn.ageTracker.AgeBiologicalYearsFloat));
-		}
-		if (!Props.spawnDamageTotal.EnumerableNullOrEmpty())
-		{
-			damageTotal = Props.spawnDamageTotal.Evaluate(SelfPawn.ageTracker.AgeBiologicalYearsFloat);
-		}
-		foreach (AbilityGainEntry item2 in Props.abilities.Where((AbilityGainEntry entry) => !entry.HasAbility(SelfPawn) && !entry.HasHediff(SelfPawn) && entry.ConditionsSatisfied(this)))
-		{
-			item2.GainAbility(SelfPawn);
-		}
-	}
+            if (!Props.spawnDamageTotal.EnumerableNullOrEmpty())
+            {
+                //If set, spawn the pawn with damage based on its age.
+                damageTotal = Props.spawnDamageTotal.Evaluate(SelfPawn.ageTracker.AgeBiologicalYearsFloat);
+            }
 
-	public override void PostPostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
-	{
-		damageTotal += dinfo.Amount;
-	}
+            foreach (AbilityGainEntry entry in Props.abilities.Where(entry => !entry.HasAbility(SelfPawn) && !entry.HasHediff(SelfPawn) && entry.ConditionsSatisfied(this)))
+            {
+                //Doesn't have the ability, but satisfies the conditions. So act like they already had it.
+                entry.GainAbility(SelfPawn);
+            }
+        }
 
-	public override void Notify_KilledPawn(Pawn pawn)
-	{
-		killCounter++;
-	}
+        public override void PostPostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
+        {
+            damageTotal += dinfo.Amount;
+        }
 
-	public override string CompInspectStringExtra()
-	{
-		return base.CompInspectStringExtra();
-	}
+        public override void Notify_KilledPawn(Pawn pawn)
+        {
+            killCounter++;
+        }
 
-	public override void PostExposeData()
-	{
-		Scribe_Values.Look(ref damageTotal, "damageTotal", 0f);
-		Scribe_Values.Look(ref killCounter, "killCounter", 0);
-	}
+        public override string CompInspectStringExtra()
+        {
+            return base.CompInspectStringExtra();
+        }
 
-	public override void CompTickRare()
-	{
-		foreach (AbilityGainEntry item in Props.abilities.Where((AbilityGainEntry entry) => !entry.HasAbility(SelfPawn) && !entry.HasHediff(SelfPawn) && entry.ConditionsSatisfied(this)))
-		{
-			if (item.ShouldGainHediff)
-			{
-				if (item.ConditionsFulfilled(this))
-				{
-					item.GainAbility(SelfPawn);
-				}
-				else
-				{
-					item.GainHediff(SelfPawn);
-				}
-			}
-			else
-			{
-				item.GainAbility(SelfPawn);
-			}
-		}
-	}
+        public override void PostExposeData()
+        {
+            Scribe_Values.Look(ref damageTotal, "damageTotal", 0);
+            Scribe_Values.Look(ref killCounter, "killCounter", 0);
+        }
+
+        public override void CompTickRare()
+        {
+            foreach (AbilityGainEntry entry in Props.abilities.Where(entry => !entry.HasAbility(SelfPawn) && !entry.HasHediff(SelfPawn) && entry.ConditionsSatisfied(this)))
+            {
+                //Doesn't have the ability, but satisfies the conditions.
+                if (entry.ShouldGainHediff)
+                {
+                    if (entry.ConditionsFulfilled(this))
+                    {
+                        //Gain the ability. (skipping hediff)
+                        entry.GainAbility(SelfPawn);
+                    }
+                    else
+                    {
+                        //Gain the hediff.
+                        entry.GainHediff(SelfPawn);
+                    }
+                }
+                else
+                {
+                    //Gain the ability directly.
+                    entry.GainAbility(SelfPawn);
+                }
+            }
+        }
+    }
 }

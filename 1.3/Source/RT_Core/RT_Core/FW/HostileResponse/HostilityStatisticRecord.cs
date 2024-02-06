@@ -1,93 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 using Verse.AI;
 
-namespace RT_Core;
-
-public class HostilityStatisticRecord : IExposable
+namespace RT_Core
 {
-	private IAttackTarget target;
+    public class HostilityStatisticRecord : IExposable
+    {
+        private IAttackTarget target;
+        private int lastTickAttacked;
+        private int intendedHits, unintendedHits;
+        private float damageTotal;
 
-	private int lastTickAttacked;
+        public IAttackTarget Target => target;
+        public int IntendedHitCount => intendedHits;
+        public int UnintendedHitCount => unintendedHits;
+        public float DamageTotal => damageTotal;
+        public int TicksSinceAttack => GenTicks.TicksGame - lastTickAttacked;
+        public bool IsRecent => TicksSinceAttack < GenTicks.TickRareInterval;
+        public bool IsOld => TicksSinceAttack > GenTicks.TickLongInterval;
 
-	private int intendedHits;
+        public HostilityStatisticRecord()
+        {
+            lastTickAttacked = 0;
+            intendedHits = 0;
+            unintendedHits = 0;
+            damageTotal = 0;
+        }
 
-	private int unintendedHits;
+        public HostilityStatisticRecord(IAttackTarget target) : this()
+        {
+            this.target = target;
+        }
 
-	private float damageTotal;
+        public void ProcessAttack(float damage, bool isIntended)
+        {
+            lastTickAttacked = GenTicks.TicksGame;
+            damageTotal += damage;
 
-	public IAttackTarget Target => target;
+            if (isIntended)
+            {
+                intendedHits++;
+            }
+            else
+            {
+                unintendedHits++;
+            }
+        }
 
-	public int IntendedHitCount => intendedHits;
+        public float DamagePoints
+        {
+            get
+            {
+                float points = DamageTotal / Mathf.Log10(TicksSinceAttack);
+                return float.IsNaN(points) ? 0 : points;
+            }
+        }
 
-	public int UnintendedHitCount => unintendedHits;
+        public float CalculatePoints(HostilityResponseType type)
+        {
+            float points = DamagePoints;
 
-	public float DamageTotal => damageTotal;
+            switch (type)
+            {
+                case HostilityResponseType.Aggressive:
+                    points *= IntendedHitCount + UnintendedHitCount;
+                    break;
+                case HostilityResponseType.Defensive:
+                    points *= IntendedHitCount + (UnintendedHitCount / 2);
+                    break;
+            }
 
-	public int TicksSinceAttack => GenTicks.TicksGame - lastTickAttacked;
+            points *= GenTicks.TicksGame;
 
-	public bool IsRecent => TicksSinceAttack < 250;
+            return points;
+        }
 
-	public bool IsOld => TicksSinceAttack > 2000;
+        public void ExposeData()
+        {
+            Scribe_References.Look(ref target, "target");
+            Scribe_Values.Look(ref lastTickAttacked, "lastTickAttacked");
+            Scribe_Values.Look(ref damageTotal, "damageTaken");
+            Scribe_Values.Look(ref intendedHits, "intendedHits");
+            Scribe_Values.Look(ref unintendedHits, "unintendedHits");
+        }
+    }
 
-	public float DamagePoints
-	{
-		get
-		{
-			float num = DamageTotal / Mathf.Log10(TicksSinceAttack);
-			return float.IsNaN(num) ? 0f : num;
-		}
-	}
-
-	public HostilityStatisticRecord()
-	{
-		lastTickAttacked = 0;
-		intendedHits = 0;
-		unintendedHits = 0;
-		damageTotal = 0f;
-	}
-
-	public HostilityStatisticRecord(IAttackTarget target)
-		: this()
-	{
-		this.target = target;
-	}
-
-	public void ProcessAttack(float damage, bool isIntended)
-	{
-		lastTickAttacked = GenTicks.TicksGame;
-		damageTotal += damage;
-		if (isIntended)
-		{
-			intendedHits++;
-		}
-		else
-		{
-			unintendedHits++;
-		}
-	}
-
-	public float CalculatePoints(HostilityResponseType type)
-	{
-		float num = DamagePoints;
-		switch (type)
-		{
-		case HostilityResponseType.Aggressive:
-			num *= (float)(IntendedHitCount + UnintendedHitCount);
-			break;
-		case HostilityResponseType.Defensive:
-			num *= (float)(IntendedHitCount + UnintendedHitCount / 2);
-			break;
-		}
-		return num * (float)GenTicks.TicksGame;
-	}
-
-	public void ExposeData()
-	{
-		Scribe_References.Look(ref target, "target");
-		Scribe_Values.Look(ref lastTickAttacked, "lastTickAttacked", 0);
-		Scribe_Values.Look(ref damageTotal, "damageTaken", 0f);
-		Scribe_Values.Look(ref intendedHits, "intendedHits", 0);
-		Scribe_Values.Look(ref unintendedHits, "unintendedHits", 0);
-	}
 }

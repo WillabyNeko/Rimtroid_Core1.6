@@ -1,16 +1,17 @@
-using System.Collections.Generic;
+﻿using RimWorld;
 using Verse;
+using System;
+using System.Collections.Generic;
 
-namespace RT_Rimtroid;
-
-public class CompProperties_EvolutionStage : CompProperties
+namespace RT_Rimtroid
 {
-	public HediffDef spawnStage;
-
-	public List<BodyPartDef> partsToAffect;
-
-	public CompProperties_EvolutionStage()
+	public class CompProperties_EvolutionStage : CompProperties
 	{
-		compClass = typeof(CompEvolutionStage);
+		public HediffDef spawnStage;
+		public List<BodyPartDef> partsToAffect;
+		public CompProperties_EvolutionStage()
+		{
+			this.compClass = typeof(CompEvolutionStage);
+		}
 	}
 }

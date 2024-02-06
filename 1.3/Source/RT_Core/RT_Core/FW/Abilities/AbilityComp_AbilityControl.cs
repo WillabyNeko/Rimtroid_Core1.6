@@ -1,131 +1,140 @@
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
-namespace RT_Core;
-
-public class AbilityComp_AbilityControl : AbilityComp_Base
+namespace RT_Core
 {
-	private bool status = true;
+    public class AbilityComp_AbilityControl : AbilityComp_Base
+    {
+        private bool status = true;
+        private Command gizmo;
+        private Texture2D iconOn, iconOff;
 
-	private Command gizmo;
+        public AbilityCompProperties_AbilityControl VProps => props as AbilityCompProperties_AbilityControl;
 
-	private Texture2D iconOn;
+        public bool AutoUse => VProps.autoUse;
 
-	private Texture2D iconOff;
+        public override bool CanCast => Status;
 
-	public AbilityCompProperties_AbilityControl VProps => props as AbilityCompProperties_AbilityControl;
+        public bool Status
+        {
+            get
+            {
+                Pawn pawn = parent.pawn;
 
-	public bool AutoUse => VProps.autoUse;
+                if (pawn.Faction == null || !pawn.Faction.IsPlayer)
+                {
+                    return true;
+                }
 
-	public override bool CanCast => Status;
+                if (pawn.InMentalState)
+                {
+                    return true;
+                }
+                return status;
+            }
+            set
+            {
+                if (status != value)
+                {
+                    status = value;
+                    parent.pawn.jobs.ClearQueuedJobs();
+                }
+            }
+        }
 
-	public bool Status
-	{
-		get
-		{
-			Pawn pawn = parent.pawn;
-			if (pawn.Faction == null || !pawn.Faction.IsPlayer)
-			{
-				return true;
-			}
-			if (pawn.InMentalState)
-			{
-				return true;
-			}
-			return status;
-		}
-		set
-		{
-			if (status != value)
-			{
-				status = value;
-				parent.pawn.jobs.ClearQueuedJobs();
-			}
-		}
-	}
+        public override Command Gizmo
+        {
+            get
+            {
+                if (gizmo == null)
+                {
+                    //Load images
+                    if (VProps.gizmoOnIconPath != null)
+                    {
+                        iconOn = ContentFinder<Texture2D>.Get(VProps.gizmoOnIconPath);
+                    }
+                    if (VProps.gizmoOffIconPath != null)
+                    {
+                        iconOff = ContentFinder<Texture2D>.Get(VProps.gizmoOffIconPath);
+                    }
 
-	public override Command Gizmo
-	{
-		get
-		{
-			if (gizmo == null)
-			{
-				if (VProps.gizmoOnIconPath != null)
-				{
-					iconOn = ContentFinder<Texture2D>.Get(VProps.gizmoOnIconPath);
-				}
-				if (VProps.gizmoOffIconPath != null)
-				{
-					iconOff = ContentFinder<Texture2D>.Get(VProps.gizmoOffIconPath);
-				}
-				if (iconOn == null)
-				{
-					iconOn = iconOff;
-				}
-				if (iconOff == null)
-				{
-					iconOff = iconOn;
-				}
-				gizmo = new Command_Toggle
-				{
-					defaultDesc = VProps.gizmoDesc,
-					isActive = () => Status,
-					activateIfAmbiguous = true,
-					toggleAction = delegate
-					{
-						Status = !Status;
-					}
-				};
-			}
-			gizmo.defaultLabel = (Status ? VProps.gizmoOnText : VProps.gizmoOffText);
-			gizmo.icon = (Status ? iconOn : iconOff);
-			gizmo.disabled = GizmoDisabled(out var reason);
-			if (gizmo.disabled)
-			{
-				gizmo.disabledReason = reason;
-			}
-			return gizmo;
-		}
-	}
+                    if (iconOn == null)
+                    {
+                        //If one is unset, use the same image for both.
+                        iconOn = iconOff;
+                    }
+                    if (iconOff == null)
+                    {
+                        //If one is unset, use the same image for both.
+                        iconOff = iconOn;
+                    }
 
-	public override void Initialize(AbilityCompProperties props)
-	{
-		base.Initialize(props);
-		if (parent.VerbTracker.AllVerbs.NullOrEmpty())
-		{
-			return;
-		}
-		foreach (IAttackVerb item in parent.VerbTracker.AllVerbs.OfType<IAttackVerb>())
-		{
-			item.Ability = parent;
-		}
-	}
+                    gizmo = new Command_Toggle()
+                    {
+                        defaultDesc = VProps.gizmoDesc,
+                        isActive = () => Status,
+                        activateIfAmbiguous = true,
+                        toggleAction = () => Status = !Status
+                    };
+                }
 
-	public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
-	{
-		if (base.CanApplyOn(target, dest))
-		{
-			if (VProps.targetParms != null)
-			{
-				Map map = parent.pawn.Map;
-				if (!VProps.targetParms.CanTarget(target.ToTargetInfo(map)) && !VProps.targetParms.CanTarget(target.ToTargetInfo(map)))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
+                gizmo.defaultLabel = Status ? VProps.gizmoOnText : VProps.gizmoOffText;
+                gizmo.icon = Status ? iconOn : iconOff;
 
-	public override bool CanActivateOn(LocalTargetInfo target, LocalTargetInfo dest)
-	{
-		return CanApplyOn(target, dest);
-	}
+                gizmo.disabled = GizmoDisabled(out String reason);
+                if (gizmo.disabled)
+                {
+                    gizmo.disabledReason = reason;
+                }
 
-	public override void PostExposeData()
-	{
-		Scribe_Values.Look(ref status, "status", defaultValue: true);
-	}
+                return gizmo;
+            }
+        }
+
+        public override void Initialize(AbilityCompProperties props)
+        {
+            base.Initialize(props);
+            if (!parent.VerbTracker.AllVerbs.NullOrEmpty())
+            {
+                foreach (IAttackVerb verb in parent.VerbTracker.AllVerbs.OfType<IAttackVerb>())
+                {
+                    verb.Ability = parent;
+                }
+            }
+        }
+
+        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            if (base.CanApplyOn(target, dest))
+            {
+                if (VProps.targetParms != null)
+                {
+                    Map map = parent.pawn.Map;
+                    if (!VProps.targetParms.CanTarget(target.ToTargetInfo(map)) && !VProps.targetParms.CanTarget(target.ToTargetInfo(map)))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public override bool CanActivateOn(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            return CanApplyOn(target, dest);
+        }
+
+        public override void PostExposeData()
+        {
+            Scribe_Values.Look(ref status, "status", defaultValue: true);
+        }
+    }
 }

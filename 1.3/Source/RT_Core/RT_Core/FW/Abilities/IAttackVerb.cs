@@ -1,11 +1,18 @@
-using RimWorld;
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
+using Verse.AI;
 
-namespace RT_Core;
-
-public interface IAttackVerb
+namespace RT_Core
 {
-	Verb Verb { get; }
-
-	Ability Ability { get; set; }
+    public interface IAttackVerb
+    {
+        Verb Verb { get; }
+        Ability Ability { get; set; }
+    }
 }

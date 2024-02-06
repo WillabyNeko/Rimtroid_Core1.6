@@ -1,8 +1,13 @@
-namespace RT_Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public enum HostilityResponseType
+namespace RT_Core
 {
-	Aggressive,
-	Defensive,
-	Passive
+    public enum HostilityResponseType
+    {
+        Aggressive, Defensive, Passive
+    }
 }
