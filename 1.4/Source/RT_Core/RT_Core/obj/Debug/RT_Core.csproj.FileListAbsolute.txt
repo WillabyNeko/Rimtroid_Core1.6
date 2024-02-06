@@ -1,0 +1,100 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csprojAssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\RT_Core.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\RT_Core.pdb
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\0Harmony.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\Assembly-CSharp.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\Unity.TextMeshPro.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.AccessibilityModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.AIModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.AndroidJNIModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.AnimationModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ARModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.AssetBundleModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.AudioModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ClothModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ClusterInputModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ClusterRendererModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.CoreModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.CrashReportingModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.DirectorModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.DSPGraphModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.FileSystemHttpModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.GameCenterModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.GridModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.HotReloadModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ImageConversionModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.IMGUIModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.InputLegacyModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.InputModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.JSONSerializeModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.LocalizationModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ParticleSystemModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.PerformanceReportingModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.Physics2DModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.PhysicsModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ProfilerModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.ScreenCaptureModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.SharedInternalsModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.SpriteMaskModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.SpriteShapeModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.StreamingModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.SubstanceModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.TerrainModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.TerrainPhysicsModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.TextCoreModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.TextRenderingModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.TilemapModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.TLSModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UI.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UIElementsModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UIModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UmbraModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UNETModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityAnalyticsModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityConnectModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityTestProtocolModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityWebRequestAssetBundleModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityWebRequestAudioModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityWebRequestModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityWebRequestTextureModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.UnityWebRequestWWWModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.VehiclesModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.VFXModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.VideoModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.VRModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.WindModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\UnityEngine.XRModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\NAudio.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\NVorbis.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\ISharpZipLib.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\bin\Debug\0Harmony.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\Assemblies\RT_Core.dll
+c:\GAMES\Rimworld\Mods\Rimtroid_Core\Assemblies\RT_Core.dll
+c:\GAMES\Rimworld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+c:\GAMES\Rimworld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Games\Rimworld\Mods\Rimtroid_Core\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Assemblies\RT_Core.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CopyComplete
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Assemblies\RT_Core.dll
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CopyComplete
+E:\SteamLibrary\steamapps\common\RimWorld\Mods\Rimtroid_Core_Private\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\ModStuff\Creation\Metroid\Git\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\ModStuff\Creation\Metroid\Git\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\ModStuff\Creation\Metroid\Git\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\ModStuff\Creation\Metroid\Git\Core\1.3\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\ModStuff\Creation\Metroid\Git\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CopyComplete
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\ModStuff\Creation\Metroid\Git\Core\1.4\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Core\1.4\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CopyComplete
+C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Core\1.3\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
