@@ -8,7 +8,7 @@ namespace RT_Core
 {
     public class AnimalProjectile : Projectile
     {
-        protected virtual void Impact(Thing hitThing)
+        protected override void Impact(Thing hitThing, bool blockedByShield = false)
         {
             Map map = base.Map;
             base.Impact(hitThing);

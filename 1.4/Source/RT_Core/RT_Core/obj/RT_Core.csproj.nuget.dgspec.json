@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
+    "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core\\1.4\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
+    "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core\\1.4\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "projectUniqueName": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core\\1.4\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
         "projectName": "RT_Core",
-        "projectPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "projectPath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core\\1.4\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
         "packagesPath": "C:\\Users\\WillabyPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Core\\1.3\\Source\\RT_Core\\RT_Core\\obj\\",
+        "outputPath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core\\1.4\\Source\\RT_Core\\RT_Core\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [

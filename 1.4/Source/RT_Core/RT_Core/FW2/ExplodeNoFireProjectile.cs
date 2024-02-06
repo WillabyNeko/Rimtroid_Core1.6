@@ -10,7 +10,7 @@ namespace RT_Core
 	//Create explosion but no fire.
 	public class Projectile_ExplodeNoFire : Projectile
 	{
-		protected virtual void Impact(Thing hitThing)
+		protected override void Impact(Thing hitThing, bool blockedByShield = false)
 		{
 			Ignite();
 		}

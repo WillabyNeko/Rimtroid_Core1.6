@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nUH8qBls2YeGGWfxx6uDVQq/73s+6IjgiFKF1pIRRE1KSkB0INg2KrlXmse/9RD+BghFfbIuAVf8ouPS9Shl/w==",
+  "dgSpecHash": "HIGWi2V2uXryAn1CPF47BshuOKbm0jXoRsJHbvmEDXIEGLN3sMDqLlLFziMl9JJrsuUjjgyfJF2bdLU9ml+shQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Core\\1.3\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+  "projectFilePath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core\\1.4\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\WillabyPC\\.nuget\\packages\\krafs.rimworld.ref\\1.4.3901\\krafs.rimworld.ref.1.4.3901.nupkg.sha512",
     "C:\\Users\\WillabyPC\\.nuget\\packages\\lib.harmony\\2.2.2\\lib.harmony.2.2.2.nupkg.sha512"

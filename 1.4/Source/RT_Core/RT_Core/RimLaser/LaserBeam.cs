@@ -75,7 +75,7 @@ namespace RT_Core
             return Positions.Where(x => x.DistanceTo(start) > Def.fireDistanceFromCaster).ToHashSet();
         }
 
-        protected virtual void Impact(Thing hitThing)
+        protected override void Impact(Thing hitThing, bool blockedByShield = false)
         {
             Vector3 dir = (destination - origin).normalized;
             dir.y = 0;
