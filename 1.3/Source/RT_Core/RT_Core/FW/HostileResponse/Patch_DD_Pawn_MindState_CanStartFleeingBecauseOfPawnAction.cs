@@ -1,38 +1,18 @@
-﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HarmonyLib;
 using Verse;
 using Verse.AI;
 
-namespace RT_Core
+namespace RT_Core;
+
+[HarmonyPatch(typeof(Pawn_MindState), "CanStartFleeingBecauseOfPawnAction")]
+public class Patch_DD_Pawn_MindState_CanStartFleeingBecauseOfPawnAction
 {
-    [HarmonyPatch(typeof(Pawn_MindState), "CanStartFleeingBecauseOfPawnAction")]
-    public class Patch_DD_Pawn_MindState_CanStartFleeingBecauseOfPawnAction
-    {
-        public static void Postfix(Pawn p, ref bool __result)
-        {
-            CompHostileResponse comp = p.GetComp<CompHostileResponse>();
-
-            if(!__result)
-            {
-                return;
-            }
-
-            if(comp == null)
-            {
-                return;
-            }
-
-            if(comp.Type == HostilityResponseType.Passive)
-            {
-                return;
-            }
-
-            //If it knows an enemy.
-            __result = !comp.Targets.EnumerableNullOrEmpty();
-        }
-    }
+	public static void Postfix(Pawn p, ref bool __result)
+	{
+		CompHostileResponse comp = p.GetComp<CompHostileResponse>();
+		if (__result && comp != null && comp.Type != HostilityResponseType.Passive)
+		{
+			__result = !comp.Targets.EnumerableNullOrEmpty();
+		}
+	}
 }

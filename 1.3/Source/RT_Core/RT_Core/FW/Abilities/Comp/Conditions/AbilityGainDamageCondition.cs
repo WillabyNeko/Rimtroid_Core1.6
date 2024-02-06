@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
-namespace RT_Core
+namespace RT_Core;
+
+public class AbilityGainDamageCondition : AbilityGainCondition
 {
-    public class AbilityGainDamageCondition : AbilityGainCondition
-    {
-        public FloatRange damageRange;
+	public FloatRange damageRange;
 
-        public override bool IsSatisfied(CompAbilityDefinition def)
-        {
-            return def.DamageTotal >= damageRange.TrueMin;
-        }
+	public override bool IsSatisfied(CompAbilityDefinition def)
+	{
+		return def.DamageTotal >= damageRange.TrueMin;
+	}
 
-        public override bool IsFulfilled(CompAbilityDefinition def)
-        {
-            return def.DamageTotal > damageRange.TrueMax;
-        }
-    }
+	public override bool IsFulfilled(CompAbilityDefinition def)
+	{
+		return def.DamageTotal > damageRange.TrueMax;
+	}
 }

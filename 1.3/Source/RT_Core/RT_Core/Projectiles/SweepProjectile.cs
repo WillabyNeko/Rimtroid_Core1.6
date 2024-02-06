@@ -1,68 +1,67 @@
-﻿using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using UnityEngine;
+using RimWorld;
 using Verse;
-using Verse.Sound;
 
-namespace RT_Rimtroid
+namespace RT_Rimtroid;
+
+public class SweepProjectile : ExpandableProjectile
 {
-	public class SweepProjectile : ExpandableProjectile
+	public void DoSweep()
 	{
-		public void DoSweep()
+		destination = usedTarget.Cell.ToVector3Shifted() + Gen.RandomHorizontalVector(10.3f);
+	}
+
+	public override void Tick()
+	{
+		base.Tick();
+		DoSweep();
+	}
+
+	public override void DoDamage(IntVec3 pos)
+	{
+		base.DoDamage(pos);
+		try
 		{
-			destination = usedTarget.Cell.ToVector3Shifted() + Gen.RandomHorizontalVector(10.3f);
-		}
-		public override void Tick()
-        {
-            base.Tick();
-			DoSweep();
-		}
-        public override void DoDamage(IntVec3 pos)
-		{
-			base.DoDamage(pos);
-			try
+			if (!(pos != launcher.Position) || launcher.Map == null || !pos.InBounds(launcher.Map))
 			{
-				if (pos != this.launcher.Position && this.launcher.Map != null && GenGrid.InBounds(pos, this.launcher.Map))
+				return;
+			}
+			List<Thing> list = launcher.Map.thingGrid.ThingsListAt(pos);
+			for (int num = list.Count - 1; num >= 0; num--)
+			{
+				if (list[num].def != base.Def && list[num] != launcher && list[num].def != ThingDefOf.Fire && !(list[num] is Mote) && !(list[num] is Filth))
 				{
-					var list = this.launcher.Map.thingGrid.ThingsListAt(pos);
-					for (int num = list.Count - 1; num >= 0; num--)
+					if (!list.Where((Thing x) => x.def == ThingDefOf.Fire).Any())
 					{
-						if (list[num].def != this.def && list[num] != this.launcher && list[num].def != ThingDefOf.Fire && (!(list[num] is Mote) && (!(list[num] is Filth))))
+						CompAttachBase compAttachBase = list[num].TryGetComp<CompAttachBase>();
+						Fire fire = (Fire)ThingMaker.MakeThing(ThingDefOf.Fire);
+						fire.fireSize = 1f;
+						GenSpawn.Spawn(fire, list[num].Position, list[num].Map, Rot4.North);
+						if (compAttachBase != null)
 						{
-							if (!list.Where(x => x.def == ThingDefOf.Fire).Any())
+							fire.AttachTo(list[num]);
+							if (list[num] is Pawn pawn)
 							{
-								CompAttachBase compAttachBase = list[num].TryGetComp<CompAttachBase>();
-								Fire obj = (Fire)ThingMaker.MakeThing(ThingDefOf.Fire);
-								obj.fireSize = 1f;
-								GenSpawn.Spawn(obj, list[num].Position, list[num].Map, Rot4.North);
-								if (compAttachBase != null)
-								{
-									obj.AttachTo(list[num]);
-									Pawn pawn = list[num] as Pawn;
-									if (pawn != null)
-									{
-										pawn.jobs.StopAll();
-										pawn.records.Increment(RecordDefOf.TimesOnFire);
-									}
-								}
+								pawn.jobs.StopAll();
+								pawn.records.Increment(RecordDefOf.TimesOnFire);
 							}
-							this.customImpact = true;
-							base.Impact(list[num]);
-							this.customImpact = false;
 						}
 					}
+					customImpact = true;
+					Impact(list[num]);
+					customImpact = false;
 				}
 			}
-			catch { };
 		}
+		catch
+		{
+		}
+	}
 
-        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
-        {
-            base.Destroy(mode);
-			Log.Message("Destroying itself");
-        }
-    }
+	public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
+	{
+		base.Destroy(mode);
+		Log.Message("Destroying itself");
+	}
 }

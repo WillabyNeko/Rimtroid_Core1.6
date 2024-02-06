@@ -1,52 +1,26 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
-using Verse.AI;
 
-namespace RT_Core
+namespace RT_Rimtroid;
+
+public static class Utils
 {
-    [StaticConstructorOnStartup]
-    public static class Utils
-    {
-        public static void MakeFlee(Pawn pawn, Thing danger, int radius, List<Thing> dangers)
-        {
-            Job job = null;
-            IntVec3 intVec;
-            if (pawn.CurJob != null && pawn.CurJob.def == JobDefOf.Flee)
-            {
-                intVec = pawn.CurJob.targetA.Cell;
-            }
-            else
-            {
-                intVec = CellFinderLoose.GetFleeDest(pawn, dangers, 24f);
-            }
+	public static IntVec3 North(this IntVec3 intVec3)
+	{
+		return intVec3 + IntVec3.North;
+	}
 
-            if (intVec == pawn.Position)
-            {
-                intVec = GenRadial.RadialCellsAround(pawn.Position, radius <= 50 ? radius : 50, radius * 2 <= 50 ? radius * 2 : 50).RandomElement();
-            }
-            if (intVec != pawn.Position)
-            {
-                job = JobMaker.MakeJob(JobDefOf.Flee, intVec, danger);
-            }
-            if (job != null)
-            {
-                //Log.Message(pawn + " flee");
-                pawn.jobs.TryTakeOrderedJob(job);
-            }
-        }
-    }
-    public class CompProperties_ApplyHediff_UseEffect : CompProperties_Usable
-    {
-        public HediffDef hediffDef;
-        public bool allowNonColonists;
+	public static IntVec3 South(this IntVec3 intVec3)
+	{
+		return intVec3 + IntVec3.South;
+	}
 
-        public CompProperties_ApplyHediff_UseEffect()
-        {
-            compClass = typeof(CompApplyHediff_InstallImplant);
-        }
-    }
+	public static IntVec3 West(this IntVec3 intVec3)
+	{
+		return intVec3 + IntVec3.West;
+	}
+
+	public static IntVec3 East(this IntVec3 intVec3)
+	{
+		return intVec3 + IntVec3.East;
+	}
 }

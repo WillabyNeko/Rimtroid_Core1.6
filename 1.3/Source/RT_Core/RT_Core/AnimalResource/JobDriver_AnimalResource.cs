@@ -1,85 +1,66 @@
-﻿using System;
+using System.Collections.Generic;
 using RimWorld;
 using Verse;
-using System.Collections.Generic;
 using Verse.AI;
 
+namespace RT_Core;
 
-namespace RT_Core
+public class JobDriver_AnimalResource : JobDriver_GatherAnimalBodyResources
 {
-    public class JobDriver_AnimalResource : JobDriver_GatherAnimalBodyResources
-    {
-        protected override float WorkTotal
-        {
-            get
-            {
-                return 1700f;
-            }
-        }
+	private float gatherProgress;
 
-        protected override CompHasGatherableBodyResource GetComp(Pawn animal)
-        {
-            return animal.TryGetComp<CompAnimalProduct>();
-        }
+	protected override float WorkTotal => 1700f;
 
-        public CompAnimalProduct GetSpecificComp(Pawn animal)
-        {
-            return animal.TryGetComp<CompAnimalProduct>();
-        }
+	protected override CompHasGatherableBodyResource GetComp(Pawn animal)
+	{
+		return animal.TryGetComp<CompAnimalProduct>();
+	}
 
-        protected override IEnumerable<Toil> MakeNewToils()
-        {
-            this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
-            this.FailOnDowned(TargetIndex.A);
-            this.FailOnNotCasualInterruptible(TargetIndex.A);
-            yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
-            Toil wait = new Toil();
-            wait.initAction = delegate ()
-            {
-                Pawn actor = wait.actor;
-                Pawn pawn = (Pawn)this.job.GetTarget(TargetIndex.A).Thing;
-                actor.pather.StopDead();
-                PawnUtility.ForceWait(pawn, 15000, null, true);
-            };
-            wait.tickAction = delegate ()
-            {
-                Pawn actor = wait.actor;
-                actor.skills.Learn(SkillDefOf.Animals, 0.13f, false);
-                this.gatherProgress += actor.GetStatValue(StatDefOf.AnimalGatherSpeed, true);
-                if (this.gatherProgress >= this.WorkTotal)
-                {
-                    this.GetSpecificComp((Pawn)((Thing)this.job.GetTarget(TargetIndex.A))).InformGathered(this.pawn);
-                    actor.jobs.EndCurrentJob(JobCondition.Succeeded, true, true);
-                    actor.health.AddHediff(HediffDef.Named("RT_GatheredResource"));
+	public CompAnimalProduct GetSpecificComp(Pawn animal)
+	{
+		return animal.TryGetComp<CompAnimalProduct>();
+	}
 
-                }
-            };
-            wait.AddFinishAction(delegate
-            {
-                Pawn pawn = (Pawn)this.job.GetTarget(TargetIndex.A).Thing;
-                if (pawn != null && pawn.CurJobDef == JobDefOf.Wait_MaintainPosture)
-                {
-                    pawn.jobs.EndCurrentJob(JobCondition.InterruptForced, true, true);
-                }
-            });
-            wait.FailOnDespawnedOrNull(TargetIndex.A);
-            wait.FailOnCannotTouch(TargetIndex.A, PathEndMode.Touch);
-            wait.AddEndCondition(delegate
-            {
-                if (!this.GetComp((Pawn)((Thing)this.job.GetTarget(TargetIndex.A))).ActiveAndFull)
-                {
-                    return JobCondition.Incompletable;
-                }
-                return JobCondition.Ongoing;
-            });
-            wait.defaultCompleteMode = ToilCompleteMode.Never;
-            wait.WithProgressBar(TargetIndex.A, () => this.gatherProgress / this.WorkTotal, false, -0.5f);
-            wait.activeSkill = (() => SkillDefOf.Animals);
-
-            yield return wait;
-            yield break;
-        }
-
-        private float gatherProgress;
-    }
+	protected override IEnumerable<Toil> MakeNewToils()
+	{
+		this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
+		this.FailOnDowned(TargetIndex.A);
+		this.FailOnNotCasualInterruptible(TargetIndex.A);
+		yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+		Toil wait = new();
+		wait.initAction = delegate
+		{
+			Pawn actor2 = wait.actor;
+			Pawn pawn2 = (Pawn)job.GetTarget(TargetIndex.A).Thing;
+			actor2.pather.StopDead();
+			PawnUtility.ForceWait(pawn2, 15000, (Thing)null, true);
+		};
+		wait.tickAction = delegate
+		{
+			Pawn actor = wait.actor;
+			actor.skills.Learn(SkillDefOf.Animals, 0.13f);
+			gatherProgress += StatExtension.GetStatValue((Thing)actor, StatDefOf.AnimalGatherSpeed, true);
+			if (gatherProgress >= WorkTotal)
+			{
+				GetSpecificComp((Pawn)(Thing)job.GetTarget(TargetIndex.A)).InformGathered(pawn);
+				actor.jobs.EndCurrentJob(JobCondition.Succeeded);
+				actor.health.AddHediff(HediffDef.Named("RT_GatheredResource"));
+			}
+		};
+		wait.AddFinishAction(delegate
+		{
+			Pawn pawn = (Pawn)job.GetTarget(TargetIndex.A).Thing;
+			if (pawn != null && pawn.CurJobDef == JobDefOf.Wait_MaintainPosture)
+			{
+				pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+			}
+		});
+		wait.FailOnDespawnedOrNull(TargetIndex.A);
+		wait.FailOnCannotTouch(TargetIndex.A, PathEndMode.Touch);
+		wait.AddEndCondition(() => GetComp((Pawn)(Thing)job.GetTarget(TargetIndex.A)).ActiveAndFull ? JobCondition.Ongoing : JobCondition.Incompletable);
+		wait.defaultCompleteMode = ToilCompleteMode.Never;
+		wait.WithProgressBar(TargetIndex.A, () => gatherProgress / WorkTotal);
+		wait.activeSkill = () => SkillDefOf.Animals;
+		yield return wait;
+	}
 }

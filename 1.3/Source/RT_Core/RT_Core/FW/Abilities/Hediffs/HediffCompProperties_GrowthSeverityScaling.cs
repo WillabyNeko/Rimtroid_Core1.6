@@ -1,35 +1,29 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
-namespace RT_Core
+namespace RT_Core;
+
+public class HediffCompProperties_GrowthSeverityScaling : HediffCompProperties_BaseRegen
 {
-    public class HediffCompProperties_GrowthSeverityScaling : HediffCompProperties_BaseRegen
-    {
-        public SimpleCurve interval;
-        public FloatRange severityRange;
+	public SimpleCurve interval;
 
-        public float MaximumTicks => interval.Points.Max(pt => pt.y);
+	public FloatRange severityRange;
 
-        public HediffCompProperties_GrowthSeverityScaling()
-        {
-            compClass = typeof(HediffComp_GrowthSeverityScaling);
-        }
+	public float MaximumTicks => interval.Points.Max((CurvePoint pt) => pt.y);
 
-        public virtual float GetSeverityAt(int ticks)
-        {
-            return interval.Evaluate(ticks);
-        }
+	public HediffCompProperties_GrowthSeverityScaling()
+	{
+		compClass = typeof(HediffComp_GrowthSeverityScaling);
+	}
 
-        public virtual int GetTicksAt(float severity)
-        {
-            return Mathf.RoundToInt(interval.EvaluateInverted(severity));
-        }
-    }
+	public virtual float GetSeverityAt(int ticks)
+	{
+		return interval.Evaluate(ticks);
+	}
+
+	public virtual int GetTicksAt(float severity)
+	{
+		return Mathf.RoundToInt(interval.EvaluateInverted(severity));
+	}
 }

@@ -1,136 +1,140 @@
-﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using Verse;
-using Verse.Sound;
 
-namespace RT_Rimtroid
+namespace RT_Rimtroid;
+
+public class ExpandableGraphicData
 {
-	public class ExpandableGraphicData
+	[NoTranslate]
+	public Type graphicClass;
+
+	public ShaderTypeDef shaderType;
+
+	public List<ShaderParameter> shaderParameters;
+
+	public Color color = Color.white;
+
+	public Color colorTwo = Color.white;
+
+	public bool drawRotated = true;
+
+	public bool allowFlip = true;
+
+	public float flipExtraRotation;
+
+	public ShadowData shadowData;
+
+	public string texPath;
+
+	public string texPathFadeOut;
+
+	private Material[] cachedMaterials;
+
+	private Material[] cachedMaterialsFadeOut;
+
+	private static Dictionary<string, Material[]> loadedMaterials = new();
+
+	public Material[] Materials
 	{
-		[NoTranslate]
-
-		public Type graphicClass;
-
-		public ShaderTypeDef shaderType;
-
-		public List<ShaderParameter> shaderParameters;
-
-		public Color color = Color.white;
-
-		public Color colorTwo = Color.white;
-
-		public bool drawRotated = true;
-
-		public bool allowFlip = true;
-
-		public float flipExtraRotation;
-
-		public ShadowData shadowData;
-
-		public string texPath;
-		public string texPathFadeOut;
-
-		private Material[] cachedMaterials;
-
-		private Material[] cachedMaterialsFadeOut;
-
-		private static Dictionary<string, Material[]> loadedMaterials = new Dictionary<string, Material[]>();
-		public Material[] Materials
+		get
 		{
-			get
+			if (cachedMaterials == null)
 			{
-				if (cachedMaterials == null)
-				{
-					InitMainTextures();
-				}
-				return cachedMaterials;
+				InitMainTextures();
 			}
+			return cachedMaterials;
 		}
+	}
 
-		public Material[] MaterialsFadeOut
+	public Material[] MaterialsFadeOut
+	{
+		get
 		{
-			get
+			if (cachedMaterialsFadeOut == null)
 			{
-				if (cachedMaterialsFadeOut == null)
-				{
-					InitFadeOutTextures();
-				}
-				return cachedMaterialsFadeOut;
+				InitFadeOutTextures();
 			}
+			return cachedMaterialsFadeOut;
 		}
-		public void InitMainTextures()
+	}
+
+	public void InitMainTextures()
+	{
+		if (!loadedMaterials.TryGetValue(texPath, out var value))
 		{
-			if (!loadedMaterials.TryGetValue(texPath, out var materials))
+			List<string> list = (from x in LoadAllFiles(texPath)
+				orderby x
+				select x).ToList();
+			if (list.Count > 0)
 			{
-				var mainTextures = LoadAllFiles(texPath).OrderBy(x => x).ToList();
-				if (mainTextures.Count > 0)
+				cachedMaterials = new Material[list.Count];
+				for (int i = 0; i < list.Count; i++)
 				{
-					cachedMaterials = new Material[mainTextures.Count];
-					for (var i = 0; i < mainTextures.Count; i++)
-					{
-						var shader = this.shaderType != null ? this.shaderType.Shader : ShaderDatabase.DefaultShader;
-						cachedMaterials[i] = MaterialPool.MatFrom(mainTextures[i], shader, color);
-					}
+					Shader shader = ((shaderType != null) ? shaderType.Shader : ShaderDatabase.DefaultShader);
+					cachedMaterials[i] = MaterialPool.MatFrom(list[i], shader, color);
 				}
-				else
-				{
-					Log.Error("Error loading materials by this path: " + texPath);
-				}
-				loadedMaterials[texPath] = cachedMaterials;
 			}
 			else
-            {
-				cachedMaterials = materials;
-			}
-		}
-		public void InitFadeOutTextures()
-		{
-			if (!texPathFadeOut.NullOrEmpty())
-            {
-				if (!loadedMaterials.TryGetValue(texPathFadeOut, out var materials))
-				{
-					var fadeOutTextures = LoadAllFiles(texPathFadeOut).OrderBy(x => x).ToList();
-					if (fadeOutTextures.Count > 0)
-					{
-						cachedMaterialsFadeOut = new Material[fadeOutTextures.Count];
-						for (var i = 0; i < fadeOutTextures.Count; i++)
-						{
-							var shader = this.shaderType != null ? this.shaderType.Shader : ShaderDatabase.DefaultShader;
-							cachedMaterialsFadeOut[i] = MaterialPool.MatFrom(fadeOutTextures[i], shader, color);
-						}
-					}
-					loadedMaterials[texPathFadeOut] = cachedMaterialsFadeOut;
-				}
-				else
-				{
-					cachedMaterialsFadeOut = materials;
-				}
-			}
-		}
-
-		public List<string> LoadAllFiles(string folderPath)
-		{
-			var list = new List<string>();
-			foreach (ModContentPack mod in LoadedModManager.RunningModsListForReading)
 			{
-				foreach (var f in ModContentPack.GetAllFilesForMod(mod, "Textures/" + folderPath))
+				Log.Error("Error loading materials by this path: " + texPath);
+			}
+			loadedMaterials[texPath] = cachedMaterials;
+		}
+		else
+		{
+			cachedMaterials = value;
+		}
+	}
+
+	public void InitFadeOutTextures()
+	{
+		if (texPathFadeOut.NullOrEmpty())
+		{
+			return;
+		}
+		if (!loadedMaterials.TryGetValue(texPathFadeOut, out var value))
+		{
+			List<string> list = (from x in LoadAllFiles(texPathFadeOut)
+				orderby x
+				select x).ToList();
+			if (list.Count > 0)
+			{
+				cachedMaterialsFadeOut = new Material[list.Count];
+				for (int i = 0; i < list.Count; i++)
 				{
-					var path = f.Value.FullName;
-					if (path.EndsWith(".png"))
-					{
-						path = path.Replace("\\", "/");
-						path = path.Substring(path.IndexOf("/Textures/") + 10);
-						path = path.Replace(".png", "");
-						list.Add(path);
-					}
+					Shader shader = ((shaderType != null) ? shaderType.Shader : ShaderDatabase.DefaultShader);
+					cachedMaterialsFadeOut[i] = MaterialPool.MatFrom(list[i], shader, color);
 				}
 			}
-			return list;
+			loadedMaterials[texPathFadeOut] = cachedMaterialsFadeOut;
 		}
+		else
+		{
+			cachedMaterialsFadeOut = value;
+		}
+	}
+
+	public List<string> LoadAllFiles(string folderPath)
+	{
+		List<string> list = new();
+		foreach (ModContentPack item in LoadedModManager.RunningModsListForReading)
+		{
+			foreach (KeyValuePair<string, FileInfo> item2 in ModContentPack.GetAllFilesForMod(item, "Textures/" + folderPath))
+			{
+				string fullName = item2.Value.FullName;
+				if (fullName.EndsWith(".png"))
+				{
+					fullName = fullName.Replace("\\", "/");
+					fullName = fullName.Substring(fullName.IndexOf("/Textures/") + 10);
+					fullName = fullName.Replace(".png", "");
+					list.Add(fullName);
+				}
+			}
+		}
+		return list;
 	}
 }

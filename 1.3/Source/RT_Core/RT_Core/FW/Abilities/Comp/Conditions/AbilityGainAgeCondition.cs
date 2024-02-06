@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
-namespace RT_Core
+namespace RT_Core;
+
+public class AbilityGainAgeCondition : AbilityGainCondition
 {
-    public class AbilityGainAgeCondition : AbilityGainCondition
-    {
-        public FloatRange ageRange;
+	public FloatRange ageRange;
 
-        public override bool IsSatisfied(CompAbilityDefinition def)
-        {
-            return def.SelfPawn.ageTracker.AgeBiologicalYears >= ageRange.TrueMin;
-        }
+	public override bool IsSatisfied(CompAbilityDefinition def)
+	{
+		return (float)def.SelfPawn.ageTracker.AgeBiologicalYears >= ageRange.TrueMin;
+	}
 
-        public override bool IsFulfilled(CompAbilityDefinition def)
-        {
-            return def.SelfPawn.ageTracker.AgeBiologicalYears > ageRange.TrueMax;
-        }
-    }
+	public override bool IsFulfilled(CompAbilityDefinition def)
+	{
+		return (float)def.SelfPawn.ageTracker.AgeBiologicalYears > ageRange.TrueMax;
+	}
 }

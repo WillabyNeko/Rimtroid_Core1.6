@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using Verse;
 
-namespace RT_Core
+namespace RT_Core;
+
+internal class MoteLaserDecoration : MoteThrown
 {
-    class MoteLaserDecoration : MoteThrown
-    {
-        public LaserBeamGraphic beam;
-        public float baseSpeed;
-        public float speedJitter;
-        public float speedJitterOffset;
+	public LaserBeamGraphic beam;
 
-        public override float Alpha
-        {
-            get
-            {
-                Speed = (float) (baseSpeed + speedJitter * Math.Sin(Math.PI * (Find.TickManager.TicksGame*18f + speedJitterOffset) / 180.0));
+	public float baseSpeed;
 
-                if (beam != null) return beam.Opacity;
-                return base.Alpha;
-            }
-        }
-    }
+	public float speedJitter;
+
+	public float speedJitterOffset;
+
+	public override float Alpha
+	{
+		get
+		{
+			base.Speed = (float)((double)baseSpeed + (double)speedJitter * Math.Sin(Math.PI * (double)((float)Find.TickManager.TicksGame * 18f + speedJitterOffset) / 180.0));
+			if (beam != null)
+			{
+				return beam.Opacity;
+			}
+			return base.Alpha;
+		}
+	}
 }

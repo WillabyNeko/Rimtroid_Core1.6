@@ -1,0 +1,7 @@
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\obj\Debug\net472\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\obj\Debug\net472\RT_Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\obj\Debug\net472\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\bin\Debug\net472\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\bin\Debug\net472\RT_Core.pdb
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\obj\Debug\net472\RT_Core.dll
+C:\Users\WillabyPC\Desktop\Steam\steamapps\workshop\content\294100\2422966640\Source\NewRT_CoreDecomp\obj\Debug\net472\RT_Core.pdb

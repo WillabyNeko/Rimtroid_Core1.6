@@ -1,78 +1,60 @@
-﻿using System;
+using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
-using RimWorld;
 
-namespace RT_Core
+namespace RT_Core;
+
+public class AnimalProjectile : Projectile
 {
-    public class AnimalProjectile : Projectile
-    {
-        protected override void Impact(Thing hitThing)
-        {
-            Map map = base.Map;
-            base.Impact(hitThing);
-            BattleLogEntry_RangedImpact battleLogEntry_RangedImpact = new BattleLogEntry_RangedImpact(this.launcher, hitThing, this.intendedTarget.Thing, ThingDef.Named("Gun_Autopistol"), this.def, this.targetCoverDef);
-            Find.BattleLog.Add(battleLogEntry_RangedImpact);
-            if (hitThing != null)
-            {
-                DamageDef damageDef = this.def.projectile.damageDef;
-                float amount = (float)base.DamageAmount;
-                float armorPenetration = base.ArmorPenetration;
-                float y = this.ExactRotation.eulerAngles.y;
-                Thing launcher = this.launcher;
-                ThingDef equipmentDef = this.equipmentDef;
-                DamageInfo dinfo = new DamageInfo(damageDef, amount, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
-                hitThing.TakeDamage(dinfo).AssociateWithLog(battleLogEntry_RangedImpact);
-                Pawn pawn = hitThing as Pawn;
-                if (pawn != null && pawn.stances != null && pawn.BodySize <= this.def.projectile.StoppingPower + 0.001f)
-                {
-                    pawn.stances.StaggerFor(95);
-                }
-
-                if (this.def.defName== "RT_FrostWeb")
-                {
-                    DamageInfo dinfo2 = new DamageInfo(DamageDefOf.Frostbite, amount/2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
-                    hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
-
-
-
-                }
-                if (this.def.defName == "RT_FireWeb")
-                {
-                    DamageInfo dinfo2 = new DamageInfo(DamageDefOf.Burn, amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
-                    hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
-
-
-
-                }
-                if (this.def.defName == "RT_AcidicWeb")
-                {
-                    DamageInfo dinfo2 = new DamageInfo(DefDatabase<DamageDef>.GetNamed("RT_AcidSpit", true), amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
-                    hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
-
-
-
-                }
-                if (this.def.defName == "RT_ExplodingWeb")
-                {
-                    DamageInfo dinfo2 = new DamageInfo(DamageDefOf.Bomb, amount / 2, armorPenetration, y, launcher, null, null, DamageInfo.SourceCategory.ThingOrUnknown, this.intendedTarget.Thing);
-                    hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
-
-
-
-                }
-            }
-            else
-            {
-                SoundDefOf.BulletImpact_Ground.PlayOneShot(new TargetInfo(base.Position, map, false));
-                FleckMaker.Static(this.ExactPosition, map, FleckDefOf.ShotHit_Dirt, 1f);
-                if (base.Position.GetTerrain(map).takeSplashes)
-                {
-                    FleckMaker.WaterSplash(this.ExactPosition, map, Mathf.Sqrt((float)base.DamageAmount) * 1f, 4f);
-                }
-            }
-        }
-    }
+	protected virtual void Impact(Thing hitThing)
+	{
+		Map map = base.Map;
+		base.Impact(hitThing);
+		BattleLogEntry_RangedImpact battleLogEntry_RangedImpact = new(launcher, hitThing, intendedTarget.Thing, ThingDef.Named("Gun_Autopistol"), def, targetCoverDef);
+		Find.BattleLog.Add(battleLogEntry_RangedImpact);
+		if (hitThing != null)
+		{
+			DamageDef damageDef = def.projectile.damageDef;
+			float num = base.DamageAmount;
+			float armorPenetration = base.ArmorPenetration;
+			float y = ExactRotation.eulerAngles.y;
+			Thing instigator = launcher;
+            DamageInfo dinfo = new(damageDef, num, armorPenetration, y, instigator, null, null, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing);
+			hitThing.TakeDamage(dinfo).AssociateWithLog(battleLogEntry_RangedImpact);
+			if (hitThing is Pawn { stances: not null } pawn && pawn.BodySize <= def.projectile.StoppingPower + 0.001f)
+			{
+				pawn.stances.stagger.StaggerFor(95);
+			}
+			if (def.defName == "RT_FrostWeb")
+			{
+				DamageInfo dinfo2 = new(DamageDefOf.Frostbite, num / 2f, armorPenetration, y, instigator, null, null, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing);
+				hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
+			}
+			if (def.defName == "RT_FireWeb")
+			{
+				DamageInfo dinfo3 = new(DamageDefOf.Burn, num / 2f, armorPenetration, y, instigator, null, null, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing);
+				hitThing.TakeDamage(dinfo3).AssociateWithLog(battleLogEntry_RangedImpact);
+			}
+			if (def.defName == "RT_AcidicWeb")
+			{
+				DamageInfo dinfo4 = new(DefDatabase<DamageDef>.GetNamed("RT_AcidSpit"), num / 2f, armorPenetration, y, instigator, null, null, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing);
+				hitThing.TakeDamage(dinfo4).AssociateWithLog(battleLogEntry_RangedImpact);
+			}
+			if (def.defName == "RT_ExplodingWeb")
+			{
+				DamageInfo dinfo5 = new(DamageDefOf.Bomb, num / 2f, armorPenetration, y, instigator, null, null, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing);
+				hitThing.TakeDamage(dinfo5).AssociateWithLog(battleLogEntry_RangedImpact);
+			}
+		}
+		else
+		{
+			SoundDefOf.BulletImpact_Ground.PlayOneShot(new TargetInfo(base.Position, map));
+			FleckMaker.Static(ExactPosition, map, FleckDefOf.ShotHit_Dirt);
+			if (base.Position.GetTerrain(map).takeSplashes)
+			{
+				FleckMaker.WaterSplash(ExactPosition, map, Mathf.Sqrt(base.DamageAmount) * 1f, 4f);
+			}
+		}
+	}
 }
-

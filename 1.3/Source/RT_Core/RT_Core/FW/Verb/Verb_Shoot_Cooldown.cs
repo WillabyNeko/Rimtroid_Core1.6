@@ -1,50 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using RimWorld;
 using Verse;
-using Verse.AI;
-using System.Reflection;
-using System.Linq;
 
-namespace RT_Core
+namespace RT_Core;
+
+public class Verb_Shoot_Cooldown : Verb_Shoot
 {
-    public class Verb_Shoot_Cooldown : Verb_Shoot
-    {
-        private int lastShotTick = 0;
-        private int Cooldown => GenTicks.SecondsToTicks((verbProps as VerbProperties_Cooldown).cooldown);
+	private new int lastShotTick = 0;
 
-        public bool Usable => (lastShotTick + Cooldown) < Find.TickManager.TicksGame;
+	private int Cooldown => (verbProps as VerbProperties_Cooldown).cooldown.SecondsToTicks();
 
-        protected override bool TryCastShot()
-        {
-            if (Usable)
-            {
-                bool result = base.TryCastShot();
-                if (burstShotsLeft <= 1)
-                {
-                    //Lock once it becomes unavailable.
-                    lastShotTick = Find.TickManager.TicksGame;
-                }
-                return true;
-            }
-            return false; //Disabled.
-        }
+	public bool Usable => lastShotTick + Cooldown < Find.TickManager.TicksGame;
 
-        public override void Reset()
-        {
-            Refresh();
-            base.Reset();
-        }
+	protected override bool TryCastShot()
+	{
+		if (Usable)
+		{
+			bool flag = base.TryCastShot();
+			if (burstShotsLeft <= 1)
+			{
+				lastShotTick = Find.TickManager.TicksGame;
+			}
+			return true;
+		}
+		return false;
+	}
 
-        public void Refresh()
-        {
-            //Unlocks the verb.
-            lastShotTick = 0;
-        }
+	public override void Reset()
+	{
+		Refresh();
+		((Verb)this).Reset();
+	}
 
-        public override bool Available()
-        {
-            return Usable && base.Available();
-        }
-    }
+	public void Refresh()
+	{
+		lastShotTick = 0;
+	}
+
+	public override bool Available()
+	{
+		return Usable && base.Available();
+	}
 }

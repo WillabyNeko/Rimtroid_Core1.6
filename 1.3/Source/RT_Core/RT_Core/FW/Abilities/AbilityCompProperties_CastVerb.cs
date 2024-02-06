@@ -1,18 +1,12 @@
-﻿using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using RimWorld;
 using Verse;
-using Verse.AI;
 
-namespace RT_Core
+namespace RT_Core;
+
+public class AbilityCompProperties_CastVerb : CompProperties_AbilityEffect
 {
-    public class AbilityCompProperties_CastVerb : CompProperties_AbilityEffect
-    {
-        public List<VerbProperties> verbProperties = new List<VerbProperties>();
-        public List<Tool> tools;
-    }
+	public List<VerbProperties> verbProperties = new();
+
+	public List<Tool> tools;
 }

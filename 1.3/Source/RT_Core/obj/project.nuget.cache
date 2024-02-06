@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fSeKT+rfPms1jaPejjijJlQVjAcK++gXMQt8iQQjg2Fvvako7u11oRfvSMtj2t2WzkgsEfDtmeYpHXKvlrpLZA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\workshop\\content\\294100\\2422966640\\Source\\NewRT_CoreDecomp\\RT_Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\WillabyPC\\.nuget\\packages\\krafs.rimworld.ref\\1.4.3901\\krafs.rimworld.ref.1.4.3901.nupkg.sha512"
+  ],
+  "logs": []
+}

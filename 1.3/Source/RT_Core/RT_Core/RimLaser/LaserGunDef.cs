@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
-namespace RT_Core
-{
-    public class LaserGunDef : ThingDef
-    {
-        public static LaserGunDef defaultObj = new LaserGunDef();
+namespace RT_Core;
 
-        public float barrelLength = 0.9f;
-        public bool supportsColors = false;
-    }
+public class LaserGunDef : ThingDef
+{
+	public static LaserGunDef defaultObj = new();
+
+	public float barrelLength = 0.9f;
+
+	public bool supportsColors = false;
 }
