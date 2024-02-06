@@ -43,7 +43,7 @@
     <children>
       <li>
         <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
-        <moteDef>Mote_SparkFlash</moteDef>
+        <moteDef>RT_Mote_SparkFlash</moteDef>
         <positionLerpFactor>0.6</positionLerpFactor>
         <chancePerTick>0.2</chancePerTick>
         <scale>
@@ -55,7 +55,7 @@
       <li>
         <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
         <positionRadius>0.2</positionRadius>
-        <moteDef>Mote_AirPuff</moteDef>
+        <moteDef>RT_Mote_AirPuff</moteDef>
         <burstCount>
           <min>4</min>
           <max>5</max>
@@ -91,7 +91,7 @@
       <li>
         <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
         <positionRadius>0.02</positionRadius>
-        <moteDef>Mote_MicroSparksFast</moteDef>
+        <moteDef>RT_Mote_MicroSparksFast</moteDef>
         <burstCount>
           <min>1</min>
           <max>1</max>
@@ -113,7 +113,7 @@
       <li>
         <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
         <positionRadius>0.1</positionRadius>
-        <moteDef>Mote_SparkFlash</moteDef>
+        <moteDef>RT_Mote_SparkFlash</moteDef>
         <burstCount>
           <min>1</min>
           <max>1</max>
@@ -135,7 +135,7 @@
       <li>
         <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
         <positionRadius>0.2</positionRadius>
-        <moteDef>Mote_AirPuff</moteDef>
+        <moteDef>RT_Mote_AirPuff</moteDef>
         <burstCount>
           <min>4</min>
           <max>5</max>
