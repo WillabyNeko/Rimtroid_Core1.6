@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "projectName": "RT_Core",
+        "projectPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "packagesPath": "C:\\Users\\WillabyPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\WillabyPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "Krafs.Rimworld.Ref": {
+              "target": "Package",
+              "version": "[1.6.4535, )"
+            },
+            "Lib.Harmony": {
+              "target": "Package",
+              "version": "[2.3.6, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

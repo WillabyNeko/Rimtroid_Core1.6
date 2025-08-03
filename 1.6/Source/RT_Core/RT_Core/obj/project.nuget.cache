@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Q2kbHViXBMoAjasEAdDToPK6w+oxXXDCY2a8rvK+tviwFj7LBP6sTTxnNgNeN1kQrh6rM7K+4L6FL4BNs1TL5w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\WillabyPC\\.nuget\\packages\\krafs.rimworld.ref\\1.6.4535\\krafs.rimworld.ref.1.6.4535.nupkg.sha512",
+    "C:\\Users\\WillabyPC\\.nuget\\packages\\lib.harmony\\2.3.6\\lib.harmony.2.3.6.nupkg.sha512"
+  ],
+  "logs": []
+}
