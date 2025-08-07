@@ -1,0 +1,9 @@
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\bin\Release\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\bin\Release\RT_Core.pdb
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\bin\Release\0Harmony.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\bin\Release\0Harmony.pdb
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Release\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Release\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Release\RT_Core.csproj.CopyComplete
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Release\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Release\RT_Core.pdb

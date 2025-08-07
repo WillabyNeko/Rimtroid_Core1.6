@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RT_Core
 {
-
+    /*
     public static class VerbUtils
     {
         public static IEnumerable<Verb> GetVerbs(Pawn pawn)
@@ -32,7 +32,7 @@ namespace RT_Core
             if(pawn.abilities != null && pawn.abilities.abilities != null)
             {
                 //Add it if it has a comp that states that the comp can be used automatically.
-                foreach (VerbTracker tracker in pawn.abilities.abilities.OfType<Ability_Base>().Where(ability => ability.CanAutoCast).Select(a => a.VerbTracker))
+                foreach (VerbTracker tracker in pawn.abilities.abilities.OfType<Ability>().Where(ability => ability.CanAutoCast).Select(a => a.VerbTracker))
                 {
                     if(tracker != null && tracker.AllVerbs.Any())
                     {
@@ -135,5 +135,5 @@ namespace RT_Core
         //    return preferenceValue;
         //}
     }
-
+    */
 }

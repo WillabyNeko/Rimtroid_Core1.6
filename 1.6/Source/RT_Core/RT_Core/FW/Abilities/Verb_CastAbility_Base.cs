@@ -20,9 +20,9 @@ namespace RT_Core
         public override void Reset()
         {
             base.Reset();
-            if (ability is Ability_Base ab)
+            if (ability is Ability ab)
             {
-                ab.Reset();
+                ab.ResetCooldown();
             }
         }
         public override bool CanHitTargetFrom(IntVec3 root, LocalTargetInfo targ)
@@ -32,7 +32,7 @@ namespace RT_Core
 
         protected override bool TryCastShot()
         {
-            if (ability is Ability_Base ba)
+            if (ability is Ability ba)
             {
                 if (!ba.CanApplyOn(CurrentTarget) && !ba.CanApplyOn(CurrentDestination))
                 {
@@ -52,7 +52,7 @@ namespace RT_Core
         }
     }
 
-    public class Verb_CastAbility_FireBeam : Verb_CastAbility_Base
+    /*public class Verb_CastAbility_FireBeam : Verb_CastAbility_Base
     {
         private ExpandableProjectileDef ProjectileDef => this.verbProps.defaultProjectile as ExpandableProjectileDef;
         public override void OnGUI(LocalTargetInfo target)
@@ -73,5 +73,5 @@ namespace RT_Core
                 GenDraw.DrawFieldEdges(affectedCells);
             }
         }
-    }
+    }*/
 }

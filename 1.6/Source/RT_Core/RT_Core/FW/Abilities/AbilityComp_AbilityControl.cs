@@ -88,8 +88,8 @@ namespace RT_Core
                 gizmo.defaultLabel = Status ? VProps.gizmoOnText : VProps.gizmoOffText;
                 gizmo.icon = Status ? iconOn : iconOff;
 
-                gizmo.disabled = GizmoDisabled(out String reason);
-                if (gizmo.disabled)
+                gizmo.Disabled = GizmoDisabled(out String reason);
+                if (gizmo.Disabled)
                 {
                     gizmo.disabledReason = reason;
                 }

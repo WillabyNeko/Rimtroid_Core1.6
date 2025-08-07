@@ -149,7 +149,7 @@ namespace RT_Core
 			{
 				return false;
 			}
-			Log.Message(this.parent + " - " + PropsSpawner.pawnKindToSpawn, true);
+			Log.Message(this.parent + " - " + PropsSpawner.pawnKindToSpawn);
 			if (PropsSpawner.pawnKindToSpawn != null)
             {
 				for (int i = 0; i < PropsSpawner.spawnCount; i++)
@@ -179,8 +179,8 @@ namespace RT_Core
 			}
 			else if (PropsSpawner.thingToSpawn != null)
             {
-				IntVec3 result = IntVec3.Invalid;
-				if (PropsSpawner.spawnInPlace)
+                IntVec3 result;
+                if (PropsSpawner.spawnInPlace)
                 {
 					result = this.parent.Position;
                 }
@@ -276,15 +276,17 @@ namespace RT_Core
 		{
 			if (Prefs.DevMode)
 			{
-				Command_Action command_Action = new Command_Action();
-				command_Action.defaultLabel = "DEBUG: Spawn " + PropsSpawner.thingToSpawn.label;
-				command_Action.icon = TexCommand.DesirePower;
-				command_Action.action = delegate
-				{
-					TryDoSpawn();
-					ResetCountdown();
-				};
-				yield return command_Action;
+                Command_Action command_Action = new Command_Action
+                {
+                    defaultLabel = "DEBUG: Spawn " + PropsSpawner.thingToSpawn.label,
+                    icon = TexCommand.DesirePower,
+                    action = delegate
+                    {
+                        TryDoSpawn();
+                        ResetCountdown();
+                    }
+                };
+                yield return command_Action;
 			}
 		}
 

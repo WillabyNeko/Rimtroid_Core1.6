@@ -39,7 +39,7 @@ namespace RT_Core
             }
         }
     }
-    public class CompProperties_ApplyHediff_UseEffect : CompProperties_Usable
+    /*public class CompProperties_ApplyHediff_UseEffect : CompProperties_Usable
     {
         public HediffDef hediffDef;
         public bool allowNonColonists;
@@ -48,5 +48,5 @@ namespace RT_Core
         {
             compClass = typeof(CompApplyHediff_InstallImplant);
         }
-    }
+    }*/
 }

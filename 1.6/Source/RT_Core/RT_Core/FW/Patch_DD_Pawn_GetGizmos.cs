@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 using Verse.AI;
-
+/*
 namespace RT_Core
 {
     [HarmonyPatch(typeof(Pawn), "GetGizmos")]
@@ -34,10 +34,10 @@ namespace RT_Core
 
             if (__instance.abilities != null)
             {
-                IEnumerable<Ability_Base> abilities = __instance.abilities.abilities.OfType<Ability_Base>().Where(ability => ability.CanShowGizmos);
+                IEnumerable<Ability> abilities = __instance.abilities.abilities.OfType<Ability>().Where(ability => ability.CanShowGizmos);
                 if (!abilities.EnumerableNullOrEmpty())
                 {
-                    foreach (Ability_Base ability in abilities)
+                    foreach (Ability ability in abilities)
                     {
                         IEnumerable<Command> commands = ability.GetGizmos();
                         if(!commands.EnumerableNullOrEmpty())
@@ -59,4 +59,4 @@ namespace RT_Core
             }
         }
     }
-}
+}*/

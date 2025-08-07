@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 using Verse.AI;
-
+/*
 namespace RT_Core
 {
     public class CompHostileResponse : ThingComp
@@ -78,10 +78,10 @@ namespace RT_Core
                 }
 
                 //Check whether it needs to be updated.
-                if (CanInteractGizmo == !cmd.disabled)
+                if (CanInteractGizmo == !cmd.Disabled)
                 {
                     //If you should be able to interact with the gizmo, then it shouldn't be disabled and vice versa.
-                    cmd.disabled = false;
+                    cmd.Disabled = false;
 
                     if (!CanInteractGizmo)
                     {
@@ -291,7 +291,7 @@ namespace RT_Core
             stats.Clear();
         }
 
-        public override void PostDeSpawn(Map map)
+        public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
         {
             //Remove all targets
             stats.Clear();
@@ -421,3 +421,4 @@ namespace RT_Core
         }
     }
 }
+*/

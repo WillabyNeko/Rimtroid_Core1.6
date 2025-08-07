@@ -22,7 +22,7 @@ namespace RT_Rimtroid
             }
             if (!respawningAfterLoad)
             {
-                if (parent is Pawn pawn)
+                if (parent is Pawn)
                 {
                     HediffGiver();
                 }
@@ -48,14 +48,16 @@ namespace RT_Rimtroid
                 Metroid.kindDef = kindDef;
                 long ageB = Metroid.ageTracker.AgeBiologicalTicks;
                 long ageC = Metroid.ageTracker.AgeChronologicalTicks;
-                Metroid.ageTracker = new Pawn_AgeTracker(Metroid);
-                Metroid.ageTracker.AgeBiologicalTicks = ageB;
-                Metroid.ageTracker.AgeChronologicalTicks = ageC;
+                Metroid.ageTracker = new Pawn_AgeTracker(Metroid)
+                {
+                    AgeBiologicalTicks = ageB,
+                    AgeChronologicalTicks = ageC
+                };
 
                 if (Metroid.abilities?.abilities != null)
                 {
                     //Remove all framework abilities.
-                    foreach (AbilityDef def in Metroid.abilities.abilities.OfType<RT_Core.Ability_Base>().Select(ability => ability.def).ToList())
+                    foreach (AbilityDef def in Metroid.abilities.abilities.OfType<Ability>().Select(ability => ability.def).ToList())
                     {
                         Metroid.abilities.RemoveAbility(def);
                     }
@@ -101,7 +103,7 @@ namespace RT_Rimtroid
             map.mapPawns.UpdateRegistryForPawn(Metroid);
 
             //decache graphics
-            Metroid.Drawer.renderer.graphics.ResolveAllGraphics();
+            //Metroid.Drawer.renderer.;
 
             // remove non whitelisted hediffs
             if (!Metroid.health.hediffSet.hediffs.NullOrEmpty())

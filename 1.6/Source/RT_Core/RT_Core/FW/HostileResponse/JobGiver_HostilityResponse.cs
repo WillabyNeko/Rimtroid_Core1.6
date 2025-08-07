@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 using Verse.AI;
-
+/*
 namespace RT_Core
 {
     public class JobGiver_HostilityResponse : ThinkNode_JobGiver
@@ -109,4 +109,4 @@ namespace RT_Core
             return job;
         }
     }
-}
+}*/

@@ -5,7 +5,7 @@ using Verse;
 using Verse.AI;
 using System.Reflection;
 using System.Linq;
-
+/*
 namespace RT_Core
 {
     public class Verb_MeleeAttackDamage_Resetting : Verb_MeleeAttackDamage
@@ -27,4 +27,4 @@ namespace RT_Core
             return false;
         }
     }
-}
+}*/

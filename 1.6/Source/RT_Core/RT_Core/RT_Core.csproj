@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\1.4\Assemblies\</OutputPath>
+    <OutputPath>..\..\..\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,22 +32,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CompEvolutionStage.cs" />
     <Compile Include="Core\CompProperties_EvolutionStage.cs" />
-    <Compile Include="Core\CompUseEffect_InstallImplant.cs" />
     <Compile Include="Core\JobDriver_EatFromStation.cs" />
     <Compile Include="Core\ForcedAgingCompProperties.cs" />
     <Compile Include="Core\AgeStage.cs" />
-    <Compile Include="AnimalResource\AnimalProduct.cs" />
-    <Compile Include="AnimalResource\CompAnimalProduct.cs" />
-    <Compile Include="AnimalResource\JobDriver_AnimalResource.cs" />
-    <Compile Include="AnimalResource\WorkGiver_AnimalResource.cs" />
     <Compile Include="Core\AgeTools.cs" />
     <Compile Include="Core\CompFloating.cs" />
     <Compile Include="Core\CompProperties_Floating.cs" />
@@ -56,7 +49,6 @@
     <Compile Include="Core\CryoCompProperties.cs" />
     <Compile Include="Core\CryoImmunityComp.cs" />
     <Compile Include="Core\DisableTaming.cs" />
-    <Compile Include="Core\Flight.cs" />
     <Compile Include="Core\FoodMethod.cs" />
     <Compile Include="Core\ForcedAgeUtils.cs" />
     <Compile Include="Core\ForcedAgingComp.cs" />
@@ -69,7 +61,6 @@
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Core\Verb_AbsorbNeed.cs" />
     <Compile Include="FW2\AnimalProjectile.cs" />
-    <Compile Include="FW2\ExplodeNoFireProjectile.cs" />
     <Compile Include="FW2\HediffCompProperties_BaseRegen.cs" />
     <Compile Include="FW2\RegenHediffModExtension.cs" />
     <Compile Include="FW2\VerbSettingExtension.cs" />
@@ -81,7 +72,6 @@
     <Compile Include="FW\Abilities\AbilityComp_Base.cs" />
     <Compile Include="FW\Abilities\AbilityComp_CastVerb.cs" />
     <Compile Include="FW\Abilities\AbilityComp_Cooldown.cs" />
-    <Compile Include="FW\Abilities\Ability_Base.cs" />
     <Compile Include="FW\Abilities\Comp\AbilityGainEntry.cs" />
     <Compile Include="FW\Abilities\Comp\CompAbilityDefinition.cs" />
     <Compile Include="FW\Abilities\Comp\CompProperties_AbilityDefinition.cs" />
@@ -113,28 +103,16 @@
     <Compile Include="FW\Verb\Verb_Shoot_Limited.cs" />
     <Compile Include="Harmony\Patches.cs" />
     <Compile Include="Core\MetroidFoodInjection.cs" />
-    <Compile Include="Projectiles\ExpandableGraphicData.cs" />
-    <Compile Include="Projectiles\ExpandableProjectile.cs" />
-    <Compile Include="Projectiles\ExpandableProjectileShapeDef.cs" />
-    <Compile Include="Projectiles\ExpandableProjectileDef.cs" />
-    <Compile Include="Projectiles\SweepProjectile.cs" />
-    <Compile Include="Projectiles\FlamethrowProjectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RimLaser\IBeamColorThing.cs" />
-    <Compile Include="RimLaser\IDrawnWeaponWithRotation.cs" />
-    <Compile Include="RimLaser\LaserBeam.cs" />
-    <Compile Include="RimLaser\LaserBeamDef.cs" />
-    <Compile Include="RimLaser\LaserBeamGraphic.cs" />
-    <Compile Include="RimLaser\LaserGunDef.cs" />
-    <Compile Include="RimLaser\MeshMakerLaser.cs" />
-    <Compile Include="RimLaser\MoteLaserDecoration.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.6.4535</Version>
+      <Version>1.6.4543</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.3.6</Version>
+	  <PrivateAssets>true</PrivateAssets>
+      <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

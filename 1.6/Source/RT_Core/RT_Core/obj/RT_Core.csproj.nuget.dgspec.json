@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
+    "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
+    "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "projectUniqueName": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
         "projectName": "RT_Core",
-        "projectPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+        "projectPath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
         "packagesPath": "C:\\Users\\WillabyPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\obj\\",
+        "outputPath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
@@ -36,9 +36,11 @@
           "dependencies": {
             "Krafs.Rimworld.Ref": {
               "target": "Package",
-              "version": "[1.6.4535, )"
+              "version": "[1.6.4543, )"
             },
             "Lib.Harmony": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "None",
               "target": "Package",
               "version": "[2.3.6, )"
             }

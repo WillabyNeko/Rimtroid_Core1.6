@@ -1,7 +1,7 @@
 ﻿using Verse;
 using RimWorld;
 using HarmonyLib;
-
+/*
 namespace RT_Core
 {
     public class DisableTrainingDegredation : DefModExtension
@@ -31,4 +31,4 @@ namespace RT_Core
             }
         }
     }
-}
+}*/

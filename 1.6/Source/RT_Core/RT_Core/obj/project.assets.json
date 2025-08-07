@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.7.2": {
-      "Krafs.Rimworld.Ref/1.6.4535": {
+      "Krafs.Rimworld.Ref/1.6.4543": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -121,14 +121,14 @@
           }
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
+          "lib/net472/_._": {
             "related": ".pdb;.xml"
           }
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win": {
-      "Krafs.Rimworld.Ref/1.6.4535": {
+      "Krafs.Rimworld.Ref/1.6.4543": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -247,14 +247,14 @@
           }
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
+          "lib/net472/_._": {
             "related": ".pdb;.xml"
           }
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win-arm64": {
-      "Krafs.Rimworld.Ref/1.6.4535": {
+      "Krafs.Rimworld.Ref/1.6.4543": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -373,14 +373,14 @@
           }
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
+          "lib/net472/_._": {
             "related": ".pdb;.xml"
           }
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win-x64": {
-      "Krafs.Rimworld.Ref/1.6.4535": {
+      "Krafs.Rimworld.Ref/1.6.4543": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -499,14 +499,14 @@
           }
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
+          "lib/net472/_._": {
             "related": ".pdb;.xml"
           }
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win-x86": {
-      "Krafs.Rimworld.Ref/1.6.4535": {
+      "Krafs.Rimworld.Ref/1.6.4543": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -625,7 +625,7 @@
           }
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
+          "lib/net472/_._": {
             "related": ".pdb;.xml"
           }
         }
@@ -633,17 +633,17 @@
     }
   },
   "libraries": {
-    "Krafs.Rimworld.Ref/1.6.4535": {
-      "sha512": "lv4nWxbbDB+8WI+FEP9IxGs2HIYF/KdWBvGzg6pjpw595H0A5ULioVyT/jH5coLGV2t1yKtD2Bw5ZyGvPZhMuw==",
+    "Krafs.Rimworld.Ref/1.6.4543": {
+      "sha512": "wYw7gIS5VLDHB3Jkx2jsd/0kJfIIMAA9z+eck2YSS3vze7r9jK52pHd1cx1syyrmIIss9FP09HersCizuWh8ag==",
       "type": "package",
-      "path": "krafs.rimworld.ref/1.6.4535",
+      "path": "krafs.rimworld.ref/1.6.4543",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "README.md",
         "icon.png",
-        "krafs.rimworld.ref.1.6.4535.nupkg.sha512",
+        "krafs.rimworld.ref.1.6.4543.nupkg.sha512",
         "krafs.rimworld.ref.nuspec",
         "ref/net472/Assembly-CSharp-firstpass.dll",
         "ref/net472/Assembly-CSharp.dll",
@@ -804,7 +804,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
-      "Krafs.Rimworld.Ref >= 1.6.4535",
+      "Krafs.Rimworld.Ref >= 1.6.4543",
       "Lib.Harmony >= 2.3.6"
     ]
   },
@@ -814,11 +814,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+      "projectUniqueName": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
       "projectName": "RT_Core",
-      "projectPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
+      "projectPath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\RT_Core.csproj",
       "packagesPath": "C:\\Users\\WillabyPC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\WillabyPC\\Desktop\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimtroid_Core\\1.6\\Source\\RT_Core\\RT_Core\\obj\\",
+      "outputPath": "C:\\Users\\WillabyPC\\Documents\\GitHub\\Rimtroid_Core1.6\\1.6\\Source\\RT_Core\\RT_Core\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
@@ -843,9 +843,11 @@
         "dependencies": {
           "Krafs.Rimworld.Ref": {
             "target": "Package",
-            "version": "[1.6.4535, )"
+            "version": "[1.6.4543, )"
           },
           "Lib.Harmony": {
+            "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "None",
             "target": "Package",
             "version": "[2.3.6, )"
           }

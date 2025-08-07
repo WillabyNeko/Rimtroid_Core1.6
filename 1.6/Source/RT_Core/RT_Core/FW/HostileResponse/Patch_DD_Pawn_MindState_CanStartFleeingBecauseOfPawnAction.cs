@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 using Verse.AI;
-
+/*
 namespace RT_Core
 {
     [HarmonyPatch(typeof(Pawn_MindState), "CanStartFleeingBecauseOfPawnAction")]
@@ -36,3 +36,4 @@ namespace RT_Core
         }
     }
 }
+*/

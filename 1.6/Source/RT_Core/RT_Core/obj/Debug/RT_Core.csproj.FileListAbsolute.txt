@@ -106,3 +106,8 @@ C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core\1.4\Source\RT_Core\RT_Core\obj
 C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
 C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
 C:\Users\WillabyPC\Desktop\Steam\steamapps\common\RimWorld\Mods\Rimtroid_Core\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.4\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Assemblies\RT_Core.dll

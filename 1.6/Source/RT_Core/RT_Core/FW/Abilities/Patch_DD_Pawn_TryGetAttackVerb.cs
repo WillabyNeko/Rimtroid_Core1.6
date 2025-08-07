@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 using Verse.AI;
-
+/*
 namespace RT_Core
 {
     [HarmonyPatch(typeof(Pawn), "TryGetAttackVerb")]
@@ -44,4 +44,4 @@ namespace RT_Core
             }
         }
     }
-}
+}*/
