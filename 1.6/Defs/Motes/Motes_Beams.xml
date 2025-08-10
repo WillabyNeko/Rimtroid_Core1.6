@@ -18,10 +18,10 @@
 		<thingClass>VEF.Weapons.LaserBeam</thingClass>
 		<drawOffscreen>true</drawOffscreen>
 		<beamGraphic>RT_CoreBeamGraphic</beamGraphic>
-		<altitudeLayer>MoteOverhead</altitudeLayer>
+
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
-			<texPath>AnimalProjectiles/Firebeam1</texPath>
+			<texPath>Things/Projectile/Firebeam1</texPath>
 			<shaderType>TransparentPostLight</shaderType>
 			<drawSize>1.5</drawSize>
 		</graphicData>
