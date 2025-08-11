@@ -11,6 +11,14 @@ namespace RT_Rimtroid
 {
     public class CompEvolutionStage : ThingComp
     {
+        public PawnKindDef pawnKindDefToEvolve;
+
+        public int tickConversion;
+
+        public List<HediffDef> hediffWhiteList;
+
+        public Hediff evolutionSource;
+
         public static List<CompEvolutionStage> comps = new List<CompEvolutionStage>();
         public CompProperties_EvolutionStage Props => base.props as CompProperties_EvolutionStage;
         public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -29,10 +37,7 @@ namespace RT_Rimtroid
             }
         }
 
-        public PawnKindDef pawnKindDefToEvolve;
-        public int tickConversion;
-        public List<HediffDef> hediffWhiteList;
-        public Hediff evolutionSource;
+        
         public void TransformPawn(PawnKindDef kindDef)
         {
             //sets position, faction and map
@@ -103,7 +108,7 @@ namespace RT_Rimtroid
             map.mapPawns.UpdateRegistryForPawn(Metroid);
 
             //decache graphics
-            //Metroid.Drawer.renderer.;
+            Metroid.Drawer.renderer.SetAllGraphicsDirty();
 
             // remove non whitelisted hediffs
             if (!Metroid.health.hediffSet.hediffs.NullOrEmpty())

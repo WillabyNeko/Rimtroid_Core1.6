@@ -18,7 +18,7 @@ namespace RT_Core
     }
     public class HediffGiver_AfterPeriod : HediffGiver
     {
-        private List<HediffDef> hediffsToPreventGrowth; //Hediff which if it exists, the pawn shouldn't transform.
+        public List<HediffDef> hediffsToPreventGrowth = new List<HediffDef>(); //Hediff which if it exists, the pawn shouldn't transform.
         public float chance;
         public FloatRange yearsInterval;
         public int maxReroll;

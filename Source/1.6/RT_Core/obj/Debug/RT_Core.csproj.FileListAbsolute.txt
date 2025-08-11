@@ -111,3 +111,12 @@ C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\
 C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Source\RT_Core\RT_Core\obj\Debug\RT_Core.dll
 C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.4\Assemblies\RT_Core.dll
 C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\1.6\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\RT_Core\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\RT_Core\RT_Core\obj\Debug\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Assemblies\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\RT_Core\obj\Debug\RT_Core.csproj.AssemblyReference.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\RT_Core\obj\Debug\RT_Core.csproj.CoreCompileInputs.cache
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\RT_Core\obj\Debug\RT_Core.dll
+C:\Users\WillabyPC\Documents\GitHub\Rimtroid_Core1.6\Source\1.6\Assemblies\RT_Core.dll
