@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 using Verse.AI;
-/*
+
 namespace RT_Core
 {
     public class CompHostileResponse : ThingComp
@@ -421,4 +421,3 @@ namespace RT_Core
         }
     }
 }
-*/
